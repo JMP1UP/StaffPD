@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Growth & Development Portfolio - Leicester High</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="school-logo">
+                    <svg viewBox="0 0 100 100" class="logo-svg">
+                        <defs>
+                            <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="var(--primary-light)" />
+                                <stop offset="100%" stop-color="var(--primary)" />
+                            </linearGradient>
+                        </defs>
+                        <!-- Stylized educational/shield logo -->
+                        <path d="M50,15 L80,30 L80,60 C80,75 65,85 50,90 C35,85 20,75 20,60 L20,30 Z" fill="url(#logo-grad)" />
+                        <path d="M50,25 L70,35 L70,55 C70,65 60,73 50,77 C40,73 30,65 30,55 L30,35 Z" fill="var(--bg-card)" opacity="0.9" />
+                        <path d="M43,40 L50,33 L57,40 L57,55 L43,55 Z" fill="var(--primary)" />
+                        <circle cx="50" cy="62" r="4" fill="var(--accent)" />
+                    </svg>
+                </div>
+                <div class="school-info">
+                    <h2>Leicester High</h2>
+                    <span>Growth & Development</span>
+                </div>
+            </div>
+
+            <!-- Profile Info Summary -->
+            <div class="profile-summary-card">
+                <div class="avatar-container">
+                    <img id="sidebar-avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=200" alt="Sarah Jenkins">
+                    <div class="status-indicator online"></div>
+                </div>
+                <div class="user-details">
+                    <h3 id="sidebar-name">Sarah Jenkins</h3>
+                    <p id="sidebar-role">Head of Science & Chemistry Teacher</p>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <button class="nav-btn active" data-tab="dashboard" id="nav-dashboard">
+                            <svg class="nav-icon" viewBox="0 0 24 24">
+                                <rect x="3" y="3" width="7" height="9" rx="1.5" />
+                                <rect x="14" y="3" width="7" height="5" rx="1.5" />
+                                <rect x="3" y="16" width="7" height="5" rx="1.5" />
+                                <rect x="14" y="12" width="7" height="9" rx="1.5" />
+                            </svg>
+                            <span>Dashboard</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="nav-btn" data-tab="profile" id="nav-profile">
+                            <svg class="nav-icon" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                            </svg>
+                            <span>Professional Profile</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="nav-btn" data-tab="goals" id="nav-goals">
+                            <svg class="nav-icon" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10" />
+                                <circle cx="12" cy="12" r="7" />
+                                <circle cx="12" cy="12" r="4" />
+                                <circle cx="12" cy="12" r="1" />
+                            </svg>
+                            <span>Goals & Priorities</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="nav-btn" data-tab="journal" id="nav-journal">
+                            <svg class="nav-icon" viewBox="0 0 24 24">
+                                <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/>
+                            </svg>
+                            <span>Practice Journal</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="nav-btn" data-tab="cpd" id="nav-cpd">
+                            <svg class="nav-icon" viewBox="0 0 24 24">
+                                <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
+                                <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
+                            </svg>
+                            <span>L&D (CPD) Log</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="nav-btn" data-tab="timeline" id="nav-timeline">
+                            <svg class="nav-icon" viewBox="0 0 24 24">
+                                <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                            </svg>
+                            <span>Growth Timeline</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="nav-btn" data-tab="annual-review" id="nav-review">
+                            <svg class="nav-icon" viewBox="0 0 24 24">
+                                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                            </svg>
+                            <span>Annual Review</span>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Bottom utility / settings -->
+            <div class="sidebar-footer">
+                <div class="theme-toggle" id="theme-toggle">
+                    <span class="theme-label">Light / Dark</span>
+                    <button class="toggle-btn" aria-label="Toggle Dark/Light Mode">
+                        <span class="toggle-thumb"></span>
+                    </button>
+                </div>
+                <div class="system-save-indicator">
+                    <span class="indicator-dot synced"></span>
+                    <span class="indicator-text">All changes saved</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Workspace Area -->
+        <main class="main-content">
+            <!-- Header Panel -->
+            <header class="app-header">
+                <div class="header-left">
+                    <button class="menu-toggle-btn" id="menu-toggle" aria-label="Toggle sidebar menu">
+                        <svg viewBox="0 0 24 24" width="24" height="24">
+                            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                        </svg>
+                    </button>
+                    <h1 id="page-title">Dashboard Overview</h1>
+                </div>
+                <div class="header-right">
+                    <!-- Current Cycle Widget -->
+                    <div class="cycle-pill">
+                        <span class="cycle-label">Current Cycle:</span>
+                        <span class="cycle-value">Mid-Year Checkpoint 2 (Feb)</span>
+                    </div>
+                    <!-- Notification Bell -->
+                    <div class="notification-bell">
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 4.36 6 6.92 6 10v5l-2 2v1h16v-1l-2-2z"/>
+                        </svg>
+                        <span class="bell-badge">2</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Views Wrapper -->
+            <div class="view-viewport">
+
+                <!-- 1. DASHBOARD VIEW -->
+                <section class="tab-view active" id="view-dashboard">
+                    <!-- Grid Layout for Dashboard Cards -->
+                    <div class="dashboard-grid">
+                        
+                        <!-- Left Main Panel: Welcome & Growth Timeline summary -->
+                        <div class="grid-col-8 flex-column gap-lg">
+                            <!-- Welcome Banner -->
+                            <div class="dashboard-hero-card">
+                                <div class="hero-content">
+                                    <h2>Welcome back, <span id="hero-name">Sarah</span>!</h2>
+                                    <p>Your professional growth journey is active. You have completed <strong>22.5 hours</strong> of CPD and logged <strong>4 key reflections</strong> this term.</p>
+                                    <div class="hero-actions">
+                                        <button class="btn btn-primary btn-iconic" onclick="switchTab('cpd')">
+                                            <svg viewBox="0 0 24 24" width="18" height="18"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                                            Log CPD Activity
+                                        </button>
+                                        <button class="btn btn-secondary btn-iconic" onclick="switchTab('journal')">
+                                            <svg viewBox="0 0 24 24" width="18" height="18"><path d="M14 17H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2zM19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
+                                            Write Journal Reflection
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="hero-stats">
+                                    <div class="circular-progress-wrapper">
+                                        <svg viewBox="0 0 36 36" class="circular-chart primary">
+                                            <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                            <path class="circle" stroke-dasharray="75, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                            <text x="18" y="20.35" class="percentage">75%</text>
+                                        </svg>
+                                        <span class="progress-title">Goals Progress</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Goals Snapshot -->
+                            <div class="panel-card">
+                                <div class="panel-header">
+                                    <h3 class="panel-title">Active Goals & Priorities</h3>
+                                    <button class="text-link" onclick="switchTab('goals')">View all goals &rarr;</button>
+                                </div>
+                                <div class="goals-snapshot-list" id="dashboard-goals-list">
+                                    <!-- Dynamic list of goals with small progress bars -->
+                                </div>
+                            </div>
+
+                            <!-- Recent Timeline Snippet -->
+                            <div class="panel-card">
+                                <div class="panel-header">
+                                    <h3 class="panel-title">Recent Timeline Activity</h3>
+                                    <button class="text-link" onclick="switchTab('timeline')">Open growth timeline &rarr;</button>
+                                </div>
+                                <div class="timeline-compact" id="dashboard-timeline-list">
+                                    <!-- Combined updates (CPD, Goals, Journal entries) -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Sidebar Panel: Mini-Profile, Cycle Checkpoints & Standards -->
+                        <div class="grid-col-4 flex-column gap-lg">
+                            
+                            <!-- Profile Lens Card -->
+                            <div class="panel-card profile-lens-card">
+                                <div class="panel-header">
+                                    <h3 class="panel-title">Professional Lens</h3>
+                                    <button class="btn-edit-lens" onclick="switchTab('profile')" title="Edit profile lens">
+                                        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                                    </button>
+                                </div>
+                                <div class="lens-body">
+                                    <div class="lens-item">
+                                        <span class="lens-label">Aligned Framework</span>
+                                        <span class="lens-val tag-framework" id="dash-lens-framework">Teachers' Standards</span>
+                                    </div>
+                                    <div class="lens-item">
+                                        <span class="lens-label">Line Manager</span>
+                                        <span class="lens-val" id="dash-lens-manager">Dr. Helen Harrison (Deputy Head)</span>
+                                    </div>
+                                    <div class="lens-item">
+                                        <span class="lens-label">Aspirations</span>
+                                        <p class="lens-text-preview" id="dash-lens-aspirations">Transition to Assistant Headship within 2 years, focusing on academic curriculum development.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Annual Cycle Checklist Widget -->
+                            <div class="panel-card cycle-widget-card">
+                                <h3 class="panel-title mb-md">Annual Cycle Progress</h3>
+                                <div class="cycle-steps">
+                                    <div class="cycle-step-item completed">
+                                        <div class="step-marker">
+                                            <svg viewBox="0 0 24 24" width="14" height="14"><path fill="none" d="M0 0h24v24H0z"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+                                        </div>
+                                        <div class="step-info">
+                                            <h4>September</h4>
+                                            <p>Vision & Goal Setting</p>
+                                        </div>
+                                    </div>
+                                    <div class="cycle-step-item completed">
+                                        <div class="step-marker">
+                                            <svg viewBox="0 0 24 24" width="14" height="14"><path fill="none" d="M0 0h24v24H0z"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+                                        </div>
+                                        <div class="step-info">
+                                            <h4>November</h4>
+                                            <p>Checkpoint 1 (Progress Review)</p>
+                                        </div>
+                                    </div>
+                                    <div class="cycle-step-item active">
+                                        <div class="step-marker pulse-ring"></div>
+                                        <div class="step-info">
+                                            <h4>February</h4>
+                                            <p>Checkpoint 2 (Mid-Year Reflection)</p>
+                                        </div>
+                                    </div>
+                                    <div class="cycle-step-item">
+                                        <div class="step-marker"></div>
+                                        <div class="step-info">
+                                            <h4>May</h4>
+                                            <p>Checkpoint 3 (Impact Review)</p>
+                                        </div>
+                                    </div>
+                                    <div class="cycle-step-item">
+                                        <div class="step-marker"></div>
+                                        <div class="step-info">
+                                            <h4>July</h4>
+                                            <p>Annual Review & Timeline Synthesis</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- CPD Stats Widget -->
+                            <div class="panel-card cpd-stats-card">
+                                <h3 class="panel-title mb-md">CPD Hours Dashboard</h3>
+                                <div class="cpd-total-display">
+                                    <span class="hours-num" id="dash-cpd-hours">22.5</span>
+                                    <span class="hours-label">Total Hours Logged</span>
+                                </div>
+                                <div class="cpd-category-progress" id="dash-cpd-categories">
+                                    <!-- Filled dynamically with category meters -->
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- 2. PROFESSIONAL PROFILE VIEW -->
+                <section class="tab-view" id="view-profile">
+                    <div class="profile-layout grid-layout">
+                        <!-- Left Side: Profile Form -->
+                        <div class="grid-col-8 flex-column gap-lg">
+                            <div class="panel-card">
+                                <div class="panel-header">
+                                    <h3 class="panel-title">Professional Profile & Lens Settings</h3>
+                                </div>
+                                <form id="profile-edit-form" class="profile-form">
+                                    <div class="form-grid-2">
+                                        <div class="form-group">
+                                            <label for="prof-name">Full Name</label>
+                                            <input type="text" id="prof-name" required value="Sarah Jenkins">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="prof-role">Role / Job Title</label>
+                                            <input type="text" id="prof-role" required value="Head of Science & Chemistry Teacher">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-grid-2">
+                                        <div class="form-group">
+                                            <label for="prof-framework">Standards Framework Alignment</label>
+                                            <select id="prof-framework">
+                                                <option value="Teachers' Standards">Teachers' Standards (DfE UK)</option>
+                                                <option value="Leadership Standards">National Leadership Standards</option>
+                                                <option value="Support Staff Framework">Support Staff Growth Framework</option>
+                                                <option value="Custom Leicester High Model">Custom Leicester High Model</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="prof-manager">Line Manager / Coach</label>
+                                            <input type="text" id="prof-manager" required value="Dr. Helen Harrison (Deputy Head)">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="prof-job-desc">Job Description & Core Responsibilities</label>
+                                        <textarea id="prof-job-desc" rows="4">Lead the Science Department, curate Chemistry curriculum for KS3-5, coordinate department CPD, and manage 4 teaching staff and 2 technicians.</textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="prof-aspirations">Career Aspirations & Growth Focus</label>
+                                        <textarea id="prof-aspirations" rows="3">Transition to Assistant Headship within 2 years, focusing on academic curriculum development.</textarea>
+                                    </div>
+
+                                    <div class="form-grid-2">
+                                        <div class="form-group">
+                                            <label for="prof-qualifications">Qualifications (Comma separated)</label>
+                                            <input type="text" id="prof-qualifications" value="BSc Chemistry, PGCE Secondary Science, NPQLT">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="prof-skills">Skills & Areas of Expertise (Comma separated)</label>
+                                            <input type="text" id="prof-skills" value="A-Level Chemistry, Pedagogy Coaching, Data Analysis, Digital Learning">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-primary">Save Profile Changes</button>
+                                        <span class="save-status-text" id="profile-save-status"></span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Right Side: Framework View & Instructions -->
+                        <div class="grid-col-4 flex-column gap-lg">
+                            <div class="panel-card framework-info-card">
+                                <h3 class="panel-title mb-md" id="framework-info-title">Teachers' Standards Framework</h3>
+                                <p class="framework-subtitle">This framework forms the reference point for your CPD logging, goal setting, and evaluations.</p>
+                                <ul class="framework-points-list" id="framework-points-list">
+                                    <!-- Filled dynamically by framework change -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. GOALS & PRIORITIES VIEW -->
+                <section class="tab-view" id="view-goals">
+                    <div class="section-actions-bar">
+                        <div class="filters">
+                            <button class="filter-tab active" data-goal-filter="all">All Goals</button>
+                            <button class="filter-tab" data-goal-filter="active">Active</button>
+                            <button class="filter-tab" data-goal-filter="completed">Completed</button>
+                        </div>
+                        <button class="btn btn-primary btn-iconic" id="btn-add-goal">
+                            <svg viewBox="0 0 24 24" width="18" height="18"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                            Create New Goal
+                        </button>
+                    </div>
+
+                    <!-- Goals Grid -->
+                    <div class="goals-grid" id="goals-card-grid">
+                        <!-- Filled Dynamically -->
+                    </div>
+
+                    <!-- Modal for Adding Goal (Hidden by default) -->
+                    <div class="modal" id="goal-modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 id="goal-modal-title">Create New Goal</h3>
+                                <button class="modal-close" id="goal-modal-close">&times;</button>
+                            </div>
+                            <form id="goal-form">
+                                <input type="hidden" id="goal-edit-index" value="-1">
+                                <div class="form-group">
+                                    <label for="goal-title">Goal / Priority Statement</label>
+                                    <input type="text" id="goal-title" required placeholder="e.g., Optimise A-Level Chemistry practical preparation and logs">
+                                </div>
+                                <div class="form-grid-2">
+                                    <div class="form-group">
+                                        <label for="goal-tag">Category Tag</label>
+                                        <select id="goal-tag">
+                                            <option value="Teaching & Learning">Teaching & Learning</option>
+                                            <option value="Student Outcomes">Student Outcomes</option>
+                                            <option value="Leadership">Leadership</option>
+                                            <option value="Pastoral">Pastoral</option>
+                                            <option value="Curriculum">Curriculum</option>
+                                            <option value="Operational Improvement">Operational Improvement</option>
+                                            <option value="Personal Development">Personal Development</option>
+                                            <option value="Strategic Project">Strategic Project</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="goal-status">Current Status</label>
+                                        <select id="goal-status">
+                                            <option value="Active">Active</option>
+                                            <option value="On Hold">On Hold</option>
+                                            <option value="Completed">Completed</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="goal-success">Success Criteria</label>
+                                    <textarea id="goal-success" rows="3" required placeholder="What will success look like? Be specific."></textarea>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="button" class="btn btn-secondary" id="goal-modal-cancel">Cancel</button>
+                                    <button type="submit" class="btn btn-primary" id="goal-modal-submit">Create Goal</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Modal for Adding Evidence (Hidden by default) -->
+                    <div class="modal" id="evidence-modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3>Add Evidence & Progress Update</h3>
+                                <button class="modal-close" id="evidence-modal-close">&times;</button>
+                            </div>
+                            <form id="evidence-form">
+                                <input type="hidden" id="evidence-goal-index" value="-1">
+                                <div class="form-group">
+                                    <label for="ev-title">Evidence Description / Update Notes</label>
+                                    <textarea id="ev-title" rows="3" required placeholder="Describe what was done, what was learned, or what progress was made."></textarea>
+                                </div>
+                                <div class="form-grid-2">
+                                    <div class="form-group">
+                                        <label for="ev-link">Link to Document / Artifact (Optional)</label>
+                                        <input type="url" id="ev-link" placeholder="https://docs.google.com/... or shared drive path">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="ev-link-label">Link Label (Optional)</label>
+                                        <input type="text" id="ev-link-label" placeholder="e.g. KS5 Class Results Tracker">
+                                    </div>
+                                </div>
+                                <div class="form-group checkbox-group">
+                                    <input type="checkbox" id="ev-is-checkpoint">
+                                    <label for="ev-is-checkpoint">Mark this as a key milestone update</label>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="button" class="btn btn-secondary" id="evidence-modal-cancel">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Add Update</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 4. PRACTICE JOURNAL VIEW -->
+                <section class="tab-view" id="view-journal">
+                    <div class="journal-layout grid-layout">
+                        <!-- Left Side: Journal Form -->
+                        <div class="grid-col-5 flex-column gap-lg">
+                            <div class="panel-card">
+                                <div class="panel-header">
+                                    <h3 class="panel-title">Write Reflection Entry</h3>
+                                    <span class="subtitle">Think of this as your ongoing professional growth journal. Add entries throughout the year.</span>
+                                </div>
+                                <form id="journal-form" class="journal-entry-form">
+                                    <div class="form-group">
+                                        <label for="journal-title">Entry Title / Focus Area</label>
+                                        <input type="text" id="journal-title" required placeholder="e.g., Reflecting on KS4 Chemistry Practical Experimentation">
+                                    </div>
+
+                                    <div class="accordion-prompts">
+                                        <div class="accordion-item expanded">
+                                            <div class="accordion-title">
+                                                <span>1. Reflection: What has gone well?</span>
+                                                <svg viewBox="0 0 24 24" width="16" height="16"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+                                            </div>
+                                            <div class="accordion-body">
+                                                <textarea id="q-reflection" required placeholder="Reflect on recent achievements, lessons, or interactions that went well..."></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="accordion-item">
+                                            <div class="accordion-title">
+                                                <span>2. Impact: Who has benefited and how?</span>
+                                                <svg viewBox="0 0 24 24" width="16" height="16"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+                                            </div>
+                                            <div class="accordion-body">
+                                                <textarea id="q-impact" placeholder="Who benefited? Students, department, colleagues? How is it measured?"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="accordion-item">
+                                            <div class="accordion-title">
+                                                <span>3. Professional Practice: What have I improved?</span>
+                                                <svg viewBox="0 0 24 24" width="16" height="16"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+                                            </div>
+                                            <div class="accordion-body">
+                                                <textarea id="q-practice" placeholder="What specific teaching methods, organisational systems, or leadership skills did you develop?"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="accordion-item">
+                                            <div class="accordion-title">
+                                                <span>4. Contribution: How have I supported others?</span>
+                                                <svg viewBox="0 0 24 24" width="16" height="16"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+                                            </div>
+                                            <div class="accordion-body">
+                                                <textarea id="q-contribution" placeholder="Did you share resources, mentor, run CPD, or assist colleagues?"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="accordion-item">
+                                            <div class="accordion-title">
+                                                <span>5. Growth: What am I learning?</span>
+                                                <svg viewBox="0 0 24 24" width="16" height="16"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+                                            </div>
+                                            <div class="accordion-body">
+                                                <textarea id="q-growth" placeholder="What insights did you gain from reading, webinars, conversations, or coaching?"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="accordion-item">
+                                            <div class="accordion-title">
+                                                <span>6. Support: What support do I need?</span>
+                                                <svg viewBox="0 0 24 24" width="16" height="16"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+                                            </div>
+                                            <div class="accordion-body">
+                                                <textarea id="q-support" placeholder="What resources, time, courses, or mentoring would help you build on this?"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-primary">Save Journal Entry</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Right Side: Past Journal Entries -->
+                        <div class="grid-col-7 flex-column gap-lg">
+                            <div class="panel-card flex-column fill-height">
+                                <div class="panel-header">
+                                    <h3 class="panel-title">My Reflections Notebook</h3>
+                                    <div class="panel-search">
+                                        <input type="text" id="journal-search" placeholder="Search entries...">
+                                    </div>
+                                </div>
+                                <div class="journal-feed" id="journal-feed-list">
+                                    <!-- Dynamic list of entries in reverse chronological order -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 5. CPD LOG (LEARNING & DEVELOPMENT) VIEW -->
+                <section class="tab-view" id="view-cpd">
+                    <div class="cpd-layout grid-layout">
+                        <!-- Left Side: Log Form -->
+                        <div class="grid-col-5 flex-column gap-lg">
+                            <div class="panel-card">
+                                <div class="panel-header">
+                                    <h3 class="panel-title">Log CPD Activity</h3>
+                                </div>
+                                <form id="cpd-form" class="cpd-log-form">
+                                    <div class="form-group">
+                                        <label for="cpd-activity">Activity Title / Name</label>
+                                        <input type="text" id="cpd-activity" required placeholder="e.g., EdTech Inset: Canvas LMS Advanced Features">
+                                    </div>
+
+                                    <div class="form-grid-2">
+                                        <div class="form-group">
+                                            <label for="cpd-type">Type of CPD</label>
+                                            <select id="cpd-type">
+                                                <option value="Course">Course</option>
+                                                <option value="Webinar">Webinar</option>
+                                                <option value="Coaching">Coaching</option>
+                                                <option value="Reading">Reading</option>
+                                                <option value="Research">Research</option>
+                                                <option value="Conference">Conference</option>
+                                                <option value="School CPD">School CPD / Inset</option>
+                                                <option value="Observation">Peer Observation</option>
+                                                <option value="Mentoring">Mentoring</option>
+                                                <option value="Professional Conversation">Professional Conversation</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cpd-date">Date Completed</label>
+                                            <input type="date" id="cpd-date" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-grid-3">
+                                        <div class="form-group">
+                                            <label for="cpd-hours">Hours</label>
+                                            <input type="number" step="0.5" id="cpd-hours" required min="0.5" value="1">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cpd-cost">Cost (£)</label>
+                                            <input type="number" id="cpd-cost" min="0" value="0">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cpd-provider">Provider</label>
+                                            <input type="text" id="cpd-provider" placeholder="Internal / External">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-grid-2">
+                                        <div class="form-group">
+                                            <label for="cpd-linked-standard">Linked Standard</label>
+                                            <select id="cpd-linked-standard">
+                                                <!-- Filled dynamically based on chosen profile framework -->
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cpd-linked-goal">Linked Goal / Target</label>
+                                            <select id="cpd-linked-goal">
+                                                <!-- Filled dynamically based on active goals -->
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="evaluation-cycle-container">
+                                        <span class="eval-title">Evaluation Cycle</span>
+                                        <div class="form-group">
+                                            <label for="cpd-q-learn">1. What did I learn?</label>
+                                            <textarea id="cpd-q-learn" required placeholder="Key takeaways from this CPD..."></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cpd-q-change">2. What have I changed / implemented?</label>
+                                            <textarea id="cpd-q-change" required placeholder="How have you adjusted your teaching or processes?"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cpd-q-impact">3. What impact has this had?</label>
+                                            <textarea id="cpd-q-impact" required placeholder="Evidence of benefits to students or the school..."></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cpd-q-next">4. What will I do next?</label>
+                                            <textarea id="cpd-q-next" required placeholder="Following steps, further learning, or expansions..."></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-primary">Log Activity</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Right Side: Logged List -->
+                        <div class="grid-col-7 flex-column gap-lg">
+                            <div class="panel-card flex-column fill-height">
+                                <div class="panel-header">
+                                    <h3 class="panel-title">Logged Activities</h3>
+                                    <div class="cpd-filters">
+                                        <input type="text" id="cpd-search" placeholder="Search activities...">
+                                        <select id="cpd-filter-type">
+                                            <option value="all">All Types</option>
+                                            <option value="Course">Course</option>
+                                            <option value="Webinar">Webinar</option>
+                                            <option value="Coaching">Coaching</option>
+                                            <option value="Reading">Reading</option>
+                                            <option value="Research">Research</option>
+                                            <option value="Conference">Conference</option>
+                                            <option value="School CPD">School CPD</option>
+                                            <option value="Observation">Observation</option>
+                                            <option value="Mentoring">Mentoring</option>
+                                            <option value="Professional Conversation">Conversation</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="cpd-activities-feed" id="cpd-feed-list">
+                                    <!-- Dynamic table/list of logged events -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 6. DYNAMIC TIMELINE VIEW -->
+                <section class="tab-view" id="view-timeline">
+                    <div class="timeline-container-wrapper">
+                        <div class="panel-card">
+                            <div class="panel-header">
+                                <div class="header-titles">
+                                    <h3 class="panel-title">Professional Growth Timeline</h3>
+                                    <span class="subtitle">A chronological record of your reflections, goal completions, evidence, and CPD throughout this academic year.</span>
+                                </div>
+                                <div class="timeline-filters">
+                                    <button class="filter-chip active" data-timeline-filter="all">All Entries</button>
+                                    <button class="filter-chip" data-timeline-filter="cpd">CPD Only</button>
+                                    <button class="filter-chip" data-timeline-filter="goals">Goals & Evidence</button>
+                                    <button class="filter-chip" data-timeline-filter="reflections">Reflections Only</button>
+                                </div>
+                            </div>
+
+                            <div class="timeline-vertical" id="timeline-list">
+                                <!-- Filled Dynamically in reverse order -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 7. ANNUAL REVIEW VIEW -->
+                <section class="tab-view" id="view-annual-review">
+                    <div class="review-layout grid-layout">
+                        
+                        <!-- Left Side: Cycle Stages Detail & Trigger -->
+                        <div class="grid-col-4 flex-column gap-lg">
+                            <div class="panel-card">
+                                <h3 class="panel-title mb-md">Annual Appraisal Cycle</h3>
+                                <div class="cycle-stages-interactive">
+                                    
+                                    <div class="stage-card completed">
+                                        <div class="stage-status">September</div>
+                                        <div class="stage-content">
+                                            <h4>Vision & Goal Setting</h4>
+                                            <p>Goals established & aligned with Teachers' Standards.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="stage-card completed">
+                                        <div class="stage-status">November</div>
+                                        <div class="stage-content">
+                                            <h4>Checkpoint 1</h4>
+                                            <p>Initial progress check, goals updated, CPD log started.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="stage-card current">
+                                        <div class="stage-status">February</div>
+                                        <div class="stage-content">
+                                            <h4>Checkpoint 2 (Mid-Year)</h4>
+                                            <p>Reflection on practice journal entries and mid-year targets adjustment.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="stage-card upcoming">
+                                        <div class="stage-status">May</div>
+                                        <div class="stage-content">
+                                            <h4>Checkpoint 3</h4>
+                                            <p>Final gather of evidence and impact outcomes before review.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="stage-card final-trigger" id="review-trigger-card">
+                                        <div class="stage-status">July</div>
+                                        <div class="stage-content">
+                                            <h4>Annual Review Synthesis</h4>
+                                            <p>Compile portfolio activities and synthesise the report.</p>
+                                            <button class="btn btn-accent btn-block btn-iconic mt-sm" id="btn-generate-review">
+                                                <svg viewBox="0 0 24 24" width="18" height="18"><path d="M19 8H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zm-2 4h-4v-2h4v2zm0-4h-4V6h4v2zM9 14H5v-4h4v4z"/></svg>
+                                                Generate Annual Review Summary
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Side: Synthesized Report Draft -->
+                        <div class="grid-col-8 flex-column gap-lg">
+                            <div class="panel-card" id="review-panel-card">
+                                <div class="panel-header border-bottom">
+                                    <div class="header-titles">
+                                        <h3 class="panel-title">Synthesised Annual Review Draft</h3>
+                                        <span class="subtitle">Compiled automatically from your ongoing timeline of goals, CPD, and reflections.</span>
+                                    </div>
+                                    <div class="review-actions-header" id="review-actions-header" style="display: none;">
+                                        <button class="btn btn-secondary btn-sm btn-iconic" id="btn-copy-review">
+                                            <svg viewBox="0 0 24 24" width="16" height="16"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                                            Copy to Clipboard
+                                        </button>
+                                        <button class="btn btn-primary btn-sm btn-iconic" id="btn-save-review">
+                                            <svg viewBox="0 0 24 24" width="16" height="16"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+                                            Save Review
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="review-placeholder-body" id="review-placeholder">
+                                    <div class="placeholder-graphic">
+                                        <svg viewBox="0 0 100 100" class="graphic-svg">
+                                            <circle cx="50" cy="50" r="45" stroke="var(--border-color)" stroke-width="2" fill="none" stroke-dasharray="6, 6" />
+                                            <path d="M40,35 H60 M40,50 H60 M40,65 H52" stroke="var(--text-secondary)" stroke-width="3" stroke-linecap="round" fill="none" />
+                                            <circle cx="60" cy="65" r="4" fill="var(--accent)" />
+                                        </svg>
+                                    </div>
+                                    <h4>Ready for review synthesis</h4>
+                                    <p>Select the <strong>July checkpoint</strong> action on the left or click "Generate Annual Review Summary" to compile your year's work into a detailed draft.</p>
+                                </div>
+
+                                <div class="review-output-body" id="review-output" style="display: none;">
+                                    <div class="review-draft-header">
+                                        <div class="school-header-badge">Leicester High School for Girls</div>
+                                        <h2 class="review-doc-title">Professional Growth & Development Review</h2>
+                                        <div class="meta-row">
+                                            <div class="meta-cell"><strong>Staff Member:</strong> <span id="rev-meta-name">Sarah Jenkins</span></div>
+                                            <div class="meta-cell"><strong>Role:</strong> <span id="rev-meta-role">Head of Science & Chemistry Teacher</span></div>
+                                            <div class="meta-cell"><strong>Reviewer:</strong> <span id="rev-meta-manager">Dr. Helen Harrison (Deputy Head)</span></div>
+                                            <div class="meta-cell"><strong>Date Drafted:</strong> <span id="rev-meta-date">June 11, 2026</span></div>
+                                            <div class="meta-cell"><strong>Framework Alignment:</strong> <span id="rev-meta-framework">Teachers' Standards</span></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="review-sections" id="review-report-sections">
+                                        <!-- Synthesized Markdown/HTML goes here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Main JavaScript Entry -->
+    <script src="app.js"></script>
+</body>
+</html>
