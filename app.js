@@ -532,7 +532,19 @@ function loadState() {
     const saved = localStorage.getItem('growth_portfolio_state');
     if (saved) {
         try {
-            appState = JSON.parse(saved);
+            const parsed = JSON.parse(saved);
+            if (parsed) {
+                if (parsed.profile) appState.profile = parsed.profile;
+                if (parsed.goals) appState.goals = parsed.goals;
+                if (parsed.journal) appState.journal = parsed.journal;
+                if (parsed.cpd) appState.cpd = parsed.cpd;
+                if (parsed.theme) appState.theme = parsed.theme;
+                
+                // Keep default directReports if they are not in the saved state
+                if (parsed.directReports && parsed.directReports.length > 0) {
+                    appState.directReports = parsed.directReports;
+                }
+            }
         } catch (e) {
             console.error("Failed to parse saved state", e);
         }
