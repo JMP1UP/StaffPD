@@ -352,6 +352,139 @@ let appState = {
                     support: 'Sarah to clear system access issues with IT department.'
                 }
             ]
+        },
+        {
+            name: 'Mrs. Clara Oswald',
+            role: 'Physics Teacher',
+            avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=200',
+            framework: "Teachers' Standards",
+            qualifications: 'BSc Physics (Hons), PGCE',
+            skills: 'GCSE Physics, A-Level Physics, Coding, Practical Mechanics',
+            jobDescription: 'Teaching KS4-5 Physics classes, coordinating physics Olympiad prep, and managing lab equipment calibration.',
+            aspirations: 'Aspirations to coordinate department curriculum innovation and digital learning integrations next year.',
+            goals: [
+                {
+                    title: 'Implement new KS5 Physics practical assessment tracking framework',
+                    tag: 'Teaching & Learning',
+                    status: 'Active',
+                    successCriteria: 'Tracking grid adopted for all KS5 classes; student practical portfolios completed with safety annotations.',
+                    evidence: [
+                        {
+                            date: '2026-02-10',
+                            content: 'Developed online tracking spreadsheet and tested with Year 12 Physics class.',
+                            link: 'https://docs.google.com/spreadsheets/example_physics',
+                            linkLabel: 'Physics CPAC Sheet',
+                            isCheckpoint: false
+                        }
+                    ],
+                    managerComment: 'Superb initiative, Clara. This really streamlines our CPAC verification requirements for exam boards.'
+                },
+                {
+                    title: 'Deliver cross-departmental coding and instrumentation workshops',
+                    tag: 'Personal Development',
+                    status: 'Completed',
+                    successCriteria: 'Conducted 3 lunch sessions on Raspberry Pi and Arduino instrumentation; attended by 6 staff members.',
+                    evidence: [
+                        {
+                            date: '2026-01-15',
+                            content: 'Completed the third training session on electronics setup and shared resources.',
+                            link: 'https://github.com/example_electronics',
+                            linkLabel: 'Workshop Assets',
+                            isCheckpoint: true
+                        }
+                    ],
+                    managerComment: 'Feedback from colleagues was incredibly positive. It has inspired chemistry and biology teachers to use data logging.'
+                }
+            ],
+            cpd: [
+                {
+                    activity: 'A-Level Physics Practical Assessment Training',
+                    type: 'Course',
+                    date: '2025-10-18',
+                    hours: 4.5,
+                    cost: 120,
+                    provider: 'AQA Exam Board',
+                    linkedStandard: 'Standard 6: Make accurate and productive use of assessment',
+                    linkedGoal: 'Implement new KS5 Physics practical assessment tracking framework',
+                    reflection: {
+                        learn: 'Learned the specific criteria for passing the Practical Endorsement (CPAC) in AQA Physics.',
+                        change: 'Redesigned pre-lab safety questions to ensure students document their planning skills explicitly.',
+                        impact: 'Students are demonstrating greater independence during A-level practical setups.',
+                        next: 'Audit Year 13 practical folders next half term to verify evidence consistency.'
+                    }
+                }
+            ],
+            meetings: [
+                {
+                    date: '2025-09-08',
+                    type: 'Start of Year (Formal)',
+                    notes: 'Discussed goals: implementing practical endorsement tracking and running digital instrumentation CPD. Discussed resources.',
+                    actions: 'Clara to design the tracker; Sarah to help source budget for Raspberry Pi kits.',
+                    support: 'Sarah to seek department budget sign-off from Headmaster.'
+                },
+                {
+                    date: '2026-02-04',
+                    type: 'Informal Catch-up',
+                    notes: 'Reviewed Raspberry Pi workshop outcomes and Year 12 practical progress. Feedback comments updated.',
+                    actions: 'Clara to prepare final audit for Year 13 folders.',
+                    support: 'Sarah to arrange cover for Clara to observe a senior examiner.'
+                }
+            ]
+        },
+        {
+            name: 'Mr. Alan Turing',
+            role: 'Computer Science & Science Teacher',
+            avatar: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=200',
+            framework: "Custom Leicester High Model",
+            qualifications: 'BSc Computer Science, PGCE Science',
+            skills: 'Python Simulations, KS3 Science, Computational Physics',
+            jobDescription: 'Teaching GCSE Computer Science and KS3 general science, and leading the Digital Pioneers school club.',
+            aspirations: 'Develop cross-curricular software tools to assist department teachers with data analytics.',
+            goals: [
+                {
+                    title: 'Integrate Python simulations into KS4 Physics curriculum',
+                    tag: 'Curriculum',
+                    status: 'Active',
+                    successCriteria: 'Three custom physics interactive models (waves, orbits, energy) built and tested in lessons.',
+                    evidence: [
+                        {
+                            date: '2026-02-28',
+                            content: 'Launched orbit model and ran trial with Year 10 physics class.',
+                            link: 'https://github.com/example_simulations',
+                            linkLabel: 'Physics Orbit Sim',
+                            isCheckpoint: false
+                        }
+                    ],
+                    managerComment: 'An outstanding integration of computational thinking into general science lessons, Alan!'
+                }
+            ],
+            cpd: [
+                {
+                    activity: 'Computational Modelling in Secondary Science',
+                    type: 'Webinar',
+                    date: '2025-11-12',
+                    hours: 6.0,
+                    cost: 0,
+                    provider: 'Institute of Physics',
+                    linkedStandard: 'Standard 4: Continuous professional growth',
+                    linkedGoal: 'Integrate Python simulations into KS4 Physics curriculum',
+                    reflection: {
+                        learn: 'Learned methods to scaffold coding exercises so non-programmers can grasp physical concepts.',
+                        change: 'Designed drag-and-drop code blocks for the wave simulation starter task.',
+                        impact: 'Lower ability pupils engaged significantly better with wave equations using the visual models.',
+                        next: 'Develop a chemistry kinetics simulator next month.'
+                    }
+                }
+            ],
+            meetings: [
+                {
+                    date: '2025-09-11',
+                    type: 'Start of Year (Formal)',
+                    notes: 'Reviewed role balance between Computer Science and KS3 Science. Set targets for Python models.',
+                    actions: 'Alan to prepare waved simulator for November review.',
+                    support: 'Sarah to facilitate collaboration with Physics lead.'
+                }
+            ]
         }
     ]
 };
@@ -459,7 +592,8 @@ function switchTab(tabId) {
             'cpd': 'L&D (CPD) Reflection Log',
             'timeline': 'Professional Growth Timeline',
             'annual-review': 'Annual Synthesis & Appraisal',
-            'line-management': 'Line Management Dashboard'
+            'line-management': 'Line Management Dashboard',
+            'org-chart': 'School Organisation Chart'
         };
         headerTitle.textContent = titles[tabId] || 'Growth Portfolio';
     }
@@ -480,6 +614,7 @@ function switchTab(tabId) {
     }
     if (tabId === 'timeline') renderTimeline();
     if (tabId === 'line-management') renderLineManagement();
+    if (tabId === 'org-chart') renderOrgChart();
 
     // Scroll main panel to top
     document.querySelector('.main-content').scrollTop = 0;
@@ -1864,11 +1999,94 @@ function renderMeetingsHistory(reportIdx) {
     }
 }
 
+/* --------------------------------------------------
+   ORGANISATION CHART GENERATOR
+   -------------------------------------------------- */
+const orgChartData = {
+    name: "Dr. Helen Harrison",
+    role: "Deputy Head Academic",
+    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=120",
+    dept: "leadership",
+    reports: [
+        {
+            name: "Sarah Jenkins",
+            role: "Head of Science & Chemistry",
+            avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=120",
+            dept: "science",
+            reports: [
+                { name: "Mr. David Davis", role: "Chemistry Teacher", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=120", dept: "science" },
+                { name: "Miss Emily Higgins", role: "Biology Teacher", avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=120", dept: "science" },
+                { name: "Mr. James Carter", role: "Science Technician", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=120", dept: "science" },
+                { name: "Mrs. Clara Oswald", role: "Physics Teacher", avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=120", dept: "science" },
+                { name: "Mr. Alan Turing", role: "Computer Science Lead", avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=120", dept: "science" }
+            ]
+        },
+        {
+            name: "Mr. Robert Evans",
+            role: "Head of Humanities",
+            avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=120",
+            dept: "humanities",
+            reports: [
+                { name: "Miss Alice Cooper", role: "Geography Teacher", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=120", dept: "humanities" },
+                { name: "Mr. Thomas Wright", role: "History Teacher", avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=120", dept: "humanities" }
+            ]
+        },
+        {
+            name: "Mrs. Sarah Collins",
+            role: "Head of English",
+            avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=120",
+            dept: "english",
+            reports: [
+                { name: "Mr. John Keats", role: "English Teacher", avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=120", dept: "english" },
+                { name: "Miss Jane Austen", role: "English Teacher", avatar: "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=crop&q=80&w=120", dept: "english" }
+            ]
+        }
+    ]
+};
+
+function renderOrgChart() {
+    const container = document.getElementById('org-chart-container');
+    if (!container) return;
+    
+    function buildNodeHtml(node) {
+        let html = `<li>`;
+        
+        html += `
+            <div class="org-node-card">
+                <img class="org-node-avatar" src="${node.avatar}" alt="${node.name}">
+                <div class="org-node-name">${node.name}</div>
+                <div class="org-node-role">${node.role}</div>
+                <span class="org-dept-badge org-dept-${node.dept}">${node.dept.charAt(0).toUpperCase() + node.dept.slice(1)}</span>
+            </div>
+        `;
+        
+        if (node.reports && node.reports.length > 0) {
+            html += `<ul>`;
+            node.reports.forEach(child => {
+                html += buildNodeHtml(child);
+            });
+            html += `</ul>`;
+        }
+        
+        html += `</li>`;
+        return html;
+    }
+    
+    container.innerHTML = `
+        <div class="org-tree">
+            <ul>
+                ${buildNodeHtml(orgChartData)}
+            </ul>
+        </div>
+    `;
+}
+
 // Global hooks for tab transitions in HTML buttons
 window.switchTab = switchTab;
 window.openEvidenceModal = openEvidenceModal;
 window.editGoal = editGoal;
 window.toggleCpdCollapse = toggleCpdCollapse;
+window.renderOrgChart = renderOrgChart;
 
 // Line management hooks
 window.openReportDetail = openReportDetail;
