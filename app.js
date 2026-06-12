@@ -163,6 +163,196 @@ let appState = {
                 next: 'Establish a coaching log template for all department heads.'
             }
         }
+    ],
+    directReports: [
+        {
+            name: 'Mr. David Davis',
+            role: 'Chemistry Teacher',
+            avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200',
+            framework: "Teachers' Standards",
+            qualifications: 'BSc Chemistry (Hons), PGCE',
+            skills: 'GCSE Chemistry, Lab Safety, Curriculum Planning',
+            jobDescription: 'Teaching KS3-5 Chemistry classes, preparing GCSE chemistry labs, and organising departmental resources.',
+            aspirations: 'Seeking to coordinate KS4 Chemistry curriculum design next academic year.',
+            goals: [
+                {
+                    title: 'Standardise practical hazard sheets for GCSE Chemistry experiments',
+                    tag: 'Teaching & Learning',
+                    status: 'Active',
+                    successCriteria: 'Hazard sheets laminated for all 12 core practicals; lab technicians report higher prep compliance and safety scores.',
+                    evidence: [
+                        {
+                            date: '2025-11-20',
+                            content: 'Drafted first 4 sheets for Year 10 rates of reaction experiments.',
+                            link: 'https://docs.google.com/document/example5',
+                            linkLabel: 'Rates Hazard Sheets Draft',
+                            isCheckpoint: false
+                        }
+                    ],
+                    managerComment: 'Excellent start, David. Make sure to consult the technicians on ease of cleanup and disposal steps.'
+                },
+                {
+                    title: 'Incorporate low-stakes digital quizzes into starter routines',
+                    tag: 'Student Outcomes',
+                    status: 'Completed',
+                    successCriteria: 'Quizzes run in Canvas LMS at the start of every Year 11 lesson; quiz scores improve by 15% on average.',
+                    evidence: [
+                        {
+                            date: '2026-01-28',
+                            content: 'Year 11 digital quizzes active on Canvas LMS and completed by all chemistry classes.',
+                            link: 'https://docs.google.com/spreadsheets/example6',
+                            linkLabel: 'Starter Quiz Analytics',
+                            isCheckpoint: true
+                        }
+                    ],
+                    managerComment: 'Well done on completing this target. The KS5 prep grids show a visible transfer of these skills!'
+                }
+            ],
+            cpd: [
+                {
+                    activity: 'Lab Safety & Chemical Hazards Refresher',
+                    type: 'School CPD',
+                    date: '2025-09-15',
+                    hours: 3.5,
+                    cost: 0,
+                    provider: 'CLEAPSS',
+                    linkedStandard: 'Standard 7: Safe Environment',
+                    linkedGoal: 'Standardise practical hazard sheets for GCSE Chemistry experiments',
+                    reflection: {
+                        learn: 'Learned new storage classifications for volatile organic solvents.',
+                        change: 'Organised Chemistry prep room shelf labels and updated hazard symbols.',
+                        impact: 'Increased safety compliance score in recent external audit to 100%.',
+                        next: 'Draft student-friendly safety warning labels for lab workspaces.'
+                    }
+                }
+            ],
+            meetings: [
+                {
+                    date: '2025-09-08',
+                    type: 'Start of Year (Formal)',
+                    notes: 'Established targets for standardising GCSE lab sheets and incorporating digital quizzing starter routines. Discussed coaching support needs.',
+                    actions: 'David to draft first 4 hazard sheets and launch digital quizzes in LMS by end of term.',
+                    support: 'Sarah to coordinate laminator access and printing approvals.'
+                },
+                {
+                    date: '2026-02-12',
+                    type: 'Catch-up Check-in (Informal)',
+                    notes: 'Digital quizzing goal is completed; Year 11 assessment averages rose. Hazard sheets are in progress.',
+                    actions: 'Complete hazard sheets for the remaining 8 core practicals before the May checkpoint.',
+                    support: 'Sarah to arrange observation with NQT to observe advanced scaffolding.'
+                }
+            ]
+        },
+        {
+            name: 'Miss Emily Higgins',
+            role: 'Biology Teacher',
+            avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200',
+            framework: "Teachers' Standards",
+            qualifications: 'BSc Biology, PGCE Secondary Science',
+            skills: 'KS3-5 Biology, Ecological Studies, Canvas LMS',
+            jobDescription: 'Coordinate KS3 Biology curriculum, manage eco-garden projects, and teach general science classes.',
+            aspirations: 'Transition to Head of Biology within 3 years.',
+            goals: [
+                {
+                    title: 'Redesign KS3 Ecology outdoor study materials',
+                    tag: 'Curriculum',
+                    status: 'Active',
+                    successCriteria: 'New outdoor study workbooks printed and tested in school garden; student survey shows 85% positive engagement score.',
+                    evidence: [
+                        {
+                            date: '2026-01-14',
+                            content: 'Eco-garden study guide draft completed and reviewed by biology coordinators.',
+                            link: 'https://docs.google.com/presentation/example7',
+                            linkLabel: 'Eco Workbook Slides',
+                            isCheckpoint: false
+                        }
+                    ],
+                    managerComment: ''
+                }
+            ],
+            cpd: [
+                {
+                    activity: 'Inquiry-Based Outdoor Learning Seminar',
+                    type: 'Webinar',
+                    date: '2025-11-04',
+                    hours: 2.0,
+                    cost: 0,
+                    provider: 'ASE',
+                    linkedStandard: 'Standard 4: Plan and teach lessons',
+                    linkedGoal: 'Redesign KS3 Ecology outdoor study materials',
+                    reflection: {
+                        learn: 'Explored structured vs open-ended ecological survey setups for younger cohorts.',
+                        change: 'Added structured quadrants grids to the draft ecology handbook.',
+                        impact: 'Anticipate faster task orientation when classes are working outdoors.',
+                        next: 'Run a pilot lesson with Year 7 group in spring.'
+                    }
+                }
+            ],
+            meetings: [
+                {
+                    date: '2025-09-10',
+                    type: 'Start of Year (Formal)',
+                    notes: 'Agreed to target KS3 ecology curriculum redevelopment. Discussion around ecological project coordination.',
+                    actions: 'Emily to draft new workbook modules and consult biology coordinators.',
+                    support: 'Sarah approved £50 gardening supply budget for eco-garden setups.'
+                }
+            ]
+        },
+        {
+            name: 'Mr. James Carter',
+            role: 'Science Technician',
+            avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=200',
+            framework: 'Support Staff Framework',
+            qualifications: 'FdSc Laboratory Technology',
+            skills: 'Lab Equipment Maintenance, Solution Preparation, Inventory Management',
+            jobDescription: 'Prepare all KS3-5 Biology, Chemistry and Physics practical setups; manage chemical inventory.',
+            aspirations: 'Complete NVQ Level 4 in Laboratory Science.',
+            goals: [
+                {
+                    title: 'Conduct digital inventory audit of all Science department assets',
+                    tag: 'Operational Improvement',
+                    status: 'Active',
+                    successCriteria: 'All assets tagged and logged in central database; chemical hazard levels updated.',
+                    evidence: [
+                        {
+                            date: '2026-02-18',
+                            content: 'Completed audit of Physics prep room, logging 120 assets in inventory software.',
+                            link: '',
+                            linkLabel: '',
+                            isCheckpoint: false
+                        }
+                    ],
+                    managerComment: 'Great organization, James. Let me know when you need help requesting administrative access for other prep room servers.'
+                }
+            ],
+            cpd: [
+                {
+                    activity: 'CLEAPSS Radiation Safety Course',
+                    type: 'Course',
+                    date: '2025-10-02',
+                    hours: 5.0,
+                    cost: 95,
+                    provider: 'CLEAPSS',
+                    linkedStandard: 'Standard 2: Safe environments',
+                    linkedGoal: 'Conduct digital inventory audit of all Science department assets',
+                    reflection: {
+                        learn: 'Understood regulatory compliance requirements for radioactive source storage.',
+                        change: 'Re-audited storage safe logs and updated caution labels.',
+                        impact: 'Ensured compliance with local education authority safety regulations.',
+                        next: 'Conduct staff briefing on radioactive source handling before practicals start.'
+                    }
+                }
+            ],
+            meetings: [
+                {
+                    date: '2025-09-05',
+                    type: 'Start of Year (Formal)',
+                    notes: 'Reviewed safety checklists, inventory status, and practical preparation timelines. Set target for digital asset audit.',
+                    actions: 'James to create central audit tracker and log Physics assets first.',
+                    support: 'Sarah to clear system access issues with IT department.'
+                }
+            ]
+        }
     ]
 };
 
@@ -268,7 +458,8 @@ function switchTab(tabId) {
             'journal': 'Practice Journal & Reflections',
             'cpd': 'L&D (CPD) Reflection Log',
             'timeline': 'Professional Growth Timeline',
-            'annual-review': 'Annual Synthesis & Appraisal'
+            'annual-review': 'Annual Synthesis & Appraisal',
+            'line-management': 'Line Management Dashboard'
         };
         headerTitle.textContent = titles[tabId] || 'Growth Portfolio';
     }
@@ -288,6 +479,7 @@ function switchTab(tabId) {
         renderCpd();
     }
     if (tabId === 'timeline') renderTimeline();
+    if (tabId === 'line-management') renderLineManagement();
 
     // Scroll main panel to top
     document.querySelector('.main-content').scrollTop = 0;
@@ -1263,11 +1455,428 @@ function formatDate(dateStr) {
     });
 }
 
-// Global hook for tab transitions in HTML buttons
+/* --------------------------------------------------
+   8. LINE MANAGEMENT CONTROLLER
+   -------------------------------------------------- */
+let activeLmDetailReportIdx = -1;
+let activeLmDetailTab = 'lens';
+
+function initLineManagementView() {
+    const meetingForm = document.getElementById('lm-meeting-form');
+    if (meetingForm) {
+        meetingForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const reportIdx = parseInt(document.getElementById('meet-report-index').value);
+            if (reportIdx >= 0) {
+                const type = document.getElementById('meet-type').value;
+                const date = document.getElementById('meet-date').value;
+                const notes = document.getElementById('meet-notes').value;
+                const actions = document.getElementById('meet-actions').value;
+                const support = document.getElementById('meet-support').value;
+
+                const newMeeting = { date, type, notes, actions, support };
+                appState.directReports[reportIdx].meetings.unshift(newMeeting);
+                saveState();
+                
+                meetingForm.reset();
+                // Set today's date back
+                document.getElementById('meet-date').value = new Date().toISOString().split('T')[0];
+                renderMeetingsHistory(reportIdx);
+            }
+        });
+    }
+}
+
+function renderLineManagement() {
+    const grid = document.getElementById('direct-reports-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    appState.directReports.forEach((r, idx) => {
+        const activeGoalsCount = r.goals.filter(g => g.status !== 'Completed').length;
+        const completedGoalsCount = r.goals.filter(g => g.status === 'Completed').length;
+        const cpdHours = r.cpd.reduce((sum, c) => sum + parseFloat(c.hours), 0);
+        
+        let lastCheckIn = 'No meetings recorded';
+        if (r.meetings && r.meetings.length > 0) {
+            // Sort meetings to find the latest
+            const sortedMeetings = [...r.meetings].sort((a,b) => new Date(b.date) - new Date(a.date));
+            lastCheckIn = `${formatDate(sortedMeetings[0].date)} (${sortedMeetings[0].type.split(' (')[0]})`;
+        }
+
+        grid.innerHTML += `
+            <div class="report-card">
+                <div>
+                    <div class="report-card-header">
+                        <div class="avatar-container">
+                            <img src="${r.avatar}" alt="${r.name}">
+                            <div class="status-indicator online"></div>
+                        </div>
+                        <div class="report-card-info">
+                            <h3>${r.name}</h3>
+                            <p>${r.role}</p>
+                        </div>
+                    </div>
+                    
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 12px;">
+                        Framework: <strong>${r.framework}</strong>
+                    </div>
+
+                    <div class="report-card-stats">
+                        <div class="report-stat-item">
+                            <span class="report-stat-label">Active Goals</span>
+                            <span class="report-stat-val">${activeGoalsCount} active</span>
+                        </div>
+                        <div class="report-stat-item">
+                            <span class="report-stat-label">CPD Hours</span>
+                            <span class="report-stat-val">${cpdHours.toFixed(1)} hrs</span>
+                        </div>
+                        <div class="report-stat-item" style="grid-column: span 2; border-top: 1px dashed var(--border-color); padding-top: 8px; margin-top: 4px;">
+                            <span class="report-stat-label">Last Check-in</span>
+                            <span class="report-stat-val" style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary);">${lastCheckIn}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="report-card-actions">
+                    <button class="btn btn-primary btn-sm btn-iconic" onclick="openReportDetail(${idx})">
+                        <svg viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                        Review
+                    </button>
+                    <button class="btn btn-secondary btn-sm btn-iconic" onclick="openRecordMeeting(${idx})">
+                        <svg viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
+                        Meetings
+                    </button>
+                </div>
+            </div>
+        `;
+    });
+}
+
+function openReportDetail(reportIdx) {
+    activeLmDetailReportIdx = reportIdx;
+    const report = appState.directReports[reportIdx];
+    
+    document.getElementById('lm-list-panel').style.display = 'none';
+    document.getElementById('lm-detail-panel').style.display = 'block';
+
+    // Populate header details
+    document.getElementById('report-avatar').src = report.avatar;
+    document.getElementById('report-name').textContent = report.name;
+    document.getElementById('report-role').textContent = report.role;
+    document.getElementById('report-framework-val').textContent = report.framework;
+    document.getElementById('report-qual-val').textContent = report.qualifications;
+
+    // Sub-tab: Aspiration Lens details
+    document.getElementById('report-job-desc-text').textContent = report.jobDescription;
+    document.getElementById('report-aspirations-text').textContent = report.aspirations;
+    document.getElementById('report-skills-text').textContent = report.skills;
+
+    // Switch to 'lens' sub-tab by default
+    switchLmDetailTab('lens');
+}
+
+function exitReportDetail() {
+    document.getElementById('lm-detail-panel').style.display = 'none';
+    document.getElementById('lm-list-panel').style.display = 'block';
+    renderLineManagement(); // refresh overview stats
+}
+
+function switchLmDetailTab(tabId) {
+    activeLmDetailTab = tabId;
+    
+    // Toggle active tab buttons
+    document.querySelectorAll('#lm-detail-panel .filter-tab').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    document.getElementById(`lm-tab-${tabId}`).classList.add('active');
+
+    // Toggle subviews
+    document.querySelectorAll('.lm-sub-view').forEach(view => {
+        view.style.display = 'none';
+    });
+    document.getElementById(`lm-sub-view-${tabId}`).style.display = 'block';
+
+    // Render contents based on tab
+    if (tabId === 'goals') renderLmReportGoals(activeLmDetailReportIdx);
+    if (tabId === 'cpd') renderLmReportCpd(activeLmDetailReportIdx);
+    if (tabId === 'timeline') renderLmReportTimeline(activeLmDetailReportIdx);
+}
+
+function renderLmReportGoals(reportIdx) {
+    const container = document.getElementById('lm-report-goals-grid');
+    if (!container) return;
+    container.innerHTML = '';
+
+    const report = appState.directReports[reportIdx];
+    report.goals.forEach((g, goalIdx) => {
+        const tagClass = getTagClass(g.tag);
+        
+        let managerCommentHtml = '';
+        if (g.managerComment) {
+            managerCommentHtml = `
+                <div class="manager-comment-content">
+                    "${g.managerComment}"
+                </div>
+            `;
+        } else {
+            managerCommentHtml = `<p style="font-size: 0.8rem; color: var(--text-muted); font-style: italic;">No feedback recorded yet.</p>`;
+        }
+
+        const evidenceHtml = g.evidence.map(ev => `
+            <div class="evidence-pill-item ${ev.isCheckpoint ? 'milestone' : ''}" style="background-color: var(--bg-app); border: 1px solid var(--border-color); padding: 10px; border-radius: var(--radius-sm); margin-top: 8px;">
+                <span class="ev-date" style="font-size: 0.75rem; color: var(--text-muted);">${formatDate(ev.date)}</span>
+                <p class="ev-desc" style="font-size: 0.8rem; margin: 4px 0;">${ev.content}</p>
+                ${ev.link ? `<a href="${ev.link}" target="_blank" class="ev-link" style="font-size: 0.75rem; color: var(--primary);">🔗 ${ev.linkLabel}</a>` : ''}
+            </div>
+        `).join('');
+
+        container.innerHTML += `
+            <div class="goal-card" style="height: auto; min-height: 340px;">
+                <div>
+                    <div class="goal-card-header">
+                        <span class="tag ${tagClass}">${g.tag}</span>
+                        <span class="tag tag-framework">${g.status}</span>
+                    </div>
+                    <h4 class="goal-card-title">${g.title}</h4>
+                    <div class="goal-card-body mt-md">
+                        <span class="goal-section-label">Success Criteria:</span>
+                        <p class="goal-criteria-text" style="-webkit-line-clamp: 2;">${g.successCriteria}</p>
+                        
+                        <div class="goal-evidence mt-md">
+                            <span class="goal-section-label">Evidence Logs (${g.evidence.length}):</span>
+                            ${evidenceHtml || '<p style="font-size: 0.8rem; color: var(--text-muted); font-style: italic; margin-top: 4px;">No evidence logged by staff yet.</p>'}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="manager-comments-section">
+                    <span class="manager-comment-title">Manager Growth Feedback</span>
+                    ${managerCommentHtml}
+                    <form class="manager-comment-form" onsubmit="saveGoalComment(event, ${reportIdx}, ${goalIdx})">
+                        <textarea required placeholder="Add coaching advice, encouragement, or review comments..." rows="2"></textarea>
+                        <button type="submit" class="btn btn-secondary btn-sm" style="align-self: flex-end;">Save Feedback</button>
+                    </form>
+                </div>
+            </div>
+        `;
+    });
+}
+
+function saveGoalComment(event, reportIdx, goalIdx) {
+    event.preventDefault();
+    const form = event.target;
+    const commentText = form.querySelector('textarea').value;
+    
+    appState.directReports[reportIdx].goals[goalIdx].managerComment = commentText;
+    saveState();
+    
+    form.reset();
+    renderLmReportGoals(reportIdx);
+}
+
+function renderLmReportCpd(reportIdx) {
+    const feed = document.getElementById('lm-report-cpd-feed');
+    if (!feed) return;
+    feed.innerHTML = '';
+
+    const report = appState.directReports[reportIdx];
+    report.cpd.forEach(c => {
+        feed.innerHTML += `
+            <div class="cpd-item-card" style="cursor: default;">
+                <div class="cpd-item-left">
+                    <h4 class="cpd-item-title">${c.activity}</h4>
+                    <div class="cpd-item-details">
+                        <span class="cpd-item-badge">${c.type}</span>
+                        <span>${formatDate(c.date)}</span>
+                        <span>Provider: <strong>${c.provider}</strong></span>
+                    </div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px; line-height: 1.4;">
+                        Aligned: <strong>${c.linkedStandard}</strong><br>
+                        <strong>Key Learning:</strong> ${c.reflection.learn}<br>
+                        <strong>Impact:</strong> ${c.reflection.impact}
+                    </div>
+                </div>
+                <div class="cpd-item-right">
+                    <span class="cpd-hours-badge">${c.hours} hrs</span>
+                    <span class="cpd-hours-sub">Logged</span>
+                </div>
+            </div>
+        `;
+    });
+
+    if (report.cpd.length === 0) {
+        feed.innerHTML = '<p style="text-align: center; padding: 40px; color: var(--text-muted);">No CPD activities logged yet.</p>';
+    }
+}
+
+function renderLmReportTimeline(reportIdx) {
+    const list = document.getElementById('lm-report-timeline-list');
+    if (!list) return;
+    list.innerHTML = '';
+
+    const report = appState.directReports[reportIdx];
+    let timeline = [];
+
+    // CPD
+    report.cpd.forEach(c => {
+        timeline.push({
+            date: c.date,
+            title: c.activity,
+            label: `${c.type} (${c.hours} hrs)`,
+            content: `<p><strong>Reflection Summary:</strong> ${c.reflection.learn}</p>`,
+            source: 'cpd'
+        });
+    });
+
+    // Evidence
+    report.goals.forEach(g => {
+        g.evidence.forEach(ev => {
+            timeline.push({
+                date: ev.date,
+                title: ev.content,
+                label: ev.isCheckpoint ? 'Milestone Progress Update' : 'Goal Progress Update',
+                content: `<span class="tag tag-framework">🎯 Goal: ${shortenGoalTitle(g.title)}</span>`,
+                source: 'evidence'
+            });
+        });
+        
+        if (g.status === 'Completed') {
+            const compDate = g.evidence.length > 0 ? g.evidence[g.evidence.length - 1].date : '2026-05-15';
+            timeline.push({
+                date: compDate,
+                title: `Goal Completed: ${shortenGoalTitle(g.title)} 🎉`,
+                label: 'Milestone Achieved',
+                content: `<p><strong>Outcome:</strong> ${g.successCriteria}</p>`,
+                source: 'evidence'
+            });
+        }
+    });
+
+    // Sort timeline chronologically (latest first)
+    timeline.sort((a,b) => new Date(b.date) - new Date(a.date));
+
+    timeline.forEach(item => {
+        let nodeClass = 'node-cpd';
+        let iconSvg = '';
+        
+        if (item.source === 'cpd') {
+            nodeClass = 'node-cpd';
+            iconSvg = `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>`;
+        } else if (item.source === 'evidence') {
+            nodeClass = 'node-goal';
+            iconSvg = `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>`;
+        }
+
+        list.innerHTML += `
+            <div class="timeline-node ${nodeClass}">
+                <div class="timeline-node-marker">${iconSvg}</div>
+                <div class="timeline-node-box">
+                    <div class="timeline-node-header">
+                        <span class="timeline-node-type-label">${item.label}</span>
+                        <span class="timeline-node-date">${formatDate(item.date)}</span>
+                    </div>
+                    <h4 class="timeline-node-title">${item.title}</h4>
+                    <div class="timeline-node-content">${item.content}</div>
+                </div>
+            </div>
+        `;
+    });
+
+    if (timeline.length === 0) {
+        list.innerHTML = '<p style="text-align: center; padding: 40px; color: var(--text-muted);">No timeline items logged yet.</p>';
+    }
+}
+
+function openRecordMeeting(reportIdx) {
+    const report = appState.directReports[reportIdx];
+    document.getElementById('lm-list-panel').style.display = 'none';
+    document.getElementById('lm-meetings-panel').style.display = 'block';
+
+    // Header info
+    document.getElementById('meet-avatar').src = report.avatar;
+    document.getElementById('meet-report-name').textContent = report.name;
+    document.getElementById('meet-report-role').textContent = report.role;
+
+    // Form setup
+    document.getElementById('meet-report-index').value = reportIdx;
+    document.getElementById('meet-date').value = new Date().toISOString().split('T')[0];
+    document.getElementById('lm-meeting-form').reset();
+    document.getElementById('meet-date').value = new Date().toISOString().split('T')[0];
+
+    renderMeetingsHistory(reportIdx);
+}
+
+function exitMeetingsPanel() {
+    document.getElementById('lm-meetings-panel').style.display = 'none';
+    document.getElementById('lm-list-panel').style.display = 'block';
+    renderLineManagement(); // refresh overview stats
+}
+
+function renderMeetingsHistory(reportIdx) {
+    const feed = document.getElementById('lm-meetings-feed-list');
+    if (!feed) return;
+    feed.innerHTML = '';
+
+    const report = appState.directReports[reportIdx];
+    if (report.meetings && report.meetings.length > 0) {
+        // Sort meetings: latest first
+        const sorted = [...report.meetings].sort((a,b) => new Date(b.date) - new Date(a.date));
+        
+        sorted.forEach(m => {
+            let typeClass = 'type-informal';
+            let badgeClass = 'badge-informal';
+            if (m.type.includes('Start of Year')) {
+                typeClass = 'type-formal-start';
+                badgeClass = 'badge-formal-start';
+            } else if (m.type.includes('End of Year')) {
+                typeClass = 'type-formal-end';
+                badgeClass = 'badge-formal-end';
+            }
+
+            feed.innerHTML += `
+                <div class="meeting-log-card ${typeClass}">
+                    <div class="meeting-log-header">
+                        <span class="badge-meeting-type ${badgeClass}">${m.type}</span>
+                        <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 500;">${formatDate(m.date)}</span>
+                    </div>
+                    <div class="meeting-log-body">
+                        <div>
+                            <span class="meet-block-label">Discussion Notes:</span>
+                            <p>${m.notes}</p>
+                        </div>
+                        <div>
+                            <span class="meet-block-label">Agreed Actions:</span>
+                            <p>${m.actions}</p>
+                        </div>
+                        ${m.support ? `
+                            <div>
+                                <span class="meet-block-label">Support & Resources:</span>
+                                <p>${m.support}</p>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+        });
+    } else {
+        feed.innerHTML = '<p style="text-align: center; padding: 40px; color: var(--text-muted); font-style: italic;">No meetings recorded yet.</p>';
+    }
+}
+
+// Global hooks for tab transitions in HTML buttons
 window.switchTab = switchTab;
 window.openEvidenceModal = openEvidenceModal;
 window.editGoal = editGoal;
 window.toggleCpdCollapse = toggleCpdCollapse;
+
+// Line management hooks
+window.openReportDetail = openReportDetail;
+window.exitReportDetail = exitReportDetail;
+window.switchLmDetailTab = switchLmDetailTab;
+window.saveGoalComment = saveGoalComment;
+window.openRecordMeeting = openRecordMeeting;
+window.exitMeetingsPanel = exitMeetingsPanel;
 
 // Document Ready Initialization
 document.addEventListener('DOMContentLoaded', () => {
@@ -1301,6 +1910,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initCpdView();
     initTimelineView();
     initAnnualReviewView();
+    initLineManagementView();
 
     // Render initial view
     switchTab('dashboard');

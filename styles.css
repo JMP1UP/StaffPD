@@ -2061,3 +2061,239 @@ a:hover {
         display: none;
     }
 }
+
+/* --------------------------------------------------
+   8. LINE MANAGEMENT VIEW STYLING
+   -------------------------------------------------- */
+.direct-reports-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+}
+
+.report-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all var(--transition-normal);
+}
+
+.report-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: rgba(37, 99, 235, 0.4);
+}
+
+.report-card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.report-card-header .avatar-container {
+    width: 60px;
+    height: 60px;
+}
+
+.report-card-info h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.report-card-info p {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.report-card-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 16px 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 16px;
+}
+
+.report-stat-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.report-stat-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.report-stat-val {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.report-card-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.report-card-actions button {
+    flex: 1;
+}
+
+/* Detail view header layout */
+.report-header-flex {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.avatar-container.large {
+    width: 80px;
+    height: 80px;
+}
+
+.report-header-details h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+}
+
+.report-header-details p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+/* Sub-views layout */
+.lm-sub-view {
+    display: none;
+    animation: fadeIn var(--transition-normal) forwards;
+}
+
+.lm-sub-view.active {
+    display: block;
+}
+
+.lens-text-preview {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+}
+
+/* Manager Comments section in goals list */
+.manager-comments-section {
+    background-color: var(--bg-app);
+    padding: 16px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.manager-comment-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.manager-comment-content {
+    font-size: 0.8rem;
+    color: var(--text-primary);
+    line-height: 1.4;
+    font-style: italic;
+    background-color: var(--bg-card);
+    padding: 10px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+}
+
+.manager-comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.manager-comment-form textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 0.8rem;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    resize: vertical;
+}
+
+/* Meeting Timeline & Badges */
+.meetings-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow-y: auto;
+    max-height: 520px;
+    padding-right: 4px;
+}
+
+.meeting-log-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 18px;
+    border-left: 4px solid var(--text-muted);
+    transition: background-color var(--transition-fast);
+}
+
+.meeting-log-card:hover {
+    background-color: var(--bg-card-hover);
+}
+
+.meeting-log-card.type-formal-start { border-left-color: var(--success); }
+.meeting-log-card.type-formal-end { border-left-color: var(--accent); }
+.meeting-log-card.type-informal { border-left-color: var(--primary); }
+
+.meeting-log-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.badge-meeting-type {
+    font-size: 0.7rem;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.badge-formal-start { background-color: var(--success-glow); color: var(--success); }
+.badge-formal-end { background-color: var(--accent-glow); color: var(--accent); }
+.badge-informal { background-color: var(--primary-glow); color: var(--primary); }
+
+.meeting-log-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: var(--text-secondary);
+}
+
+.meet-block-label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.75rem;
+    margin-bottom: 2px;
+}
+

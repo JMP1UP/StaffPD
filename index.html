@@ -114,6 +114,14 @@
                             <span>Annual Review</span>
                         </button>
                     </li>
+                    <li>
+                        <button class="nav-btn" data-tab="line-management" id="nav-line-management">
+                            <svg class="nav-icon" viewBox="0 0 24 24">
+                                <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 1.34 5 3s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                            </svg>
+                            <span>Line Management</span>
+                        </button>
+                    </li>
                 </ul>
             </nav>
 
@@ -844,14 +852,204 @@
                                             <div class="meta-cell"><strong>Framework Alignment:</strong> <span id="rev-meta-framework">Teachers' Standards</span></div>
                                         </div>
                                     </div>
-
                                     <div class="review-sections" id="review-report-sections">
-                                        <!-- Synthesized Markdown/HTML goes here -->
+                                        <!-- Synthesised Markdown/HTML goes here -->
                                     </div>
                                 </div>
                             </div>
                         </div>
 
+                    </div>
+                </section>
+
+                <!-- 8. LINE MANAGEMENT VIEW -->
+                <section class="tab-view" id="view-line-management">
+                    <!-- A. Primary Listing Panel -->
+                    <div class="line-management-list-panel" id="lm-list-panel">
+                        <div class="panel-card mb-lg">
+                            <h3 class="panel-title mb-sm">My Department Staff</h3>
+                            <span class="subtitle">As Head of Science, you line manage the following team members. Check their portfolios, log catch-ups, or conduct formal reviews.</span>
+                        </div>
+                        
+                        <!-- Grid of direct reports -->
+                        <div class="direct-reports-grid" id="direct-reports-grid">
+                            <!-- Populated dynamically via app.js -->
+                        </div>
+                    </div>
+
+                    <!-- B. Direct Report Detailed Review Panel (starts hidden) -->
+                    <div class="line-management-detail-panel" id="lm-detail-panel" style="display: none;">
+                        <div class="mb-md">
+                            <button class="btn btn-secondary btn-iconic" onclick="exitReportDetail()">
+                                <svg viewBox="0 0 24 24" width="16" height="16"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                                Back to Staff List
+                            </button>
+                        </div>
+
+                        <!-- Staff Mini-Header Profile Lens -->
+                        <div class="panel-card mb-lg profile-lens-card">
+                            <div class="report-header-flex">
+                                <div class="avatar-container large">
+                                    <img id="report-avatar" src="" alt="Staff Avatar">
+                                </div>
+                                <div class="report-header-details">
+                                    <h2 id="report-name">David Davis</h2>
+                                    <p id="report-role" class="mb-sm">Chemistry Teacher</p>
+                                    <div class="meta-row">
+                                        <div class="meta-cell"><strong>Line Manager:</strong> <span id="report-manager-val">Sarah Jenkins</span></div>
+                                        <div class="meta-cell"><strong>Framework:</strong> <span id="report-framework-val">Teachers' Standards</span></div>
+                                        <div class="meta-cell"><strong>Qualifications:</strong> <span id="report-qual-val">BSc Chemistry, PGCE</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Detail Navigation Tabs -->
+                        <div class="section-actions-bar">
+                            <div class="filters">
+                                <button class="filter-tab active" id="lm-tab-lens" onclick="switchLmDetailTab('lens')">Aspiration Lens</button>
+                                <button class="filter-tab" id="lm-tab-goals" onclick="switchLmDetailTab('goals')">Goals & Evidence</button>
+                                <button class="filter-tab" id="lm-tab-cpd" onclick="switchLmDetailTab('cpd')">CPD Logs</button>
+                                <button class="filter-tab" id="lm-tab-timeline" onclick="switchLmDetailTab('timeline')">Timeline</button>
+                            </div>
+                        </div>
+
+                        <!-- Sub-tabs containers -->
+                        <div class="detail-sub-viewport">
+                            
+                            <!-- Sub-tab 1: Aspiration Lens -->
+                            <div class="lm-sub-view active" id="lm-sub-view-lens">
+                                <div class="grid-layout">
+                                    <div class="grid-col-8 flex-column gap-lg">
+                                        <div class="panel-card">
+                                            <h3 class="panel-title mb-md">Job Description & Core Responsibilities</h3>
+                                            <p id="report-job-desc-text" class="lens-text-preview">Curates Chemistry resources, manages lab setups, and teaches KS3-5 Chemistry classes.</p>
+                                        </div>
+                                        <div class="panel-card">
+                                            <h3 class="panel-title mb-md">Career Aspirations & Growth Focus</h3>
+                                            <p id="report-aspirations-text" class="lens-text-preview">Seeking to take on Science curriculum coordinator responsibilities within 1 year.</p>
+                                        </div>
+                                    </div>
+                                    <div class="grid-col-4 flex-column gap-lg">
+                                        <div class="panel-card">
+                                            <h3 class="panel-title mb-md">Expertise & Skills</h3>
+                                            <p id="report-skills-text" class="lens-text-preview">A-Level Chemistry, Pedagogy Coaching, Practical Demonstrations</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sub-tab 2: Goals & Evidence (with manager review comments facilities) -->
+                            <div class="lm-sub-view" id="lm-sub-view-goals" style="display: none;">
+                                <div class="goals-grid" id="lm-report-goals-grid">
+                                    <!-- Populated dynamically via JS -->
+                                </div>
+                            </div>
+
+                            <!-- Sub-tab 3: CPD Logs -->
+                            <div class="lm-sub-view" id="lm-sub-view-cpd" style="display: none;">
+                                <div class="panel-card">
+                                    <h3 class="panel-title mb-md">Logged Professional Development</h3>
+                                    <div class="cpd-activities-feed" id="lm-report-cpd-feed">
+                                        <!-- Populated dynamically -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sub-tab 4: Timeline -->
+                            <div class="lm-sub-view" id="lm-sub-view-timeline" style="display: none;">
+                                <div class="timeline-container-wrapper">
+                                    <div class="panel-card">
+                                        <h3 class="panel-title mb-md">Professional Growth Timeline</h3>
+                                        <div class="timeline-vertical" id="lm-report-timeline-list">
+                                            <!-- Populated dynamically -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- C. Line Management Meetings facility panel (starts hidden) -->
+                    <div class="line-management-meetings-panel" id="lm-meetings-panel" style="display: none;">
+                        <div class="mb-md">
+                            <button class="btn btn-secondary btn-iconic" onclick="exitMeetingsPanel()">
+                                <svg viewBox="0 0 24 24" width="16" height="16"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                                Back to Staff List
+                            </button>
+                        </div>
+
+                        <!-- Staff Mini-Header Profile -->
+                        <div class="panel-card mb-lg profile-lens-card">
+                            <div class="report-header-flex">
+                                <div class="avatar-container large">
+                                    <img id="meet-avatar" src="" alt="Staff Avatar">
+                                </div>
+                                <div class="report-header-details">
+                                    <h2 id="meet-report-name">David Davis</h2>
+                                    <p id="meet-report-role">Chemistry Teacher</p>
+                                    <span class="subtitle mt-sm">Line Management & Development Meetings Log</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Meeting grid -->
+                        <div class="grid-layout">
+                            <!-- Left: Form to log new meetings -->
+                            <div class="grid-col-5 flex-column gap-lg">
+                                <div class="panel-card">
+                                    <h3 class="panel-title mb-md">Record New Meeting</h3>
+                                    <form id="lm-meeting-form">
+                                        <input type="hidden" id="meet-report-index" value="-1">
+                                        
+                                        <div class="form-grid-2">
+                                            <div class="form-group">
+                                                <label for="meet-type">Meeting Type</label>
+                                                <select id="meet-type">
+                                                    <option value="Start of Year (Formal)">Start of Year (Formal)</option>
+                                                    <option value="End of Year (Formal)">End of Year (Formal)</option>
+                                                    <option value="Catch-up Check-in (Informal)">Catch-up Check-in (Informal)</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="meet-date">Meeting Date</label>
+                                                <input type="date" id="meet-date" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group mt-md">
+                                            <label for="meet-notes">Discussion Notes</label>
+                                            <textarea id="meet-notes" rows="4" required placeholder="Outline what was discussed, progress reviews, or support needs..."></textarea>
+                                        </div>
+
+                                        <div class="form-group mt-md">
+                                            <label for="meet-actions">Agreed Actions & Next Steps</label>
+                                            <textarea id="meet-actions" rows="3" required placeholder="What should the staff member work on before the next checkpoint?"></textarea>
+                                        </div>
+
+                                        <div class="form-group mt-md">
+                                            <label for="meet-support">Support & Resources Agreed</label>
+                                            <textarea id="meet-support" rows="2" placeholder="e.g. peer observation arrangements, cost-approvals, tech time..."></textarea>
+                                        </div>
+
+                                        <div class="form-actions mt-lg">
+                                            <button type="submit" class="btn btn-primary btn-block">Save Meeting Record</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <!-- Right: Meeting History Timeline -->
+                            <div class="grid-col-7 flex-column gap-lg">
+                                <div class="panel-card fill-height">
+                                    <h3 class="panel-title mb-md">Meetings History</h3>
+                                    <div class="meetings-feed" id="lm-meetings-feed-list">
+                                        <!-- Loaded dynamically -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
