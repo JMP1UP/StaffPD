@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=3">
+    <link rel="stylesheet" href="styles.css?v=4">
 </head>
 <body>
     <div class="app-container">
@@ -1061,30 +1061,30 @@
                     </div>
                 </section>
 
+                <!-- 9. ORGANISATION CHART VIEW -->
+                <section class="tab-view" id="view-org-chart">
+                    <div class="panel-card mb-lg">
+                        <h3 class="panel-title mb-sm">School Organisation Chart</h3>
+                        <span class="subtitle">An interactive visualization of Leicester High School's reporting relationships, showcasing departmental coaching structures and line management pathways.</span>
+                    </div>
+
+                    <div class="panel-card" style="overflow-x: auto; padding: 30px; display: flex; flex-direction: column; align-items: center; width: 100%;">
+                        <div class="org-chart-controls mb-md" style="width: 100%; text-align: center;">
+                            <span style="font-size: 0.85rem; color: var(--text-muted);">
+                                💡 <em>Tip: Scroll horizontally to explore the full layout. Hover over card nodes to highlight reporting branches.</em>
+                            </span>
+                        </div>
+                        <div class="org-chart-wrapper" id="org-chart-container" style="width: 100%; display: flex; justify-content: center;">
+                            <!-- Populated dynamically via renderOrgChart in app.js -->
+                        </div>
+                    </div>
+                </section>
+
             </div>
         </main>
     </div>
 
-    <!-- 9. ORGANISATION CHART VIEW -->
-    <section class="tab-view" id="view-org-chart">
-        <div class="panel-card mb-lg">
-            <h3 class="panel-title mb-sm">School Organisation Chart</h3>
-            <span class="subtitle">An interactive visualization of Leicester High School's reporting relationships, showcasing departmental coaching structures and line management pathways.</span>
-        </div>
-
-        <div class="panel-card" style="overflow-x: auto; padding: 30px; display: flex; flex-direction: column; align-items: center;">
-            <div class="org-chart-controls mb-md" style="width: 100%; text-align: center;">
-                <span style="font-size: 0.85rem; color: var(--text-muted);">
-                    💡 <em>Tip: Scroll horizontally to explore the full layout. Hover over card nodes to highlight reporting branches.</em>
-                </span>
-            </div>
-            <div class="org-chart-wrapper" id="org-chart-container" style="width: 100%; display: flex; justify-content: center;">
-                <!-- Populated dynamically via renderOrgChart in app.js -->
-            </div>
-        </div>
-    </section>
-
     <!-- Main JavaScript Entry -->
-    <script src="app.js?v=3"></script>
+    <script src="app.js?v=4"></script>
 </body>
 </html>
