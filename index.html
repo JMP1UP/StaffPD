@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=4">
+    <link rel="stylesheet" href="styles.css?v=5">
 </head>
 <body>
     <div class="app-container">
@@ -164,7 +164,7 @@
                     <!-- Current Cycle Widget -->
                     <div class="cycle-pill">
                         <span class="cycle-label">Current Cycle:</span>
-                        <span class="cycle-value">Mid-Year Checkpoint 2 (Feb)</span>
+                        <span class="cycle-value">Spring Term Check-in</span>
                     </div>
                     <!-- Notification Bell -->
                     <div class="notification-bell">
@@ -273,38 +273,22 @@
                                             <svg viewBox="0 0 24 24" width="14" height="14"><path fill="none" d="M0 0h24v24H0z"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
                                         </div>
                                         <div class="step-info">
-                                            <h4>September</h4>
-                                            <p>Vision & Goal Setting</p>
-                                        </div>
-                                    </div>
-                                    <div class="cycle-step-item completed">
-                                        <div class="step-marker">
-                                            <svg viewBox="0 0 24 24" width="14" height="14"><path fill="none" d="M0 0h24v24H0z"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
-                                        </div>
-                                        <div class="step-info">
-                                            <h4>November</h4>
-                                            <p>Checkpoint 1 (Progress Review)</p>
+                                            <h4>Start of Year</h4>
+                                            <p>Set targets & sign off last year</p>
                                         </div>
                                     </div>
                                     <div class="cycle-step-item active">
                                         <div class="step-marker pulse-ring"></div>
                                         <div class="step-info">
-                                            <h4>February</h4>
-                                            <p>Checkpoint 2 (Mid-Year Reflection)</p>
+                                            <h4>Spring Term</h4>
+                                            <p>Mid-cycle progress check</p>
                                         </div>
                                     </div>
                                     <div class="cycle-step-item">
                                         <div class="step-marker"></div>
                                         <div class="step-info">
-                                            <h4>May</h4>
-                                            <p>Checkpoint 3 (Impact Review)</p>
-                                        </div>
-                                    </div>
-                                    <div class="cycle-step-item">
-                                        <div class="step-marker"></div>
-                                        <div class="step-info">
-                                            <h4>July</h4>
-                                            <p>Annual Review & Timeline Synthesis</p>
+                                            <h4>Summer Term</h4>
+                                            <p>Annual appraisal & review</p>
                                         </div>
                                     </div>
                                 </div>
@@ -771,40 +755,24 @@
                                     <div class="stage-card completed">
                                         <div class="stage-status">September</div>
                                         <div class="stage-content">
-                                            <h4>Vision & Goal Setting</h4>
-                                            <p>Goals established & aligned with Teachers' Standards.</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="stage-card completed">
-                                        <div class="stage-status">November</div>
-                                        <div class="stage-content">
-                                            <h4>Checkpoint 1</h4>
-                                            <p>Initial progress check, goals updated, CPD log started.</p>
+                                            <h4>Start of Year</h4>
+                                            <p>Set targets & sign off last year (unless new staff).</p>
                                         </div>
                                     </div>
 
                                     <div class="stage-card current">
                                         <div class="stage-status">February</div>
                                         <div class="stage-content">
-                                            <h4>Checkpoint 2 (Mid-Year)</h4>
-                                            <p>Reflection on practice journal entries and mid-year targets adjustment.</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="stage-card upcoming">
-                                        <div class="stage-status">May</div>
-                                        <div class="stage-content">
-                                            <h4>Checkpoint 3</h4>
-                                            <p>Final gather of evidence and impact outcomes before review.</p>
+                                            <h4>Spring Term</h4>
+                                            <p>Review reflections, CPD logs, and mid-year targets progress.</p>
                                         </div>
                                     </div>
 
                                     <div class="stage-card final-trigger" id="review-trigger-card">
                                         <div class="stage-status">July</div>
                                         <div class="stage-content">
-                                            <h4>Annual Review Synthesis</h4>
-                                            <p>Compile portfolio activities and synthesise the report.</p>
+                                            <h4>Summer Term</h4>
+                                            <p>Compile portfolio activities and generate the annual review report.</p>
                                             <button class="btn btn-accent btn-block btn-iconic mt-sm" id="btn-generate-review">
                                                 <svg viewBox="0 0 24 24" width="18" height="18"><path d="M19 8H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zm-2 4h-4v-2h4v2zm0-4h-4V6h4v2zM9 14H5v-4h4v4z"/></svg>
                                                 Generate Annual Review Summary
@@ -845,7 +813,7 @@
                                         </svg>
                                     </div>
                                     <h4>Ready for review synthesis</h4>
-                                    <p>Select the <strong>July checkpoint</strong> action on the left or click "Generate Annual Review Summary" to compile your year's work into a detailed draft.</p>
+                                    <p>Select the <strong>Summer Term</strong> stage on the left or click "Generate Annual Review Summary" to compile your year's work into a detailed draft.</p>
                                 </div>
 
                                 <div class="review-output-body" id="review-output" style="display: none;">
@@ -1085,6 +1053,6 @@
     </div>
 
     <!-- Main JavaScript Entry -->
-    <script src="app.js?v=4"></script>
+    <script src="app.js?v=5"></script>
 </body>
 </html>
