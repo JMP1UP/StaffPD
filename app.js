@@ -82,27 +82,78 @@ let appState = {
     ],
     cpdQuestions: [
         {
-            id: 'q1',
-            text: 'How confident do you feel applying cognitive load theory to slide designs?',
-            type: 'scale',
+            id: 's1',
+            title: 'Safeguarding & KCSIE Autumn Survey',
             targetGroup: 'all',
+            status: 'active',
             publishedDate: '2026-06-13',
-            options: ['1 - Not Confident', '2', '3', '4', '5 - Extremely Confident'],
+            questions: [
+                {
+                    id: 'sq1_1',
+                    text: 'How confident are you with our new safeguarding reporting software?',
+                    type: 'scale'
+                },
+                {
+                    id: 'sq1_2',
+                    text: 'Did you find the KCSIE 2026 brief document clear and easy to follow?',
+                    type: 'choice',
+                    options: ['Yes, fully clear', 'Mostly clear', 'No, needs clarification']
+                },
+                {
+                    id: 'sq1_3',
+                    text: 'What other training focus would you suggest for safeguarding?',
+                    type: 'text'
+                }
+            ],
             responses: [
-                { staffId: 'david_davis', staffName: 'Mr. David Davis', answer: '4' },
-                { staffId: 'james_carter', staffName: 'Mr. James Carter', answer: '3' },
-                { staffId: 'emily_higgins', staffName: 'Miss Emily Higgins', answer: '5' }
+                {
+                    staffId: 'david_davis',
+                    staffName: 'Mr. David Davis',
+                    answers: {
+                        'sq1_1': '4',
+                        'sq1_2': 'Yes, fully clear',
+                        'sq1_3': 'More real-life scenario walkthroughs would be useful.'
+                    }
+                },
+                {
+                    staffId: 'james_carter',
+                    staffName: 'Mr. James Carter',
+                    answers: {
+                        'sq1_1': '3',
+                        'sq1_2': 'Mostly clear',
+                        'sq1_3': 'Clear instructions on logging offline reports.'
+                    }
+                }
             ]
         },
         {
-            id: 'q2',
-            text: 'What is your primary training need for the upcoming academic year?',
-            type: 'text',
+            id: 's2',
+            title: 'Pedagogy & Classroom Slide Design',
             targetGroup: 'all',
-            publishedDate: '2026-06-13',
+            status: 'active',
+            publishedDate: '2026-06-12',
+            questions: [
+                {
+                    id: 'sq2_1',
+                    text: 'Rate your confidence in applying cognitive load theory to slide layouts:',
+                    type: 'scale'
+                },
+                {
+                    id: 'sq2_2',
+                    text: 'Are you interested in attending peer-guided workshops for digital classroom tools?',
+                    type: 'choice',
+                    options: ['Yes, highly interested', 'Maybe', 'No']
+                }
+            ],
             responses: [
-                { staffId: 'david_davis', staffName: 'Mr. David Davis', answer: 'Developing interactive simulation models for chemistry lab rates of reaction.' },
-                { staffId: 'james_carter', staffName: 'Mr. James Carter', answer: 'Server safety administration and asset tracking software updates.' }
+                {
+                    staffId: 'emily_higgins',
+                    staffName: 'Miss Emily Higgins',
+                    answers: {
+                        'sq2_1': '5',
+                        'sq2_2': 'Yes, highly interested'
+                    }
+                }
             ]
         }
     ],
@@ -3612,6 +3663,157 @@ function renderCpdAdminArticles() {
     });
 }
 
+let cpdSurveyQuestionsBuilder = [];
+
+function renderSurveyBuilderPreview() {
+    const container = document.getElementById('survey-questions-preview');
+    if (!container) return;
+    container.innerHTML = '';
+    
+    if (cpdSurveyQuestionsBuilder.length === 0) {
+        container.innerHTML = '<div style="color:var(--text-muted); font-style:italic; font-size:0.75rem; padding:8px 0;">No questions added yet.</div>';
+        return;
+    }
+    
+    cpdSurveyQuestionsBuilder.forEach((q, idx) => {
+        const typeLabels = { 'scale': '1-5 Rating', 'text': 'Open Text', 'choice': 'Multiple Choice' };
+        const typeLabel = typeLabels[q.type] || q.type;
+        const optionsInfo = q.options && q.options.length > 0 ? ` (${q.options.join(', ')})` : '';
+        container.innerHTML += `
+            <div style="background:var(--bg-app); border:1px solid var(--border-color); border-radius:var(--radius-sm); padding:8px 12px; display:flex; justify-content:space-between; align-items:center; font-size:0.8rem; gap:12px; margin-bottom:8px;">
+                <div style="flex:1; text-align:left;">
+                    <strong style="color:var(--primary);">${idx + 1}. [${typeLabel}]</strong> ${q.text}<span style="color:var(--text-muted); font-size:0.75rem;">${optionsInfo}</span>
+                </div>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="removeQuestionFromBuilder(${idx})" style="padding:2px 6px; border-color:var(--danger); color:var(--danger); font-size:0.7rem; min-height:auto;">Remove</button>
+            </div>
+        `;
+    });
+}
+window.renderSurveyBuilderPreview = renderSurveyBuilderPreview;
+
+function addQuestionToBuilder() {
+    const textInput = document.getElementById('question-text');
+    const typeInput = document.getElementById('question-type');
+    const choicesInput = document.getElementById('question-choices');
+    
+    if (!textInput || !typeInput) return;
+    
+    const text = textInput.value.trim();
+    const type = typeInput.value;
+    
+    if (!text) {
+        alert('Please enter the question text!');
+        return;
+    }
+    
+    let options = [];
+    if (type === 'choice') {
+        if (!choicesInput) return;
+        const choicesVal = choicesInput.value.trim();
+        if (!choicesVal) {
+            alert('Please enter options for Multiple Choice!');
+            return;
+        }
+        options = choicesVal.split(',').map(o => o.trim()).filter(Boolean);
+        if (options.length < 2) {
+            alert('Please enter at least 2 comma-separated options!');
+            return;
+        }
+    }
+    
+    const newQ = {
+        id: 'sq_' + Date.now() + '_' + Math.floor(Math.random() * 1000),
+        text,
+        type,
+        options
+    };
+    
+    cpdSurveyQuestionsBuilder.push(newQ);
+    renderSurveyBuilderPreview();
+    
+    // Reset inputs
+    textInput.value = '';
+    if (choicesInput) choicesInput.value = '';
+}
+window.addQuestionToBuilder = addQuestionToBuilder;
+
+function removeQuestionFromBuilder(idx) {
+    cpdSurveyQuestionsBuilder.splice(idx, 1);
+    renderSurveyBuilderPreview();
+}
+window.removeQuestionFromBuilder = removeQuestionFromBuilder;
+
+function toggleQuestionChoicesInput() {
+    const typeInput = document.getElementById('question-type');
+    const container = document.getElementById('choices-input-container');
+    if (typeInput && container) {
+        container.style.display = typeInput.value === 'choice' ? 'block' : 'none';
+    }
+}
+window.toggleQuestionChoicesInput = toggleQuestionChoicesInput;
+
+function publishCpdSurvey(e) {
+    e.preventDefault();
+    const titleInput = document.getElementById('survey-title');
+    const targetInput = document.getElementById('survey-target');
+    
+    if (!titleInput || !targetInput) return;
+    
+    const title = titleInput.value.trim();
+    const targetGroup = targetInput.value;
+    
+    if (!title) {
+        alert('Please enter a survey title!');
+        return;
+    }
+    
+    if (cpdSurveyQuestionsBuilder.length === 0) {
+        alert('Please add at least one question to the survey!');
+        return;
+    }
+    
+    const newSurvey = {
+        id: 's_' + Date.now(),
+        title,
+        targetGroup,
+        status: 'active',
+        publishedDate: new Date().toISOString().split('T')[0],
+        questions: [...cpdSurveyQuestionsBuilder],
+        responses: []
+    };
+    
+    if (!appState.cpdQuestions) appState.cpdQuestions = [];
+    appState.cpdQuestions.push(newSurvey);
+    saveState();
+    
+    cpdSurveyQuestionsBuilder = [];
+    document.getElementById('cpd-survey-form').reset();
+    toggleQuestionChoicesInput();
+    renderSurveyBuilderPreview();
+    renderCpdLeaderHub();
+    alert('Survey questionnaire published successfully!');
+}
+window.publishCpdSurvey = publishCpdSurvey;
+
+function toggleSurveyStatus(surveyId) {
+    const s = appState.cpdQuestions.find(qu => qu.id === surveyId);
+    if (s) {
+        s.status = s.status === 'active' ? 'closed' : 'active';
+        saveState();
+        renderCpdLeaderHub();
+    }
+}
+window.toggleSurveyStatus = toggleSurveyStatus;
+
+function deleteSurvey(surveyId) {
+    if (confirm("Are you sure you want to delete this survey and all its responses?")) {
+        appState.cpdQuestions = appState.cpdQuestions.filter(qu => qu.id !== surveyId);
+        saveState();
+        renderCpdLeaderHub();
+    }
+}
+window.deleteSurvey = deleteSurvey;
+
 function renderCpdAdminSurveys() {
     const list = document.getElementById('cpd-admin-surveys-list');
     if (!list) return;
@@ -3622,164 +3824,161 @@ function renderCpdAdminSurveys() {
         return;
     }
     
-    appState.cpdQuestions.forEach(q => {
-        const responses = q.responses || [];
+    appState.cpdQuestions.forEach(survey => {
+        const responses = survey.responses || [];
         const totalResp = responses.length;
+        const targetLabels = {
+            'all': 'All Staff',
+            'senior': 'Senior Teachers',
+            'junior': 'Junior Teachers',
+            'support': 'Support Staff'
+        };
+        const targetLabel = targetLabels[survey.targetGroup] || survey.targetGroup;
+        const statusLabel = survey.status === 'active' ? 'Active' : 'Closed';
+        const statusColor = survey.status === 'active' ? '#10b981' : 'var(--danger)';
+        const statusBg = survey.status === 'active' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.15)';
+        const statusBorder = survey.status === 'active' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(239, 68, 68, 0.2)';
         
-        let graphHtml = '';
-        let responsesHtml = '';
+        let questionsHtml = '';
         
-        if (q.type === 'scale') {
-            const counts = { '1': 0, '2': 0, '3': 0, '4': 0, '5': 0 };
-            let sum = 0;
-            responses.forEach(r => {
-                const rating = r.answer;
-                if (counts[rating] !== undefined) {
-                    counts[rating]++;
-                    sum += parseInt(rating);
-                }
-            });
-            const avg = totalResp > 0 ? (sum / totalResp).toFixed(1) : '0.0';
+        survey.questions.forEach((q, qIdx) => {
+            let qResultHtml = '';
             
-            graphHtml = `<div style="margin: 12px 0; background:rgba(0,0,0,0.1); padding:12px; border-radius:6px; display:flex; flex-direction:column; gap:8px;">
-                <div style="font-weight:700; font-size:0.85rem; color:var(--primary); margin-bottom:4px;">Average Score: ${avg} / 5.0 (${totalResp} responses)</div>`;
-            
-            for (let i = 5; i >= 1; i--) {
-                const count = counts[i.toString()];
-                const percent = totalResp > 0 ? (count / totalResp * 100).toFixed(0) : 0;
-                graphHtml += `
-                    <div style="display:flex; align-items:center; gap:8px; font-size:0.75rem;">
-                        <span style="width:14px; font-weight:700; color:var(--text-secondary);">${i}★</span>
-                        <div style="flex:1; height:8px; background:var(--border-color); border-radius:4px; overflow:hidden;">
-                            <div style="width:${percent}%; height:100%; background:var(--primary); border-radius:4px;"></div>
+            if (q.type === 'scale') {
+                const counts = { '1': 0, '2': 0, '3': 0, '4': 0, '5': 0 };
+                let sum = 0;
+                let qResponsesCount = 0;
+                responses.forEach(r => {
+                    if (r.answers) {
+                        const ans = r.answers[q.id];
+                        if (ans && counts[ans] !== undefined) {
+                            counts[ans]++;
+                            sum += parseInt(ans);
+                            qResponsesCount++;
+                        }
+                    }
+                });
+                const avg = qResponsesCount > 0 ? (sum / qResponsesCount).toFixed(1) : '0.0';
+                
+                qResultHtml = `
+                    <div style="margin: 8px 0; background:rgba(0,0,0,0.12); padding:10px; border-radius:6px; display:flex; flex-direction:column; gap:6px;">
+                        <div style="font-weight:700; font-size:0.8rem; color:var(--primary); text-align:left;">Average Rating: ${avg} / 5.0 (${qResponsesCount} responses)</div>
+                `;
+                for (let i = 5; i >= 1; i--) {
+                    const count = counts[i.toString()] || 0;
+                    const percent = qResponsesCount > 0 ? (count / qResponsesCount * 100).toFixed(0) : 0;
+                    qResultHtml += `
+                        <div class="survey-bar-container" style="display:flex; align-items:center; gap:8px; font-size:0.75rem;">
+                            <span style="width:14px; font-weight:700; color:var(--text-secondary);">${i}★</span>
+                            <div style="flex:1; height:8px; background:var(--border-color); border-radius:4px; overflow:hidden;">
+                                <div style="width:${percent}%; height:100%; background:var(--primary); border-radius:4px;"></div>
+                            </div>
+                            <span style="width:30px; text-align:right; color:var(--text-muted); font-weight:600;">${percent}%</span>
                         </div>
-                        <span style="width:30px; text-align:right; color:var(--text-muted); font-weight:600;">${percent}%</span>
+                    `;
+                }
+                qResultHtml += `</div>`;
+            } else if (q.type === 'choice') {
+                const counts = {};
+                if (q.options) {
+                    q.options.forEach(opt => { counts[opt] = 0; });
+                }
+                let qResponsesCount = 0;
+                responses.forEach(r => {
+                    if (r.answers) {
+                        const ans = r.answers[q.id];
+                        if (ans !== undefined && counts[ans] !== undefined) {
+                            counts[ans]++;
+                            qResponsesCount++;
+                        }
+                    }
+                });
+                
+                qResultHtml = `
+                    <div style="margin: 8px 0; background:rgba(0,0,0,0.12); padding:10px; border-radius:6px; display:flex; flex-direction:column; gap:6px;">
+                        <div style="font-weight:700; font-size:0.8rem; color:var(--primary); text-align:left;">Multiple Choice Breakdown (${qResponsesCount} responses)</div>
+                `;
+                if (q.options) {
+                    q.options.forEach(opt => {
+                        const count = counts[opt] || 0;
+                        const percent = qResponsesCount > 0 ? (count / qResponsesCount * 100).toFixed(0) : 0;
+                        qResultHtml += `
+                            <div style="display:flex; flex-direction:column; gap:2px; font-size:0.75rem; margin-bottom:4px; text-align:left;">
+                                <div style="display:flex; justify-content:space-between; color:var(--text-secondary); font-weight:600;">
+                                    <span>${opt}</span>
+                                    <span>${count} (${percent}%)</span>
+                                </div>
+                                <div style="height:8px; background:var(--border-color); border-radius:4px; overflow:hidden; width:100%;">
+                                    <div style="width:${percent}%; height:100%; background:var(--accent); border-radius:4px;"></div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+                qResultHtml += `</div>`;
+            } else {
+                let textItems = '';
+                responses.forEach(r => {
+                    if (r.answers) {
+                        const ans = r.answers[q.id];
+                        if (ans) {
+                            textItems += `
+                                <div style="background:var(--bg-card); border-left:3px solid var(--primary); padding:6px 10px; border-radius:0 4px 4px 0; font-size:0.75rem; margin-bottom:6px; text-align:left;">
+                                    <div style="font-weight:700; color:var(--text-primary); margin-bottom:1px;">${r.staffName}</div>
+                                    <div style="color:var(--text-secondary); line-height:1.35;">"${ans}"</div>
+                                </div>
+                            `;
+                        }
+                    }
+                });
+                if (!textItems) {
+                    textItems = `<div style="font-size:0.75rem; color:var(--text-muted); font-style:italic; padding:4px 0; text-align:left;">No text responses yet.</div>`;
+                }
+                qResultHtml = `
+                    <div style="margin: 8px 0; background:rgba(0,0,0,0.12); padding:10px; border-radius:6px; display:flex; flex-direction:column; gap:4px;">
+                        <div style="font-weight:700; font-size:0.8rem; color:var(--primary); margin-bottom:4px; text-align:left;">Written Feedback</div>
+                        <div style="max-height:150px; overflow-y:auto; padding-right:4px;">
+                            ${textItems}
+                        </div>
                     </div>
                 `;
             }
-            graphHtml += `</div>`;
-        } else {
-            responsesHtml = `<div style="margin-top:10px; display:flex; flex-direction:column; gap:8px; max-height:200px; overflow-y:auto; padding-right:4px;">`;
-            if (responses.length === 0) {
-                responsesHtml += `<div style="font-size:0.75rem; color:var(--text-muted); font-style:italic;">No text responses yet.</div>`;
-            } else {
-                responses.forEach(r => {
-                    responsesHtml += `
-                        <div style="background:rgba(0,0,0,0.1); border-left:3px solid var(--primary); padding:8px 12px; border-radius:0 6px 6px 0; font-size:0.75rem;">
-                            <div style="font-weight:700; color:var(--text-primary); margin-bottom:2px;">${r.staffName}</div>
-                            <div style="color:var(--text-secondary); line-height:1.4;">"${r.answer}"</div>
-                        </div>
-                    `;
-                });
-            }
-            responsesHtml += `</div>`;
-        }
+            
+            questionsHtml += `
+                <div style="margin-top:10px; border-top:1px solid rgba(255,255,255,0.05); padding-top:10px; text-align:left;">
+                    <div style="font-weight:700; font-size:0.85rem; color:var(--text-primary); margin-bottom:6px;">${qIdx + 1}. Q: ${q.text}</div>
+                    ${qResultHtml}
+                </div>
+            `;
+        });
         
         list.innerHTML += `
             <div style="background:var(--bg-app); border:1px solid var(--border-color); padding:16px; border-radius:var(--radius-md); display:flex; flex-direction:column; margin-bottom:16px;">
                 <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.7rem; color:var(--text-muted); margin-bottom:8px;">
-                    <span>📅 Survey active since ${formatDate(q.publishedDate)}</span>
-                    <span style="font-weight:700; color:var(--primary); text-transform:uppercase;">Target: ${q.targetGroup.toUpperCase()}</span>
+                    <span>📅 Published ${formatDate(survey.publishedDate)} &nbsp;|&nbsp; 👥 ${totalResp} staff responses</span>
+                    <div style="display:flex; gap:6px; align-items:center;">
+                        <span class="tag" style="background:${statusBg}; color:${statusColor}; border:1px solid ${statusBorder}; font-size:0.7rem; padding:2px 6px; font-weight:700;">${statusLabel}</span>
+                        <span style="font-weight:700; color:var(--primary); text-transform:uppercase;">Target: ${targetLabel}</span>
+                    </div>
                 </div>
-                <h4 style="margin:0; font-size:0.95rem; font-weight:700; color:var(--text-primary); line-height:1.4;">${q.text}</h4>
-                ${graphHtml}
-                ${responsesHtml}
+                <h3 style="margin:0 0 6px 0; font-size:1.05rem; font-weight:700; color:var(--text-primary); text-align:left;">${survey.title}</h3>
+                
+                <div class="survey-questions-results-container">
+                    ${questionsHtml}
+                </div>
+                
+                <div style="display:flex; justify-content:flex-end; gap:8px; border-top:1px solid var(--border-color); padding-top:12px; margin-top:12px;">
+                    <button class="btn btn-secondary btn-sm" onclick="toggleSurveyStatus('${survey.id}')">
+                        ${survey.status === 'active' ? 'Close Survey' : 'Reopen Survey'}
+                    </button>
+                    <button class="btn btn-secondary btn-sm" onclick="deleteSurvey('${survey.id}')" style="border-color:var(--danger); color:var(--danger);">
+                        Delete
+                    </button>
+                </div>
             </div>
         `;
     });
 }
-
-function publishCpdEvent(e) {
-    e.preventDefault();
-    const title = document.getElementById('event-title').value.trim();
-    const date = document.getElementById('event-date').value;
-    const time = document.getElementById('event-time').value.trim();
-    const location = document.getElementById('event-location').value.trim();
-    const type = document.getElementById('event-type').value;
-    const targetGroup = document.getElementById('event-target').value;
-    const description = document.getElementById('event-desc').value.trim();
-    const required = document.getElementById('event-required').checked;
-    
-    const newEvent = {
-        id: 'e_' + Date.now(),
-        title,
-        date,
-        time,
-        location,
-        type,
-        targetGroup,
-        description,
-        required,
-        rsvps: []
-    };
-    
-    if (!appState.cpdCalendar) appState.cpdCalendar = [];
-    appState.cpdCalendar.push(newEvent);
-    saveState();
-    
-    document.getElementById('cpd-event-form').reset();
-    renderCpdLeaderHub();
-    alert(`CPD Event published successfully to ${targetGroup} staff!`);
-}
-window.publishCpdEvent = publishCpdEvent;
-
-function publishCpdArticle(e) {
-    e.preventDefault();
-    const title = document.getElementById('article-title').value.trim();
-    const category = document.getElementById('article-category').value.trim();
-    const readingTime = parseInt(document.getElementById('article-readtime').value) || 5;
-    const targetGroup = document.getElementById('article-target').value;
-    const summary = document.getElementById('article-summary').value.trim();
-    const content = document.getElementById('article-content').value.trim();
-    
-    const newArticle = {
-        id: 'art_' + Date.now(),
-        title,
-        category,
-        readingTime,
-        targetGroup,
-        summary,
-        content,
-        publishedDate: new Date().toISOString().split('T')[0],
-        author: 'Mrs. C Wagner-Lees',
-        reads: []
-    };
-    
-    if (!appState.cpdArticles) appState.cpdArticles = [];
-    appState.cpdArticles.push(newArticle);
-    saveState();
-    
-    document.getElementById('cpd-article-form').reset();
-    renderCpdLeaderHub();
-    alert(`CPD Article published successfully to ${targetGroup} staff!`);
-}
-window.publishCpdArticle = publishCpdArticle;
-
-function publishCpdQuestion(e) {
-    e.preventDefault();
-    const text = document.getElementById('question-text').value.trim();
-    const type = document.getElementById('question-type').value;
-    const targetGroup = document.getElementById('question-target').value;
-    
-    const newQuestion = {
-        id: 'q_' + Date.now(),
-        text,
-        type,
-        targetGroup,
-        publishedDate: new Date().toISOString().split('T')[0],
-        options: type === 'scale' ? ['1 - Not Confident', '2', '3', '4', '5 - Extremely Confident'] : [],
-        responses: []
-    };
-    
-    if (!appState.cpdQuestions) appState.cpdQuestions = [];
-    appState.cpdQuestions.push(newQuestion);
-    saveState();
-    
-    document.getElementById('cpd-question-form').reset();
-    renderCpdLeaderHub();
-    alert(`CPD Feedback question published successfully to ${targetGroup} staff!`);
-}
-window.publishCpdQuestion = publishCpdQuestion;
 
 function renderStaffCpdInteractions() {
     const calendarCard = document.getElementById('staff-cpd-calendar-card');
@@ -3909,6 +4108,83 @@ function markArticleAsRead(articleId) {
 }
 window.markArticleAsRead = markArticleAsRead;
 
+let staffSurveyDraftAnswers = {};
+
+function escapeHtmlString(str) {
+    return str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+}
+window.escapeHtmlString = escapeHtmlString;
+
+function selectStaffSurveyRating(surveyId, questionId, value) {
+    if (!staffSurveyDraftAnswers[surveyId]) staffSurveyDraftAnswers[surveyId] = {};
+    staffSurveyDraftAnswers[surveyId][questionId] = value;
+    renderStaffSurveys();
+}
+window.selectStaffSurveyRating = selectStaffSurveyRating;
+
+function selectStaffSurveyChoice(surveyId, questionId, value) {
+    if (!staffSurveyDraftAnswers[surveyId]) staffSurveyDraftAnswers[surveyId] = {};
+    staffSurveyDraftAnswers[surveyId][questionId] = value;
+    renderStaffSurveys();
+}
+window.selectStaffSurveyChoice = selectStaffSurveyChoice;
+
+function updateStaffSurveyTextAnswer(surveyId, questionId, value) {
+    if (!staffSurveyDraftAnswers[surveyId]) staffSurveyDraftAnswers[surveyId] = {};
+    staffSurveyDraftAnswers[surveyId][questionId] = value;
+}
+window.updateStaffSurveyTextAnswer = updateStaffSurveyTextAnswer;
+
+function submitStaffSurvey(e, surveyId) {
+    e.preventDefault();
+    const survey = appState.cpdQuestions.find(s => s.id === surveyId);
+    if (!survey) return;
+    
+    const draft = staffSurveyDraftAnswers[surveyId] || {};
+    
+    // Verify all questions are answered
+    let allAnswered = true;
+    survey.questions.forEach(q => {
+        if (!draft[q.id] || draft[q.id].trim() === '') {
+            allAnswered = false;
+        }
+    });
+    
+    if (!allAnswered) {
+        alert('Please answer all questions before submitting the survey.');
+        return;
+    }
+    
+    // Get user display name
+    let staffName = 'Staff Member';
+    if (appState.currentUser === 'sarah_jenkins') staffName = 'Sarah Jenkins';
+    if (appState.currentUser === 'emily_higgins') staffName = 'Emily Higgins';
+    if (appState.currentUser === 'constanze_wagner') staffName = 'Mrs. C Wagner-Lees';
+    
+    if (!survey.responses) survey.responses = [];
+    
+    // Ensure no double submission
+    const existing = survey.responses.find(r => r.staffId === appState.currentUser);
+    if (existing) {
+        alert('You have already submitted responses for this survey.');
+        return;
+    }
+    
+    survey.responses.push({
+        staffId: appState.currentUser,
+        staffName,
+        answers: { ...draft }
+    });
+    
+    // Clear draft
+    delete staffSurveyDraftAnswers[surveyId];
+    
+    saveState();
+    renderStaffSurveys();
+    alert('Feedback submitted successfully. Thank you!');
+}
+window.submitStaffSurvey = submitStaffSurvey;
+
 function renderStaffSurveys() {
     const list = document.getElementById('staff-surveys-list');
     if (!list) return;
@@ -3919,94 +4195,122 @@ function renderStaffSurveys() {
         userGroup = 'senior';
     }
     
-    const questions = appState.cpdQuestions || [];
-    const filtered = questions.filter(q => q.targetGroup === 'all' || q.targetGroup === userGroup);
+    const surveys = appState.cpdQuestions || [];
+    // Only display surveys targeted to the user
+    const filtered = surveys.filter(s => s.targetGroup === 'all' || s.targetGroup === userGroup);
     
     if (filtered.length === 0) {
-        list.innerHTML = `<div style="text-align:center; padding:32px; color:var(--text-muted); font-style:italic;">No active surveys or feedback requests targeted at your role.</div>`;
+        list.innerHTML = `<div style="text-align:center; padding:32px; color:var(--text-muted); font-style:italic;">No surveys targeted at your role.</div>`;
         return;
     }
     
-    filtered.forEach(q => {
-        const myResponse = q.responses ? q.responses.find(r => r.staffId === appState.currentUser) : null;
+    filtered.forEach(survey => {
+        const myResponse = survey.responses ? survey.responses.find(r => r.staffId === appState.currentUser) : null;
         
-        let responseArea = '';
+        let surveyBodyHtml = '';
+        
         if (myResponse) {
-            responseArea = `
-                <div style="background:rgba(16, 185, 129, 0.1); border-left:3px solid #10b981; padding:12px; border-radius:0 6px 6px 0; font-size:0.8rem; margin-top:8px;">
-                    <div style="font-weight:700; color:#10b981;">✓ Survey Response Submitted</div>
-                    <div style="color:var(--text-secondary); margin-top:4px;">Your Answer: <strong>${myResponse.answer}</strong></div>
+            // Show completed responses in a nice list
+            let answersSummary = '';
+            survey.questions.forEach(q => {
+                const ans = myResponse.answers[q.id] || 'Not answered';
+                answersSummary += `
+                    <div style="font-size:0.75rem; margin-top:8px; border-bottom:1px dashed rgba(255,255,255,0.05); padding-bottom:8px; text-align:left;">
+                        <div style="color:var(--text-muted); font-weight:600;">Q: ${q.text}</div>
+                        <div style="color:var(--text-primary); font-weight:700; margin-top:2px;">Your Answer: ${ans}</div>
+                    </div>
+                `;
+            });
+            
+            surveyBodyHtml = `
+                <div style="background:rgba(16, 185, 129, 0.1); border-left:3px solid #10b981; padding:12px; border-radius:0 6px 6px 0; display:flex; flex-direction:column; gap:4px; margin-top:8px;">
+                    <div style="font-weight:700; color:#10b981; font-size:0.85rem; text-align:left;">✓ Survey Response Submitted</div>
+                    ${answersSummary}
                 </div>
             `;
         } else {
-            if (q.type === 'scale') {
-                responseArea = `
-                    <div style="display:flex; flex-direction:column; gap:8px; margin-top:10px;">
-                        <span style="font-size:0.75rem; color:var(--text-muted); font-weight:600;">Choose a rating:</span>
-                        <div style="display:flex; gap:8px;">
-                            ${[1,2,3,4,5].map(v => `
-                                <button class="btn btn-secondary btn-sm" onclick="submitSurveyResponse('${q.id}', '${v}')" style="min-width:32px; justify-content:center;">${v}★</button>
-                            `).join('')}
-                        </div>
+            // If the survey is closed, don't show submission form (or say it is closed)
+            if (survey.status === 'closed') {
+                surveyBodyHtml = `
+                    <div style="background:rgba(0,0,0,0.1); border-left:3px solid var(--text-muted); padding:12px; border-radius:0 6px 6px 0; font-size:0.8rem; margin-top:8px; color:var(--text-muted); font-style:italic; text-align:left;">
+                        🔒 This feedback survey is now closed.
                     </div>
                 `;
             } else {
-                responseArea = `
-                    <form onsubmit="submitSurveyTextResponse(event, '${q.id}')" style="display:flex; gap:8px; margin-top:10px;">
-                        <input type="text" id="survey-text-ans-${q.id}" required placeholder="Write your response..." style="flex:1; padding:8px; border:1px solid var(--border-color); border-radius:4px; background:var(--bg-app); color:var(--text-primary); font-size:0.8rem;">
-                        <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                // Initialize draft answers for this survey if not already present
+                if (!staffSurveyDraftAnswers[survey.id]) {
+                    staffSurveyDraftAnswers[survey.id] = {};
+                }
+                
+                let questionsFormHtml = '';
+                survey.questions.forEach(q => {
+                    let inputArea = '';
+                    const draftVal = staffSurveyDraftAnswers[survey.id][q.id] || '';
+                    
+                    if (q.type === 'scale') {
+                        inputArea = `
+                            <div style="display:flex; gap:8px; margin-top:6px;">
+                                ${[1,2,3,4,5].map(v => {
+                                    const isActive = draftVal === v.toString();
+                                    const activeClass = isActive ? 'btn-primary' : 'btn-secondary';
+                                    return `
+                                        <button type="button" class="btn ${activeClass} btn-sm select-rating-btn" 
+                                            onclick="selectStaffSurveyRating('${survey.id}', '${q.id}', '${v}')" 
+                                            style="min-width:36px; justify-content:center; font-weight:700;">${v}★</button>
+                                    `;
+                                }).join('')}
+                            </div>
+                        `;
+                    } else if (q.type === 'choice') {
+                        inputArea = `
+                            <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:6px;">
+                                ${q.options.map(opt => {
+                                    const isActive = draftVal === opt;
+                                    const activeClass = isActive ? 'btn-primary' : 'btn-secondary';
+                                    return `
+                                        <button type="button" class="btn ${activeClass} btn-sm select-choice-btn" 
+                                            onclick="selectStaffSurveyChoice('${survey.id}', '${q.id}', '${escapeHtmlString(opt)}')" 
+                                            style="padding:6px 12px; font-weight:600; text-align:left; border-radius:16px;">${opt}</button>
+                                    `;
+                                }).join('')}
+                            </div>
+                        `;
+                    } else {
+                        // text area
+                        inputArea = `
+                            <textarea id="staff-ans-${q.id}" rows="2" placeholder="Write your response..." 
+                                oninput="updateStaffSurveyTextAnswer('${survey.id}', '${q.id}', this.value)" 
+                                style="width:100%; margin-top:6px; padding:8px; border:1px solid var(--border-color); border-radius:4px; background:var(--bg-app); color:var(--text-primary); font-size:0.8rem; resize:vertical; font-family:inherit;">${draftVal}</textarea>
+                        `;
+                    }
+                    
+                    questionsFormHtml += `
+                        <div style="margin-top:12px; border-top:1px dashed rgba(255,255,255,0.05); padding-top:10px; text-align:left;">
+                            <label style="font-size:0.8rem; font-weight:700; color:var(--text-primary); display:block;">Q: ${q.text}</label>
+                            ${inputArea}
+                        </div>
+                    `;
+                });
+                
+                surveyBodyHtml = `
+                    <form onsubmit="submitStaffSurvey(event, '${survey.id}')" style="display:flex; flex-direction:column; gap:12px;">
+                        ${questionsFormHtml}
+                        <button type="submit" class="btn btn-primary" style="margin-top:12px; justify-content:center; align-self:flex-start;">Submit All Answers</button>
                     </form>
                 `;
             }
         }
         
         list.innerHTML += `
-            <div style="background:var(--bg-app); border:1px solid var(--border-color); padding:16px; border-radius:var(--radius-md); display:flex; flex-direction:column; gap:6px; margin-bottom:12px;">
-                <div style="font-size:0.7rem; color:var(--text-muted);">CPD Survey Request • Published ${formatDate(q.publishedDate)}</div>
-                <h4 style="margin:0; font-size:0.95rem; font-weight:700; color:var(--text-primary); line-height:1.4;">${q.text}</h4>
-                ${responseArea}
+            <div style="background:var(--bg-app); border:1px solid var(--border-color); padding:16px; border-radius:var(--radius-md); display:flex; flex-direction:column; gap:6px; margin-bottom:16px;">
+                <div style="font-size:0.7rem; color:var(--text-muted); text-align:left;">CPD Questionnaire • Published ${formatDate(survey.publishedDate)}</div>
+                <h3 style="margin:0; font-size:1.05rem; font-weight:700; color:var(--text-primary); text-align:left;">${survey.title}</h3>
+                ${surveyBodyHtml}
             </div>
         `;
     });
 }
 window.renderStaffSurveys = renderStaffSurveys;
-
-function submitSurveyResponse(questionId, value) {
-    const q = appState.cpdQuestions.find(qu => qu.id === questionId);
-    if (q) {
-        if (!q.responses) q.responses = [];
-        
-        const existing = q.responses.find(r => r.staffId === appState.currentUser);
-        if (!existing) {
-            let name = 'Staff Member';
-            if (appState.currentUser === 'sarah_jenkins') name = 'Sarah Jenkins';
-            if (appState.currentUser === 'emily_higgins') name = 'Emily Higgins';
-            if (appState.currentUser === 'constanze_wagner') name = 'Mrs. C Wagner-Lees';
-            
-            q.responses.push({
-                staffId: appState.currentUser,
-                staffName: name,
-                answer: value
-            });
-            saveState();
-            renderStaffSurveys();
-            alert("Feedback submitted successfully. Thank you!");
-        }
-    }
-}
-window.submitSurveyResponse = submitSurveyResponse;
-
-function submitSurveyTextResponse(e, questionId) {
-    e.preventDefault();
-    const input = document.getElementById(`survey-text-ans-${questionId}`);
-    if (input) {
-        const val = input.value.trim();
-        if (val) {
-            submitSurveyResponse(questionId, val);
-        }
-    }
-}
-window.submitSurveyTextResponse = submitSurveyTextResponse;
 
 // Document Ready Initialization
 document.addEventListener('DOMContentLoaded', () => {

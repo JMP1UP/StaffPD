@@ -2819,3 +2819,38 @@ a:hover {
     gap: 8px;
     font-size: 0.75rem;
 }
+
+/* Option chips in staff surveys */
+.select-choice-btn {
+    transition: all 0.2s ease;
+}
+
+.select-choice-btn.btn-primary {
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+    color: white !important;
+    box-shadow: 0 0 10px var(--primary-light);
+}
+
+.select-choice-btn.btn-secondary:hover {
+    background-color: var(--primary-glow) !important;
+    border-color: var(--primary) !important;
+    color: var(--primary) !important;
+}
+
+.select-rating-btn {
+    transition: all 0.2s ease;
+}
+
+.select-rating-btn.btn-primary {
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+    color: white !important;
+    box-shadow: 0 0 10px var(--primary-light);
+}
+
+.select-rating-btn.btn-secondary:hover {
+    background-color: var(--primary-glow) !important;
+    border-color: var(--primary) !important;
+    color: var(--primary) !important;
+}

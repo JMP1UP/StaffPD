@@ -1437,33 +1437,60 @@
                             <!-- SUB-TAB 3: SURVEYS -->
                             <div class="cpd-leader-subtab-view" id="cpd-leader-view-surveys" style="display: none;">
                                 <div style="display: flex; gap: 24px; flex-wrap: wrap;">
-                                    <!-- Form: Publish Question -->
+                                    <!-- Form: Publish Questionnaire -->
                                     <div style="flex: 1; min-width: 300px;">
                                         <h4 style="margin-top: 0; margin-bottom: 16px; font-weight: 700; color: var(--text-primary); border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">Create CPD Feedback Survey</h4>
-                                        <form id="cpd-question-form" onsubmit="publishCpdQuestion(event)" class="form-group" style="display: flex; flex-direction: column; gap: 12px;">
+                                        <form id="cpd-survey-form" onsubmit="publishCpdSurvey(event)" class="form-group" style="display: flex; flex-direction: column; gap: 12px;">
                                             <div>
-                                                <label for="question-text" style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Question Text</label>
-                                                <input type="text" id="question-text" required placeholder="e.g. How helpful was our last INSET day?" style="width:100%; padding:8px; border:1px solid var(--border-color); border-radius:4px; background:var(--bg-app); color:var(--text-primary);">
+                                                <label for="survey-title" style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Survey Questionnaire Title</label>
+                                                <input type="text" id="survey-title" required placeholder="e.g. KCSIE Autumn Refresher Review" style="width:100%; padding:8px; border:1px solid var(--border-color); border-radius:4px; background:var(--bg-app); color:var(--text-primary);">
                                             </div>
-                                            <div style="display: flex; gap: 12px;">
-                                                <div style="flex: 1;">
-                                                    <label for="question-type" style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Response Format</label>
-                                                    <select id="question-type" style="width:100%; padding:8px; border:1px solid var(--border-color); border-radius:4px; background:var(--bg-app); color:var(--text-primary);">
-                                                        <option value="scale">Rating Scale (1-5)</option>
-                                                        <option value="text">Open Text Response</option>
-                                                    </select>
+                                            <div>
+                                                <label for="survey-target" style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Target Audience</label>
+                                                <select id="survey-target" style="width:100%; padding:8px; border:1px solid var(--border-color); border-radius:4px; background:var(--bg-app); color:var(--text-primary);">
+                                                    <option value="all">All Staff Members</option>
+                                                    <option value="senior">Senior School Teaching Staff</option>
+                                                    <option value="junior">Junior School Teaching Staff</option>
+                                                    <option value="support">Support Staff</option>
+                                                </select>
+                                            </div>
+                                            
+                                            <!-- Question Config Section -->
+                                            <div style="margin: 6px 0; border-top:1px dashed var(--border-color); padding-top:8px; display:flex; flex-direction:column; gap:8px;">
+                                                <h5 style="margin:0; font-size:0.8rem; font-weight:700; color:var(--text-primary); text-align:left;">Configure & Add Questions</h5>
+                                                
+                                                <div>
+                                                    <label for="question-text" style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 4px;">Question Text</label>
+                                                    <input type="text" id="question-text" placeholder="e.g. How engaging was the session?" style="width:100%; padding:8px; border:1px solid var(--border-color); border-radius:4px; background:var(--bg-app); color:var(--text-primary);">
                                                 </div>
-                                                <div style="flex: 1;">
-                                                    <label for="question-target" style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Target Audience</label>
-                                                    <select id="question-target" style="width:100%; padding:8px; border:1px solid var(--border-color); border-radius:4px; background:var(--bg-app); color:var(--text-primary);">
-                                                        <option value="all">All Staff Members</option>
-                                                        <option value="senior">Senior School Teaching Staff</option>
-                                                        <option value="junior">Junior School Teaching Staff</option>
-                                                        <option value="support">Support Staff</option>
-                                                    </select>
+                                                
+                                                <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                                                    <div style="flex: 1; min-width: 120px;">
+                                                        <label for="question-type" style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 4px;">Response Format</label>
+                                                        <select id="question-type" onchange="toggleQuestionChoicesInput()" style="width:100%; padding:8px; border:1px solid var(--border-color); border-radius:4px; background:var(--bg-app); color:var(--text-primary);">
+                                                            <option value="scale">Rating Scale (1-5)</option>
+                                                            <option value="choice">Multiple Choice</option>
+                                                            <option value="text">Open Text Response</option>
+                                                        </select>
+                                                    </div>
+                                                    <div style="flex: 1.5; min-width: 160px; display: none;" id="choices-input-container">
+                                                        <label for="question-choices" style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 4px;">Choices (comma-separated)</label>
+                                                        <input type="text" id="question-choices" placeholder="e.g. Yes, No, Unsure" style="width:100%; padding:8px; border:1px solid var(--border-color); border-radius:4px; background:var(--bg-app); color:var(--text-primary);">
+                                                    </div>
+                                                </div>
+                                                
+                                                <button type="button" class="btn btn-secondary btn-sm" onclick="addQuestionToBuilder()" style="margin-top: 4px; font-weight:700; justify-content:center;">+ Add Question to Builder</button>
+                                            </div>
+                                            
+                                            <!-- Builder Preview Area -->
+                                            <div style="margin-top:4px; background:rgba(0,0,0,0.12); border:1px solid var(--border-color); padding:10px; border-radius:6px; text-align:left;">
+                                                <span style="font-size:0.75rem; font-weight:700; color:var(--text-secondary); display:block; margin-bottom:6px;">Questions Added Preview:</span>
+                                                <div id="survey-questions-preview" style="display:flex; flex-direction:column; gap:6px;">
+                                                    <div style="color:var(--text-muted); font-style:italic; font-size:0.75rem; padding:8px 0;">No questions added yet.</div>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-primary" style="margin-top: 8px; justify-content: center;">Ask Staff / Launch Survey</button>
+                                            
+                                            <button type="submit" class="btn btn-primary" style="margin-top: 8px; justify-content: center; width:100%;">Publish Complete Survey</button>
                                         </form>
                                     </div>
                                     <!-- List: Survey Feedback results -->
@@ -1529,6 +1556,6 @@
     </div>
 
     <!-- Main JavaScript Entry -->
-    <script src="app.js?v=11"></script>
+    <script src="app.js?v=12"></script>
 </body>
 </html>
