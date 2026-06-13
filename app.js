@@ -2592,6 +2592,45 @@ function toggleOrgNode(nodeName) {
 }
 window.toggleOrgNode = toggleOrgNode;
 
+function expandOrgToLevel(maxLevel) {
+    collapsedOrgNodes.clear();
+    
+    function traverse(node, currentLevel) {
+        const hasReports = node.reports && node.reports.length > 0;
+        if (hasReports) {
+            if (currentLevel >= maxLevel) {
+                collapsedOrgNodes.add(node.name);
+            }
+            node.reports.forEach(child => {
+                traverse(child, currentLevel + 1);
+            });
+        }
+    }
+    
+    traverse(orgChartData, 1);
+    renderOrgChart();
+}
+window.expandOrgToLevel = expandOrgToLevel;
+
+function expandAllOrgNodes() {
+    collapsedOrgNodes.clear();
+    renderOrgChart();
+}
+window.expandAllOrgNodes = expandAllOrgNodes;
+
+function collapseAllOrgNodes() {
+    collapsedOrgNodes.clear();
+    function traverse(node) {
+        if (node.reports && node.reports.length > 0) {
+            collapsedOrgNodes.add(node.name);
+            node.reports.forEach(traverse);
+        }
+    }
+    traverse(orgChartData);
+    renderOrgChart();
+}
+window.collapseAllOrgNodes = collapseAllOrgNodes;
+
 function renderOrgChart() {
     const container = document.getElementById('org-chart-container');
     if (!container) return;

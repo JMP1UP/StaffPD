@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=8">
+    <link rel="stylesheet" href="styles.css?v=9">
 </head>
 <body>
     <div class="app-container">
@@ -1173,14 +1173,54 @@
                         <span class="subtitle">An interactive visualization of Leicester High School's reporting relationships, showcasing departmental coaching structures and line management pathways.</span>
                     </div>
 
-                    <div class="panel-card" style="overflow-x: auto; padding: 30px; display: flex; flex-direction: column; width: 100%;">
-                        <div class="org-chart-controls mb-md" style="width: 100%; text-align: center;">
-                            <span style="font-size: 0.85rem; color: var(--text-muted);">
-                                💡 <em>Tip: Scroll horizontally to explore the full layout. Hover over card nodes to highlight reporting branches.</em>
-                            </span>
-                        </div>
-                        <div class="org-chart-wrapper" id="org-chart-container">
-                            <!-- Populated dynamically via renderOrgChart in app.js -->
+                    <div class="panel-card" style="padding: 24px; width: 100%;">
+                        <div class="org-layout-container">
+                            <!-- Left Sidebar: Level Controls -->
+                            <div class="org-sidebar-controls">
+                                <h4 class="org-controls-title">
+                                    <svg viewBox="0 0 24 24" width="16" height="16">
+                                        <path fill="currentColor" d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm0 6v2h18v-2H3zm14 6v2h4v-2h-4zM11 5v2h10V5H11zm-4 6v2h14v-2H7z"/>
+                                    </svg>
+                                    View Options
+                                </h4>
+                                <p class="org-controls-desc">Adjust the depth of the organizational reporting tree.</p>
+                                
+                                <div class="org-control-group">
+                                    <button class="org-control-btn" onclick="expandOrgToLevel(1)">
+                                        <span>Tier 1: Headteacher</span>
+                                    </button>
+                                    <button class="org-control-btn" onclick="expandOrgToLevel(2)">
+                                        <span>Tier 2: Leadership Team</span>
+                                    </button>
+                                    <button class="org-control-btn" onclick="expandOrgToLevel(3)">
+                                        <span>Tier 3: Middle Management</span>
+                                    </button>
+                                    <button class="org-control-btn" onclick="expandOrgToLevel(4)">
+                                        <span>Tier 4: Teaching Staff</span>
+                                    </button>
+                                </div>
+                                
+                                <div class="org-separator"></div>
+                                
+                                <button class="btn btn-primary btn-sm btn-iconic" onclick="expandAllOrgNodes()" style="width: 100%; justify-content: center;">
+                                    Expand All
+                                </button>
+                                <button class="btn btn-secondary btn-sm" onclick="collapseAllOrgNodes()" style="width: 100%; justify-content: center;">
+                                    Collapse All
+                                </button>
+                                
+                                <div class="org-separator"></div>
+                                <div class="org-tip">
+                                    💡 <em>Tip: Click any individual card to expand or collapse its specific branch.</em>
+                                </div>
+                            </div>
+                            
+                            <!-- Right Column: Chart Viewport -->
+                            <div class="org-chart-viewport">
+                                <div class="org-chart-wrapper" id="org-chart-container">
+                                    <!-- Populated dynamically via renderOrgChart in app.js -->
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -1234,6 +1274,6 @@
     </div>
 
     <!-- Main JavaScript Entry -->
-    <script src="app.js?v=8"></script>
+    <script src="app.js?v=9"></script>
 </body>
 </html>

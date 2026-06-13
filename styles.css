@@ -2678,6 +2678,103 @@ a:hover {
     transition: all var(--transition-fast);
 }
 
+/* Organisation Layout Split Panel */
+.org-layout-container {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+    align-items: flex-start;
+}
 
+.org-sidebar-controls {
+    width: 220px;
+    flex-shrink: 0;
+    background: var(--bg-sidebar);
+    border: 1px solid var(--border-color);
+    padding: 18px;
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
 
+.org-controls-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+}
 
+.org-controls-title svg {
+    color: var(--primary);
+}
+
+.org-controls-desc {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    line-height: 1.35;
+    margin: 0;
+}
+
+.org-control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.org-control-btn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 8px 12px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.org-control-btn:hover {
+    border-color: var(--primary);
+    background: var(--primary-glow);
+    color: var(--primary);
+}
+
+.org-separator {
+    height: 1px;
+    background: var(--border-color);
+    margin: 4px 0;
+}
+
+.org-tip {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.org-chart-viewport {
+    flex: 1;
+    min-width: 0;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    padding: 10px;
+}
+
+/* Responsive adjust */
+@media (max-width: 992px) {
+    .org-layout-container {
+        flex-direction: column;
+    }
+    .org-sidebar-controls {
+        width: 100%;
+    }
+}
