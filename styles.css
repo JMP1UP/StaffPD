@@ -2335,11 +2335,15 @@ a:hover {
     width: 100%;
     overflow-x: auto;
     padding: 20px 0;
+    display: flex;
+    justify-content: flex-start;
 }
 
 .org-tree {
-    display: flex;
+    display: inline-flex;
     justify-content: center;
+    margin: 0 auto;
+    min-width: max-content;
 }
 
 .org-tree ul {
