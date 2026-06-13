@@ -2567,5 +2567,44 @@ a:hover {
     box-shadow: 0 0 0 3px var(--primary-glow);
 }
 
+/* --------------------------------------------------
+   VERACROSS DIRECTORY SYNC PANEL
+   -------------------------------------------------- */
+#lm-veracross-sync-card {
+    transition: border-color var(--transition-fast);
+}
+
+#lm-veracross-sync-card:hover {
+    border-color: var(--primary) !important;
+}
+
+.terminal-console {
+    scrollbar-width: thin;
+    scrollbar-color: #333 #000;
+}
+
+.terminal-console::-webkit-scrollbar {
+    width: 4px;
+}
+
+.terminal-console::-webkit-scrollbar-track {
+    background: #000;
+}
+
+.terminal-console::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 2px;
+}
+
+/* Sync status styles */
+.sync-status {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.7rem;
+    transition: all var(--transition-fast);
+}
+
+
 
 

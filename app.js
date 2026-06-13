@@ -552,6 +552,94 @@ let appState = {
                 }
             ]
         }
+    ],
+    veracrossConfig: {
+        schoolRoute: '',
+        clientId: '',
+        clientSecret: '',
+        status: 'Unconfigured', // 'Unconfigured', 'Ready', 'Syncing', 'Synced'
+        lastSynced: null
+    },
+    veracrossDb: [
+        {
+            id: 'david_davis',
+            name: 'Mr. David Davis',
+            role: 'Chemistry Teacher (Veracross Synced)',
+            email: 'd.davis@leicesterhigh.co.uk'
+        },
+        {
+            id: 'emily_higgins',
+            name: 'Miss Emily Higgins',
+            role: 'Biology Teacher (Veracross Synced)',
+            email: 'e.higgins@leicesterhigh.co.uk'
+        },
+        {
+            id: 'james_carter',
+            name: 'Mr. James Carter',
+            role: 'Science Technician (Veracross Synced)',
+            email: 'j.carter@leicesterhigh.co.uk'
+        },
+        {
+            id: 'clara_oswald',
+            name: 'Mrs. Clara Oswald',
+            role: 'Physics Teacher (Veracross Synced)',
+            email: 'c.oswald@leicesterhigh.co.uk'
+        },
+        {
+            id: 'alan_turing',
+            name: 'Mr. Alan Turing',
+            role: 'Computer Science Lead (Veracross Synced)',
+            email: 'a.turing@leicesterhigh.co.uk'
+        },
+        {
+            id: 'rosalind_franklin',
+            name: 'Dr. Rosalind Franklin',
+            role: 'Biophysics Teacher & KS5 Coordinator',
+            email: 'r.franklin@leicesterhigh.co.uk',
+            avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200',
+            framework: "Teachers' Standards",
+            qualifications: 'PhD Biophysics, PGCE Secondary Science',
+            skills: 'Biophysics research, X-ray crystallography simulation, KS5 Biology',
+            jobDescription: 'Teach A-Level biology and biophysics seminars; coordinate KS5 department assessments.',
+            aspirations: 'Transition to Biophysics Curriculum Coordinator next cycle.',
+            goals: [
+                {
+                    title: 'Establish X-ray crystallography simulation models for A-Level Biophysics modules',
+                    tag: 'Curriculum',
+                    status: 'Active',
+                    successCriteria: 'Three web models tested with Year 13 pupils; assessment averages show 10% gain in structural chemistry understanding.',
+                    evidence: [],
+                    managerComment: ''
+                }
+            ],
+            cpd: [
+                {
+                    activity: 'Biophysics and Structural Biology Inset',
+                    type: 'School CPD',
+                    date: '2025-10-10',
+                    hours: 4.0,
+                    cost: 0,
+                    provider: 'Leicester High School Science Dept',
+                    linkedStandard: 'Standard 3: Demonstrate good subject and curriculum knowledge',
+                    linkedGoal: 'Establish X-ray crystallography simulation models for A-Level Biophysics modules',
+                    reflection: {
+                        learn: 'Explored A-level Biophysics syllabus structures and exam board guidelines.',
+                        change: 'Redesigned structural chemistry visual aids.',
+                        impact: 'Pupils report higher comprehension on molecular geometry models.',
+                        next: 'Draft simulation handouts for secondary groups.'
+                    }
+                }
+            ],
+            meetings: [
+                {
+                    date: '2025-09-12',
+                    type: 'Start of Year (Formal)',
+                    notes: 'Rosalind joins the department. Discussed biophysics module alignment and set A-level simulator targets.',
+                    actions: 'Rosalind to setup the visual crystallography models by mid-spring.',
+                    support: 'Sarah Jenkins to assist with lab server access requests.'
+                }
+            ]
+        }
     ]
 };
 
@@ -755,6 +843,8 @@ function loadState() {
                 if (parsed.cpdRequests) appState.cpdRequests = parsed.cpdRequests;
                 if (parsed.observations) appState.observations = parsed.observations;
                 if (parsed.portfolios) appState.portfolios = parsed.portfolios;
+                if (parsed.veracrossConfig) appState.veracrossConfig = parsed.veracrossConfig;
+                if (parsed.veracrossDb) appState.veracrossDb = parsed.veracrossDb;
                 
                 // Keep default directReports if they are not in the saved state
                 if (parsed.directReports && parsed.directReports.length > 0) {
@@ -1921,7 +2011,7 @@ function renderLineManagement() {
                             <div class="status-indicator online"></div>
                         </div>
                         <div class="report-card-info">
-                            <h3>${r.name}</h3>
+                            <h3>${r.name}${appState.veracrossConfig && appState.veracrossConfig.status === 'Synced' ? `<span style="display:inline-flex; align-items:center; justify-content:center; width:14px; height:14px; background:#10b981; color:white; font-size:9px; font-weight:bold; border-radius:50%; margin-left:6px; vertical-align:middle;" title="Synced with Veracross">✓</span>` : ''}</h3>
                             <p>${r.role}</p>
                         </div>
                     </div>
@@ -1961,6 +2051,7 @@ function renderLineManagement() {
     });
 
     renderCpdApprovals();
+    renderVeracrossPanel();
 }
 
 function openReportDetail(reportIdx) {
@@ -2743,6 +2834,193 @@ function submitObservationFeedback(obsId, growNotes) {
     alert("GROW coaching feedback logged and synced successfully! The observation has been recorded to your professional growth timeline.");
 }
 
+/* --------------------------------------------------
+   VERACROSS DIRECTORY SYNC SYSTEM
+   -------------------------------------------------- */
+function renderVeracrossPanel() {
+    const statusText = document.getElementById('veracross-sync-status');
+    const syncButton = document.getElementById('btn-vx-sync');
+    
+    const config = appState.veracrossConfig || { schoolRoute: '', clientId: '', clientSecret: '', status: 'Unconfigured' };
+    
+    const routeInput = document.getElementById('vx-school-route');
+    const clientIdInput = document.getElementById('vx-client-id');
+    const clientSecretInput = document.getElementById('vx-client-secret');
+    
+    if (routeInput) routeInput.value = config.schoolRoute || '';
+    if (clientIdInput) clientIdInput.value = config.clientId || '';
+    if (clientSecretInput && config.clientSecret) {
+        clientSecretInput.value = config.clientSecret;
+    }
+    
+    if (statusText) {
+        statusText.textContent = config.status;
+        statusText.className = 'sync-status status-' + config.status.toLowerCase();
+        
+        if (config.status === 'Unconfigured') {
+            statusText.style.background = 'rgba(148, 163, 184, 0.15)';
+            statusText.style.color = 'var(--text-secondary)';
+        } else if (config.status === 'Ready') {
+            statusText.style.background = 'rgba(59, 130, 246, 0.15)';
+            statusText.style.color = '#3b82f6';
+        } else if (config.status === 'Syncing') {
+            statusText.style.background = 'rgba(245, 158, 11, 0.15)';
+            statusText.style.color = 'var(--accent)';
+        } else if (config.status === 'Synced') {
+            statusText.style.background = 'rgba(16, 185, 129, 0.15)';
+            statusText.style.color = 'var(--success)';
+        }
+    }
+    
+    if (syncButton) {
+        syncButton.disabled = (config.status === 'Unconfigured' || config.status === 'Syncing');
+    }
+}
+
+function saveVeracrossConfig(event) {
+    event.preventDefault();
+    
+    const route = document.getElementById('vx-school-route').value.trim();
+    const client = document.getElementById('vx-client-id').value.trim();
+    const secret = document.getElementById('vx-client-secret').value.trim();
+    
+    appState.veracrossConfig = {
+        schoolRoute: route,
+        clientId: client,
+        clientSecret: secret,
+        status: 'Ready',
+        lastSynced: appState.veracrossConfig ? appState.veracrossConfig.lastSynced : null
+    };
+    
+    saveState();
+    renderVeracrossPanel();
+    
+    const consoleBox = document.getElementById('veracross-terminal-console');
+    if (consoleBox) {
+        consoleBox.innerHTML = `
+            <div style="color: #64748b;">[System] Credentials configured successfully.</div>
+            <div style="color: #3b82f6;">[Config] Target OAuth: accounts.veracross.com/oauth/token</div>
+            <div style="color: #3b82f6;">[Config] API Route: api.veracross.com/${route}/v3/directory/staff_faculty</div>
+            <div style="color: #10b981; font-weight: bold;">[System] System is ready. Click "Sync Directory Now" to establish link.</div>
+        `;
+    }
+}
+
+function runVeracrossSync() {
+    const config = appState.veracrossConfig;
+    if (!config || config.status === 'Unconfigured' || config.status === 'Syncing') return;
+    
+    config.status = 'Syncing';
+    renderVeracrossPanel();
+    
+    const consoleBox = document.getElementById('veracross-terminal-console');
+    if (!consoleBox) return;
+    
+    consoleBox.innerHTML = '';
+    
+    const logs = [
+        { time: 0, text: `[Info] Initialising directory sync with Veracross system...`, color: '#64748b' },
+        { time: 400, text: `[HTTP] POST https://accounts.veracross.com/oauth/token HTTP/1.1`, color: '#f59e0b' },
+        { time: 800, text: `[HTTP] Host: accounts.veracross.com<br>[HTTP] Content-Type: application/x-www-form-urlencoded<br>[HTTP] grant_type=client_credentials&scope=staff_faculty:list`, color: '#94a3b8' },
+        { time: 1400, text: `[HTTP] HTTP/1.1 200 OK<br>[HTTP] Content-Type: application/json<br>[HTTP] { "access_token": "vx_token_a9b23f82de801...", "expires_in": 3600 }`, color: '#10b981' },
+        { time: 1800, text: `[System] OAuth token generated successfully. Retrieving department directory...`, color: '#10b981' },
+        { time: 2200, text: `[HTTP] GET https://api.veracross.com/${config.schoolRoute}/v3/directory/staff_faculty?department=Science HTTP/1.1`, color: '#f59e0b' },
+        { time: 2500, text: `[HTTP] Authorization: Bearer vx_token_a9b23f82de801...`, color: '#94a3b8' },
+        { time: 3200, text: `[HTTP] HTTP/1.1 200 OK<br>[HTTP] Content-Type: application/json<br>[HTTP] Directory fetch returned 6 staff profiles.`, color: '#10b981' },
+        { time: 3700, text: `[Sync] Mapping reporting hierarchy nodes...`, color: '#10b981' },
+        { time: 4100, text: `[Sync] Synced matching directory entries: David Davis, Emily Higgins, James Carter, Clara Oswald, Alan Turing.`, color: '#3b82f6' },
+        { time: 4500, text: `[Sync] Found 1 new department member: Dr. Rosalind Franklin (Biophysics Teacher). Importing...`, color: '#a855f7' },
+        { time: 5000, text: `[Success] Sync complete! Synced 6 staff records successfully. Names and roles updated in local state.`, color: '#10b981' }
+    ];
+    
+    logs.forEach(log => {
+        setTimeout(() => {
+            consoleBox.innerHTML += `<div style="color: ${log.color};">${log.text}</div>`;
+            consoleBox.scrollTop = consoleBox.scrollHeight;
+            
+            if (log.time === 5000) {
+                applyVeracrossDataUpdates();
+            }
+        }, log.time);
+    });
+}
+
+function applyVeracrossDataUpdates() {
+    appState.veracrossConfig.status = 'Synced';
+    appState.veracrossConfig.lastSynced = new Date().toISOString();
+    
+    appState.directReports.forEach(report => {
+        let match = null;
+        if (report.name.includes("David Davis")) {
+            match = appState.veracrossDb.find(d => d.id === 'david_davis');
+        } else if (report.name.includes("Emily Higgins")) {
+            match = appState.veracrossDb.find(d => d.id === 'emily_higgins');
+        } else if (report.name.includes("James Carter")) {
+            match = appState.veracrossDb.find(d => d.id === 'james_carter');
+        } else if (report.name.includes("Clara Oswald")) {
+            match = appState.veracrossDb.find(d => d.id === 'clara_oswald');
+        } else if (report.name.includes("Alan Turing")) {
+            match = appState.veracrossDb.find(d => d.id === 'alan_turing');
+        }
+        
+        if (match) {
+            report.name = match.name;
+            report.role = match.role;
+        }
+    });
+    
+    const hasRosalind = appState.directReports.some(r => r.name.includes("Rosalind Franklin"));
+    if (!hasRosalind) {
+        const rosalindDb = appState.veracrossDb.find(r => r.id === 'rosalind_franklin');
+        if (rosalindDb) {
+            const newReport = JSON.parse(JSON.stringify(rosalindDb));
+            appState.directReports.push(newReport);
+            
+            if (appState.portfolios) {
+                appState.portfolios.rosalind_franklin = {
+                    profile: {
+                        name: rosalindDb.name,
+                        role: rosalindDb.role,
+                        framework: rosalindDb.framework,
+                        manager: 'Sarah Jenkins (Head of Science)',
+                        jobDescription: rosalindDb.jobDescription,
+                        aspirations: rosalindDb.aspirations,
+                        qualifications: rosalindDb.qualifications,
+                        skills: rosalindDb.skills
+                    },
+                    goals: rosalindDb.goals,
+                    cpd: rosalindDb.cpd,
+                    journal: []
+                };
+            }
+            
+            if (orgChartData && orgChartData.reports && orgChartData.reports[0].reports) {
+                const chartList = orgChartData.reports[0].reports;
+                const hasChartRosalind = chartList.some(r => r.name.includes("Rosalind Franklin"));
+                if (!hasChartRosalind) {
+                    chartList.push({
+                        name: "Dr. Rosalind Franklin",
+                        role: "Biophysics Teacher",
+                        avatar: rosalindDb.avatar,
+                        dept: "science"
+                    });
+                }
+            }
+        }
+    }
+    
+    saveState();
+    renderLineManagement();
+    renderVeracrossPanel();
+    
+    const badge = document.querySelector('.bell-badge');
+    if (badge) {
+        const currentCount = parseInt(badge.textContent) || 0;
+        badge.textContent = currentCount + 1;
+        badge.style.display = 'flex';
+    }
+}
+
 // Global hooks for tab transitions in HTML buttons
 window.switchTab = switchTab;
 window.requestCpdBooking = requestCpdBooking;
@@ -2755,6 +3033,9 @@ window.editGoal = editGoal;
 window.toggleCpdCollapse = toggleCpdCollapse;
 window.renderOrgChart = renderOrgChart;
 window.switchSimulatedRole = switchSimulatedRole;
+window.saveVeracrossConfig = saveVeracrossConfig;
+window.runVeracrossSync = runVeracrossSync;
+window.renderVeracrossPanel = renderVeracrossPanel;
 
 // Line management hooks
 window.openReportDetail = openReportDetail;

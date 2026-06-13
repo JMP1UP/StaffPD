@@ -939,6 +939,55 @@
                                 <!-- Populated dynamically via app.js -->
                             </div>
                         </div>
+
+                        <!-- Veracross API Directory Integration Panel -->
+                        <div class="panel-card mt-lg" id="lm-veracross-sync-card">
+                            <div class="panel-header border-bottom" style="padding-bottom: 12px; margin-bottom: 16px;">
+                                <div class="header-titles">
+                                    <h3 class="panel-title">Veracross Directory Integration</h3>
+                                    <span class="subtitle">Configure OAuth API keys and synchronize staff records from the Veracross faculty directory.</span>
+                                </div>
+                                <div class="veracross-status-pill" style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary);">
+                                    Status: <span id="veracross-sync-status" class="sync-status status-unconfigured" style="padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; background: rgba(148, 163, 184, 0.15); color: var(--text-secondary);">Unconfigured</span>
+                                </div>
+                            </div>
+                            
+                            <div class="veracross-sync-layout mt-md" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                                <!-- Left: Configuration Form -->
+                                <div class="veracross-config-form-col">
+                                    <form id="veracross-config-form" onsubmit="saveVeracrossConfig(event)">
+                                        <div class="form-group">
+                                            <label for="vx-school-route">Veracross School Route Domain</label>
+                                            <input type="text" id="vx-school-route" required placeholder="e.g. leicesterhigh" style="width: 100%; padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-app); color: var(--text-primary);">
+                                        </div>
+                                        <div class="form-group mt-md" style="margin-top: 12px;">
+                                            <label for="vx-client-id">OAuth 2.0 Client ID</label>
+                                            <input type="text" id="vx-client-id" required placeholder="e.g. client_9ab3cf82" style="width: 100%; padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-app); color: var(--text-primary);">
+                                        </div>
+                                        <div class="form-group mt-md" style="margin-top: 12px;">
+                                            <label for="vx-client-secret">OAuth 2.0 Client Secret</label>
+                                            <input type="password" id="vx-client-secret" required placeholder="••••••••••••••••" style="width: 100%; padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-app); color: var(--text-primary);">
+                                        </div>
+                                        
+                                        <div class="form-actions mt-lg" style="margin-top: 20px; display: flex; gap: 12px;">
+                                            <button type="submit" class="btn btn-secondary">Save Config</button>
+                                            <button type="button" id="btn-vx-sync" class="btn btn-primary btn-iconic" onclick="runVeracrossSync()" disabled>
+                                                <svg viewBox="0 0 24 24" width="16" height="16" style="margin-right: 4px;"><path fill="currentColor" d="M19 8l-4 4h3c0 3.31-2.69 6-6 6-1.01 0-1.97-.25-2.8-.7l-1.46 1.46C8.97 19.54 10.43 20 12 20c4.42 0 8-3.58 8-8h3l-4-4zM6 12c0-3.31 2.69-6 6-6 1.01 0 1.97.25 2.8.7l1.46-1.46C15.03 4.46 13.57 4 12 4c-4.42 0-8 3.58-8 8H1l4 4 4-4H6z"/></svg>
+                                                Sync Directory Now
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                                
+                                <!-- Right: Simulated HTTP Console Terminal -->
+                                <div class="veracross-console-col" style="display: flex; flex-direction: column;">
+                                    <span class="goal-section-label" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; display: block;">API HTTP Traffic Logs</span>
+                                    <div class="terminal-console" id="veracross-terminal-console" style="flex: 1; min-height: 220px; background: #000; border-radius: var(--radius-sm); border: 1px solid #222; padding: 14px; font-family: monospace, Courier, monospace; font-size: 0.75rem; color: #10b981; overflow-y: auto; box-shadow: inset 0 0 12px rgba(0,0,0,0.9); line-height: 1.5; display: flex; flex-direction: column; gap: 4px;">
+                                        <div style="color: #64748b;">[System] Ready. Awaiting OAuth 2.0 credentials configuration...</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- B. Direct Report Detailed Review Panel (starts hidden) -->
