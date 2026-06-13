@@ -155,6 +155,32 @@ let appState = {
                     }
                 }
             ]
+        },
+        {
+            id: 's3',
+            title: 'DEMO: Spaced Retrieval & Active Learning Feedback',
+            targetGroup: 'all',
+            status: 'active',
+            publishedDate: '2026-06-13',
+            questions: [
+                {
+                    id: 'sq3_1',
+                    text: 'How often do you incorporate spaced retrieval starters (e.g. 5-question grids) in lessons?',
+                    type: 'choice',
+                    options: ['Every lesson', '2-3 times a week', 'Once a week', 'Rarely']
+                },
+                {
+                    id: 'sq3_2',
+                    text: 'Rate your confidence in designing spacing retrieval intervals across academic terms:',
+                    type: 'scale'
+                },
+                {
+                    id: 'sq3_3',
+                    text: 'What training resources or coaching support would help you implement retrieval practice further?',
+                    type: 'text'
+                }
+            ],
+            responses: []
         }
     ],
     upcomingCpd: [
