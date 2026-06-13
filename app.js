@@ -2369,64 +2369,262 @@ function renderMeetingsHistory(reportIdx) {
    ORGANISATION CHART GENERATOR
    -------------------------------------------------- */
 const orgChartData = {
-    name: "Dr. Helen Harrison",
-    role: "Deputy Head Academic",
-    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=120",
+    name: "Mr. J Partridge",
+    role: "Headteacher",
+    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=120",
     dept: "leadership",
     reports: [
         {
-            name: "Sarah Jenkins",
-            role: "Head of Science & Chemistry",
-            avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=120",
-            dept: "science",
+            name: "Mrs. C Wagner-Lees",
+            role: "Deputy Head",
+            avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=120",
+            dept: "leadership",
             reports: [
-                { name: "Mr. David Davis", role: "Chemistry Teacher", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=120", dept: "science" },
-                { name: "Miss Emily Higgins", role: "Biology Teacher", avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=120", dept: "science" },
-                { name: "Mr. James Carter", role: "Science Technician", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=120", dept: "science" },
-                { name: "Mrs. Clara Oswald", role: "Physics Teacher", avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=120", dept: "science" },
-                { name: "Mr. Alan Turing", role: "Computer Science Lead", avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=120", dept: "science" }
+                {
+                    name: "Mrs. S Rastall",
+                    role: "SENDCo & Learning Development",
+                    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=120",
+                    dept: "support",
+                    reports: [
+                        { name: "Mrs. F Ptohopoulos", role: "Food Technician", avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=120", dept: "support" }
+                    ]
+                },
+                {
+                    name: "Mrs. J Wallis",
+                    role: "Head of English",
+                    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=120",
+                    dept: "english",
+                    reports: [
+                        { name: "Mrs. A Umerji", role: "English Teacher [Temp]", avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=120", dept: "english" },
+                        { name: "Dr. N Taylor", role: "English Teacher [Temp]", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=120", dept: "english" }
+                    ]
+                },
+                { name: "Miss. R Proctor", role: "Head of Music, Y8 & Y9 Head", avatar: "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=crop&q=80&w=120", dept: "humanities" },
+                {
+                    name: "Mr. A Newell",
+                    role: "Head of Maths & Careers",
+                    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=120",
+                    dept: "maths",
+                    reports: [
+                        { name: "Dr. Z Washington", role: "Maths Teacher & Timetabler", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=120", dept: "maths" },
+                        { name: "Miss. C Taylor", role: "Maths Teacher", avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=120", dept: "maths" }
+                    ]
+                },
+                { name: "Mr. D Ingram", role: "Head of RE", avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=120", dept: "humanities" },
+                { name: "Mrs. Y Chan", role: "Examinations Officer", avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=120", dept: "support" },
+                { name: "Mrs. S Timms", role: "Resources Assistant & Cover", avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=120", dept: "support" }
             ]
         },
         {
-            name: "Mr. Robert Evans",
-            role: "Head of Humanities",
-            avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=120",
-            dept: "humanities",
+            name: "Ms. S Shaw",
+            role: "School Bursar",
+            avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=120",
+            dept: "leadership",
             reports: [
-                { name: "Miss Alice Cooper", role: "Geography Teacher", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=120", dept: "humanities" },
-                { name: "Mr. Thomas Wright", role: "History Teacher", avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=120", dept: "humanities" }
+                { name: "Mrs. K Allen", role: "School Accountant", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=120", dept: "support" },
+                { name: "Mrs. F Mulla", role: "Finance Officer", avatar: "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=crop&q=80&w=120", dept: "support" },
+                { name: "Ms. K Kotadia", role: "Admin & Data Officer", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=120", dept: "support" },
+                { name: "Mr. T Fage", role: "Network Manager", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=120", dept: "support" },
+                { name: "Miss. R Hansrod", role: "Late Supervision & Cleaner", avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=120", dept: "support" },
+                { name: "Mrs. R Buswell", role: "Late Supervision Specialist", avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=120", dept: "support" },
+                {
+                    name: "Mr. D Parmar",
+                    role: "Site Manager",
+                    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=120",
+                    dept: "support",
+                    reports: [
+                        { name: "Mr. G Neary", role: "Premises Officer", avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=120", dept: "support" },
+                        { name: "Mr. M Panter", role: "Premises Officer", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=120", dept: "support" },
+                        { name: "Mr. P Dunn", role: "Groundsman", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=120", dept: "support" },
+                        { name: "Mr. A Clay", role: "Security & Cleaner", avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=120", dept: "support" },
+                        { name: "Mr. A Mensak", role: "Site Cleaner", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=120", dept: "support" },
+                        { name: "Mrs. D Mensak", role: "Site Cleaner", avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=120", dept: "support" },
+                        { name: "Mrs. D Patel", role: "Site Cleaner", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=120", dept: "support" },
+                        { name: "Mrs. Diane Allsop", role: "Site Cleaner", avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=120", dept: "support" },
+                        { name: "Mrs. S Patel", role: "Site Cleaner", avatar: "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=crop&q=80&w=120", dept: "support" },
+                        { name: "Mrs. D Kaur", role: "Site Cleaner", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=120", dept: "support" },
+                        { name: "Ms. G Mann", role: "Site Cleaner", avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=120", dept: "support" },
+                        { name: "Mr. Bharat Kava", role: "Site Cleaner", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=120", dept: "support" },
+                        { name: "Manjulaben Patel", role: "Site Staff", avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=120", dept: "support" },
+                        { name: "Ivor Frank", role: "Site Staff", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=120", dept: "support" }
+                    ]
+                }
             ]
         },
         {
-            name: "Mrs. Sarah Collins",
-            role: "Head of English",
+            name: "Mrs. S Davies",
+            role: "Head of Juniors",
             avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=120",
-            dept: "english",
+            dept: "leadership",
             reports: [
-                { name: "Mr. John Keats", role: "English Teacher", avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=120", dept: "english" },
-                { name: "Miss Jane Austen", role: "English Teacher", avatar: "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=crop&q=80&w=120", dept: "english" }
+                {
+                    name: "Mrs. L Heywood",
+                    role: "Head of EYFS & Highly Able",
+                    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=120",
+                    dept: "juniors",
+                    reports: [
+                        { name: "Mrs. J Jethwa", role: "EYFS Lead, BSC Manager", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=120", dept: "juniors" },
+                        { name: "Mrs. X Ma", role: "EYFS Support Practitioner", avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=120", dept: "juniors" },
+                        { name: "Mrs. R Dye", role: "EYFS Support Practitioner", avatar: "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=crop&q=80&w=120", dept: "juniors" },
+                        { name: "Mrs. J Solanki", role: "EYFS Support Practitioner", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=120", dept: "juniors" }
+                    ]
+                },
+                {
+                    name: "Mrs. P Gascoigne",
+                    role: "Assistant Head [Juniors] & Pastoral",
+                    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=120",
+                    dept: "juniors",
+                    reports: [
+                        { name: "Mrs. L Dunn", role: "EYFS Support Practitioner", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=120", dept: "juniors" },
+                        { name: "Miss. C Loomes", role: "EYFS Support Practitioner", avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=120", dept: "juniors" }
+                    ]
+                },
+                { name: "Mrs. C Dryland", role: "Junior Teacher & Culture Lead", avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=120", dept: "juniors" },
+                { name: "Miss. F Wood", role: "Junior Teacher & STEM Lead", avatar: "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=crop&q=80&w=120", dept: "juniors" },
+                { name: "Mrs. S Neuberg", role: "Junior Teacher & Global Lead", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=120", dept: "juniors" },
+                { name: "Miss. E Stell", role: "Junior Teacher & Arts Lead", avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=120", dept: "juniors" },
+                { name: "Mrs. M Singh", role: "Junior Admin Officer", avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=120", dept: "support" }
             ]
-        }
+        },
+        {
+            name: "Mr. M Ryman",
+            role: "Sixth Form Director & Social Science",
+            avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=120",
+            dept: "leadership",
+            reports: [
+                { name: "Mrs. K Haresign", role: "Head of Geography & Business", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=120", dept: "humanities" },
+                {
+                    name: "Miss. A Paul",
+                    role: "Head of History",
+                    avatar: "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=crop&q=80&w=120",
+                    dept: "humanities",
+                    reports: [
+                        { name: "Mrs. F Lodder", role: "History Teacher & EPQ Lead", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=120", dept: "humanities" }
+                    ]
+                }
+            ]
+        },
+        {
+            name: "Mrs. J Rose",
+            role: "Assistant Head & Drama",
+            avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=120",
+            dept: "leadership",
+            reports: [
+                {
+                    name: "Mrs. A Corcoran",
+                    role: "Head of PE",
+                    avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=120",
+                    dept: "humanities",
+                    reports: [
+                        { name: "Mr. S Tratt", role: "Sports Coach", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=120", dept: "humanities" }
+                    ]
+                },
+                {
+                    name: "Mrs. N Vicente Lorente",
+                    role: "Head of MFL & Y7 Transition",
+                    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=120",
+                    dept: "mfl",
+                    reports: [
+                        { name: "Mrs. G Wheeler", role: "MFL Teacher", avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=120", dept: "mfl" }
+                    ]
+                }
+            ]
+        },
+        {
+            name: "Mr. A McMurray",
+            role: "Head of Science & Assistant Head",
+            avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=120",
+            dept: "leadership",
+            reports: [
+                { name: "Mr. B Ahmed", role: "Computing Teacher in Charge", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=120", dept: "maths" },
+                {
+                    name: "Mr. A Rose",
+                    role: "Head of Art",
+                    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=120",
+                    dept: "humanities",
+                    reports: [
+                        { name: "Mrs. Z Ravat", role: "Art Technician", avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=120", dept: "support" }
+                    ]
+                },
+                { name: "Mrs. J Whalley", role: "Head of Food", avatar: "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=crop&q=80&w=120", dept: "humanities" },
+                { name: "Mrs. H Rai", role: "Biology Lead", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=120", dept: "science" },
+                { name: "Mrs. K Greenwood", role: "Chemistry Lead & Houses", avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=120", dept: "science" },
+                { name: "Miss. E Tyler", role: "Science Teacher & Enterprise", avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=120", dept: "science" },
+                { name: "Mrs. T Johnson", role: "Senior Science Lab Tech", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=120", dept: "support" }
+            ]
+        },
+        {
+            name: "Mrs. J Wright",
+            role: "Assistant Head & DSL Welfare",
+            avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=120",
+            dept: "leadership",
+            reports: [
+                { name: "Miss. E Ikin", role: "Head of PSHCE", avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=120", dept: "humanities" }
+            ]
+        },
+        { name: "Miss. L Burbeck", role: "Head of Marketing", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=120", dept: "support" },
+        { name: "Mrs. K Sheikh", role: "Compliance & HR Manager", avatar: "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=crop&q=80&w=120", dept: "support" },
+        { name: "Mr. A McGoff", role: "Admissions & Student Lifecycle", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=120", dept: "support" }
     ]
 };
+
+// Interactive Org Chart collapsing state
+const collapsedOrgNodes = new Set([
+    "Mrs. S Rastall",
+    "Mrs. J Wallis",
+    "Mr. A Newell",
+    "Mr. D Parmar",
+    "Mrs. L Heywood",
+    "Mrs. P Gascoigne",
+    "Miss. A Paul",
+    "Mrs. A Corcoran",
+    "Mrs. N Vicente Lorente",
+    "Mr. A Rose"
+]);
+
+function toggleOrgNode(nodeName) {
+    if (collapsedOrgNodes.has(nodeName)) {
+        collapsedOrgNodes.delete(nodeName);
+    } else {
+        collapsedOrgNodes.add(nodeName);
+    }
+    renderOrgChart();
+}
+window.toggleOrgNode = toggleOrgNode;
 
 function renderOrgChart() {
     const container = document.getElementById('org-chart-container');
     if (!container) return;
     
     function buildNodeHtml(node) {
-        let html = `<li>`;
+        const hasReports = node.reports && node.reports.length > 0;
+        const isCollapsed = hasReports && collapsedOrgNodes.has(node.name);
+        
+        let html = `<li class="${isCollapsed ? 'org-collapsed' : ''}">`;
+        
+        let cardClass = "org-node-card";
+        if (hasReports) {
+            cardClass += " org-node-has-reports";
+        }
         
         html += `
-            <div class="org-node-card">
+            <div class="${cardClass}" ${hasReports ? `onclick="toggleOrgNode('${node.name.replace(/'/g, "\\'")}')" style="cursor: pointer;"` : ''}>
                 <img class="org-node-avatar" src="${node.avatar}" alt="${node.name}">
                 <div class="org-node-name">${node.name}</div>
                 <div class="org-node-role">${node.role}</div>
                 <span class="org-dept-badge org-dept-${node.dept}">${node.dept.charAt(0).toUpperCase() + node.dept.slice(1)}</span>
+                ${hasReports ? `
+                    <div class="org-reports-toggle">
+                        ${isCollapsed ? `<span>Show ${node.reports.length} reports</span>` : `<span>Hide reports</span>`}
+                        <svg class="toggle-icon ${isCollapsed ? '' : 'expanded'}" viewBox="0 0 24 24" width="12" height="12">
+                            <path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+                        </svg>
+                    </div>
+                ` : ''}
             </div>
         `;
         
-        if (node.reports && node.reports.length > 0) {
+        if (hasReports && !isCollapsed) {
             html += `<ul>`;
             node.reports.forEach(child => {
                 html += buildNodeHtml(child);
@@ -2994,16 +3192,19 @@ function applyVeracrossDataUpdates() {
                 };
             }
             
-            if (orgChartData && orgChartData.reports && orgChartData.reports[0].reports) {
-                const chartList = orgChartData.reports[0].reports;
-                const hasChartRosalind = chartList.some(r => r.name.includes("Rosalind Franklin"));
-                if (!hasChartRosalind) {
-                    chartList.push({
-                        name: "Dr. Rosalind Franklin",
-                        role: "Biophysics Teacher",
-                        avatar: rosalindDb.avatar,
-                        dept: "science"
-                    });
+            if (orgChartData && orgChartData.reports) {
+                const mcMurrayNode = orgChartData.reports.find(r => r.name.includes("McMurray"));
+                if (mcMurrayNode && mcMurrayNode.reports) {
+                    const chartList = mcMurrayNode.reports;
+                    const hasChartRosalind = chartList.some(r => r.name.includes("Rosalind Franklin"));
+                    if (!hasChartRosalind) {
+                        chartList.push({
+                            name: "Dr. Rosalind Franklin",
+                            role: "Biophysics Teacher",
+                            avatar: rosalindDb.avatar,
+                            dept: "science"
+                        });
+                    }
                 }
             }
         }
