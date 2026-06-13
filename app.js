@@ -4,6 +4,108 @@
 let appState = {
     currentUser: 'sarah_jenkins',
     theme: 'dark',
+    cpdCalendar: [
+        {
+            id: 'e1',
+            title: 'Leicester High School Annual Pedagogy Conference',
+            date: '2026-09-03',
+            time: '09:00 - 15:30',
+            location: 'Main Hall',
+            description: 'Keynote speakers on cognitive load theory, retrieval spacing practice, and interactive science simulations.',
+            type: 'Conference',
+            targetGroup: 'all',
+            required: true,
+            rsvps: ['sarah_jenkins', 'emily_higgins', 'david_davis', 'james_carter']
+        },
+        {
+            id: 'e2',
+            title: 'Safeguarding & Welfare Autumn Update',
+            date: '2026-09-10',
+            time: '16:00 - 17:30',
+            location: 'Staff Room / Zoom',
+            description: 'Mandatory annual DSL safeguarding refresher training, KCSIE updates, and student mental health referral pathways.',
+            type: 'Workshop',
+            targetGroup: 'all',
+            required: true,
+            rsvps: ['sarah_jenkins']
+        },
+        {
+            id: 'e3',
+            title: 'Early Years Foundation Stage (EYFS) Play Pedagogy',
+            date: '2026-09-18',
+            time: '14:00 - 16:00',
+            location: 'Junior School Nursery',
+            description: 'Refining assessment indicators during child-led play activities in early years learning.',
+            type: 'Workshop',
+            targetGroup: 'junior',
+            required: true,
+            rsvps: []
+        },
+        {
+            id: 'e4',
+            title: 'Finance & Compliance Procedures Briefing',
+            date: '2026-09-24',
+            time: '10:00 - 11:30',
+            location: 'Bursary Boardroom',
+            description: 'Compliance checks for procurement, invoice approvals, and internal audit preparations.',
+            type: 'Briefing',
+            targetGroup: 'support',
+            required: true,
+            rsvps: []
+        }
+    ],
+    cpdArticles: [
+        {
+            id: 'art1',
+            title: 'Implementing Retrieval Practice: Beyond the Five-Question Starter',
+            category: 'Pedagogy',
+            readingTime: 6,
+            publishedDate: '2026-06-10',
+            author: 'Mrs. C Wagner-Lees',
+            summary: 'Practical guide to designing spaced retrieval practice activities and tracking knowledge retention over terms.',
+            content: 'Retrieval practice is one of the most robust learning principles in educational psychology. However, simply using a 5-question starter is only the beginning. To truly exploit this, we must ensure spacing—testing material learned 1 week, 1 month, and 1 term ago. Teachers should design question blocks that draw from past units, ensuring students are forced to retrieve older information rather than relying on short-term memory cache.',
+            targetGroup: 'all',
+            reads: ['sarah_jenkins']
+        },
+        {
+            id: 'art2',
+            title: 'A Leaders Guide to GROW Model Coaching Conversations',
+            category: 'Leadership',
+            readingTime: 8,
+            publishedDate: '2026-06-12',
+            author: 'Mrs. S Rastall',
+            summary: 'How middle leaders can use the GROW framework to facilitate self-directed improvement during peer observations.',
+            content: 'The GROW model (Goal, Reality, Options, Will) is designed to empower the coachee, not the coach. During observations, avoid simply giving feedback. Instead, ask: "What did you set out to achieve? What actually happened? What options did you consider? What are your concrete commitments next week?" This shift ensures staff take ownership of their professional growth.',
+            targetGroup: 'senior',
+            reads: []
+        }
+    ],
+    cpdQuestions: [
+        {
+            id: 'q1',
+            text: 'How confident do you feel applying cognitive load theory to slide designs?',
+            type: 'scale',
+            targetGroup: 'all',
+            publishedDate: '2026-06-13',
+            options: ['1 - Not Confident', '2', '3', '4', '5 - Extremely Confident'],
+            responses: [
+                { staffId: 'david_davis', staffName: 'Mr. David Davis', answer: '4' },
+                { staffId: 'james_carter', staffName: 'Mr. James Carter', answer: '3' },
+                { staffId: 'emily_higgins', staffName: 'Miss Emily Higgins', answer: '5' }
+            ]
+        },
+        {
+            id: 'q2',
+            text: 'What is your primary training need for the upcoming academic year?',
+            type: 'text',
+            targetGroup: 'all',
+            publishedDate: '2026-06-13',
+            responses: [
+                { staffId: 'david_davis', staffName: 'Mr. David Davis', answer: 'Developing interactive simulation models for chemistry lab rates of reaction.' },
+                { staffId: 'james_carter', staffName: 'Mr. James Carter', answer: 'Server safety administration and asset tracking software updates.' }
+            ]
+        }
+    ],
     upcomingCpd: [
         {
             id: 'c1',
@@ -784,42 +886,48 @@ function switchSimulatedRole(roleId) {
     const sidebarRole = document.getElementById('sidebar-role');
     const sidebarAvatar = document.getElementById('sidebar-avatar');
 
-    if (roleId === 'emily_higgins') {
+    const lmBtn = document.getElementById('nav-line-management');
+    const ocBtn = document.getElementById('nav-org-chart');
+    const cpdLeaderLi = document.getElementById('menu-cpd-leader');
+
+    if (roleId === 'constanze_wagner') {
+        if (sidebarName) sidebarName.textContent = 'Mrs. C Wagner-Lees';
+        if (sidebarRole) sidebarRole.textContent = 'Deputy Head & CPD Leader';
+        if (sidebarAvatar) sidebarAvatar.src = 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200';
+        
+        if (lmBtn) lmBtn.parentElement.style.display = 'block';
+        if (ocBtn) ocBtn.parentElement.style.display = 'block';
+        if (cpdLeaderLi) cpdLeaderLi.style.display = 'block';
+    } else if (roleId === 'emily_higgins') {
         if (sidebarName) sidebarName.textContent = 'Emily Higgins';
         if (sidebarRole) sidebarRole.textContent = 'Biology Teacher';
         if (sidebarAvatar) sidebarAvatar.src = 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=200';
+        
+        if (lmBtn) lmBtn.parentElement.style.display = 'none';
+        if (ocBtn) ocBtn.parentElement.style.display = 'none';
+        if (cpdLeaderLi) cpdLeaderLi.style.display = 'none';
     } else {
         if (sidebarName) sidebarName.textContent = 'Sarah Jenkins';
         if (sidebarRole) sidebarRole.textContent = 'Head of Science & Chemistry Teacher';
         if (sidebarAvatar) sidebarAvatar.src = 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200';
-    }
-
-    // Toggle sidebar tabs visibility
-    const lmBtn = document.getElementById('nav-line-management');
-    const ocBtn = document.getElementById('nav-org-chart');
-    
-    if (roleId === 'emily_higgins') {
-        if (lmBtn) lmBtn.parentElement.style.display = 'none';
-        if (ocBtn) ocBtn.parentElement.style.display = 'none';
         
-        // If current tab is line-management or org-chart, switch to dashboard
-        const activeBtn = document.querySelector('.nav-btn.active');
-        if (activeBtn) {
-            const activeTab = activeBtn.getAttribute('data-tab');
-            if (activeTab === 'line-management' || activeTab === 'org-chart') {
-                switchTab('dashboard');
-                return;
-            }
-        }
-    } else {
         if (lmBtn) lmBtn.parentElement.style.display = 'block';
         if (ocBtn) ocBtn.parentElement.style.display = 'block';
+        if (cpdLeaderLi) cpdLeaderLi.style.display = 'none';
     }
 
-    // Refresh current view
+    // Refresh current view or redirect if the active view is now hidden
     const activeBtn = document.querySelector('.nav-btn.active');
     if (activeBtn) {
         const activeTab = activeBtn.getAttribute('data-tab');
+        if (roleId === 'emily_higgins' && (activeTab === 'line-management' || activeTab === 'org-chart' || activeTab === 'cpd-leader')) {
+            switchTab('dashboard');
+            return;
+        }
+        if (roleId === 'sarah_jenkins' && activeTab === 'cpd-leader') {
+            switchTab('dashboard');
+            return;
+        }
         if (activeTab) switchTab(activeTab);
     }
 }
@@ -845,6 +953,9 @@ function loadState() {
                 if (parsed.portfolios) appState.portfolios = parsed.portfolios;
                 if (parsed.veracrossConfig) appState.veracrossConfig = parsed.veracrossConfig;
                 if (parsed.veracrossDb) appState.veracrossDb = parsed.veracrossDb;
+                if (parsed.cpdCalendar) appState.cpdCalendar = parsed.cpdCalendar;
+                if (parsed.cpdArticles) appState.cpdArticles = parsed.cpdArticles;
+                if (parsed.cpdQuestions) appState.cpdQuestions = parsed.cpdQuestions;
                 
                 // Keep default directReports if they are not in the saved state
                 if (parsed.directReports && parsed.directReports.length > 0) {
@@ -912,7 +1023,8 @@ function switchTab(tabId) {
             'timeline': 'Professional Growth Timeline',
             'annual-review': 'Annual Synthesis & Appraisal',
             'line-management': 'Line Management Dashboard',
-            'org-chart': 'School Organisation Chart'
+            'org-chart': 'School Organisation Chart',
+            'cpd-leader': 'CPD & L&D Leadership Hub'
         };
         headerTitle.textContent = titles[tabId] || 'Growth Portfolio';
     }
@@ -928,9 +1040,12 @@ function switchTab(tabId) {
     if (tabId === 'goals') renderGoals();
     if (tabId === 'journal') {
         const obsTab = document.getElementById('journal-tab-observations');
+        const surveyTab = document.getElementById('journal-tab-surveys');
         if (obsTab && obsTab.classList.contains('active')) {
             populateColleagueSelect();
             renderObservations();
+        } else if (surveyTab && surveyTab.classList.contains('active')) {
+            renderStaffSurveys();
         } else {
             renderJournal();
         }
@@ -942,6 +1057,7 @@ function switchTab(tabId) {
     if (tabId === 'timeline') renderTimeline();
     if (tabId === 'line-management') renderLineManagement();
     if (tabId === 'org-chart') renderOrgChart();
+    if (tabId === 'cpd-leader') renderCpdLeaderHub();
 
     // Scroll main panel to top
     document.querySelector('.main-content').scrollTop = 0;
@@ -1509,6 +1625,7 @@ function renderCpdFromInputs() {
 }
 
 function renderCpd(searchQuery = '', filterType = 'all') {
+    renderStaffCpdInteractions();
     const feed = document.getElementById('cpd-feed-list');
     if (!feed) return;
     feed.innerHTML = '';
@@ -2848,15 +2965,27 @@ function processCpdRequest(requestId, status) {
    PEER OBSERVATION AND GROW MODEL FEEDBACK SYSTEMS
    -------------------------------------------------- */
 function switchJournalSubTab(subTabId) {
-    document.getElementById('journal-tab-reflections').classList.toggle('active', subTabId === 'reflections');
-    document.getElementById('journal-tab-observations').classList.toggle('active', subTabId === 'observations');
+    const tabReflections = document.getElementById('journal-tab-reflections');
+    const tabObservations = document.getElementById('journal-tab-observations');
+    const tabSurveys = document.getElementById('journal-tab-surveys');
     
-    document.getElementById('journal-reflections-container').style.display = subTabId === 'reflections' ? 'flex' : 'none';
-    document.getElementById('journal-observations-container').style.display = subTabId === 'observations' ? 'flex' : 'none';
+    if (tabReflections) tabReflections.classList.toggle('active', subTabId === 'reflections');
+    if (tabObservations) tabObservations.classList.toggle('active', subTabId === 'observations');
+    if (tabSurveys) tabSurveys.classList.toggle('active', subTabId === 'surveys');
+    
+    const reflectionsContainer = document.getElementById('journal-reflections-container');
+    const observationsContainer = document.getElementById('journal-observations-container');
+    const surveysContainer = document.getElementById('journal-surveys-container');
+    
+    if (reflectionsContainer) reflectionsContainer.style.display = subTabId === 'reflections' ? 'flex' : 'none';
+    if (observationsContainer) observationsContainer.style.display = subTabId === 'observations' ? 'flex' : 'none';
+    if (surveysContainer) surveysContainer.style.display = subTabId === 'surveys' ? 'flex' : 'none';
     
     if (subTabId === 'observations') {
         populateColleagueSelect();
         renderObservations();
+    } else if (subTabId === 'surveys') {
+        renderStaffSurveys();
     }
 }
 
@@ -3284,6 +3413,531 @@ window.switchLmDetailTab = switchLmDetailTab;
 window.saveGoalComment = saveGoalComment;
 window.openRecordMeeting = openRecordMeeting;
 window.exitMeetingsPanel = exitMeetingsPanel;
+
+/* --------------------------------------------------
+   CPD LEADERSHIP HUB SYSTEMS (Admin & Staff Views)
+   -------------------------------------------------- */
+let activeCpdLeaderSubTab = 'events';
+function switchCpdLeaderSubTab(subTabId) {
+    activeCpdLeaderSubTab = subTabId;
+    
+    // Toggle active classes on buttons
+    const btnEv = document.getElementById('btn-tab-vx-events');
+    const btnArt = document.getElementById('btn-tab-vx-articles');
+    const btnSurv = document.getElementById('btn-tab-vx-surveys');
+    
+    if (btnEv) btnEv.classList.toggle('active', subTabId === 'events');
+    if (btnArt) btnArt.classList.toggle('active', subTabId === 'articles');
+    if (btnSurv) btnSurv.classList.toggle('active', subTabId === 'surveys');
+    
+    // Toggle active sections
+    const secEv = document.getElementById('cpd-leader-view-events');
+    const secArt = document.getElementById('cpd-leader-view-articles');
+    const secSurv = document.getElementById('cpd-leader-view-surveys');
+    
+    if (secEv) secEv.style.display = subTabId === 'events' ? 'block' : 'none';
+    if (secArt) secArt.style.display = subTabId === 'articles' ? 'block' : 'none';
+    if (secSurv) secSurv.style.display = subTabId === 'surveys' ? 'block' : 'none';
+    
+    renderCpdLeaderHub();
+}
+window.switchCpdLeaderSubTab = switchCpdLeaderSubTab;
+
+function renderCpdLeaderHub() {
+    if (activeCpdLeaderSubTab === 'events') {
+        renderCpdAdminEvents();
+    } else if (activeCpdLeaderSubTab === 'articles') {
+        renderCpdAdminArticles();
+    } else if (activeCpdLeaderSubTab === 'surveys') {
+        renderCpdAdminSurveys();
+    }
+}
+window.renderCpdLeaderHub = renderCpdLeaderHub;
+
+function renderCpdAdminEvents() {
+    const list = document.getElementById('cpd-admin-events-list');
+    if (!list) return;
+    list.innerHTML = '';
+    
+    if (!appState.cpdCalendar || appState.cpdCalendar.length === 0) {
+        list.innerHTML = `<div style="text-align:center; padding:32px; color:var(--text-muted); font-style:italic;">No published events.</div>`;
+        return;
+    }
+    
+    const sorted = [...appState.cpdCalendar].sort((a, b) => new Date(a.date) - new Date(b.date));
+    
+    sorted.forEach(ev => {
+        const targetLabels = {
+            'all': 'All Staff',
+            'senior': 'Senior Teachers',
+            'junior': 'Junior Teachers',
+            'support': 'Support Staff'
+        };
+        const targetLabel = targetLabels[ev.targetGroup] || ev.targetGroup;
+        const rsvpCount = ev.rsvps ? ev.rsvps.length : 0;
+        
+        list.innerHTML += `
+            <div class="cpd-upcoming-card" style="background:var(--bg-app); border:1px solid var(--border-color); padding:16px; border-radius:var(--radius-md); display:flex; flex-direction:column; gap:10px; margin-bottom:12px;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div style="display:flex; gap:8px; align-items:center;">
+                        <span class="tag tag-framework" style="font-size:0.7rem; padding:2px 6px; font-weight:600;">${ev.type}</span>
+                        ${ev.required ? `<span class="tag tag-danger" style="background-color:rgba(239, 68, 68, 0.15); color:var(--danger); border:1px solid rgba(239, 68, 68, 0.2); font-size:0.7rem; padding:2px 6px; font-weight:700;">Required</span>` : ''}
+                    </div>
+                    <span style="font-size:0.75rem; color:var(--text-muted); font-weight:600;">Target: ${targetLabel}</span>
+                </div>
+                <h4 style="margin:4px 0 2px; font-size:0.95rem; font-weight:700; color:var(--text-primary);">${ev.title}</h4>
+                <p style="font-size:0.8rem; color:var(--text-secondary); margin:0; line-height:1.4;">${ev.description}</p>
+                
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; border-top:1px solid var(--border-color); padding-top:10px; font-size:0.75rem; color:var(--text-muted);">
+                    <div>
+                        📅 <strong>${formatDate(ev.date)}</strong> &nbsp;|&nbsp; 🕒 <strong>${ev.time}</strong> &nbsp;|&nbsp; 📍 <strong>${ev.location}</strong>
+                    </div>
+                    <div style="font-weight:600; color:var(--primary);">
+                        👥 ${rsvpCount} RSVP(s) logged
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+}
+
+function renderCpdAdminArticles() {
+    const list = document.getElementById('cpd-admin-articles-list');
+    if (!list) return;
+    list.innerHTML = '';
+    
+    if (!appState.cpdArticles || appState.cpdArticles.length === 0) {
+        list.innerHTML = `<div style="text-align:center; padding:32px; color:var(--text-muted); font-style:italic;">No published readings.</div>`;
+        return;
+    }
+    
+    appState.cpdArticles.forEach(art => {
+        const targetLabels = {
+            'all': 'All Staff',
+            'senior': 'Senior Teachers',
+            'junior': 'Junior Teachers',
+            'support': 'Support Staff'
+        };
+        const targetLabel = targetLabels[art.targetGroup] || art.targetGroup;
+        const readCount = art.reads ? art.reads.length : 0;
+        
+        list.innerHTML += `
+            <div class="cpd-upcoming-card" style="background:var(--bg-app); border:1px solid var(--border-color); padding:16px; border-radius:var(--radius-md); display:flex; flex-direction:column; gap:10px; margin-bottom:12px;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span class="tag tag-framework" style="font-size:0.7rem; padding:2px 6px; font-weight:600;">📖 ${art.category}</span>
+                    <span style="font-size:0.75rem; color:var(--text-muted); font-weight:600;">Target: ${targetLabel}</span>
+                </div>
+                <h4 style="margin:4px 0 2px; font-size:0.95rem; font-weight:700; color:var(--text-primary);">${art.title}</h4>
+                <p style="font-size:0.8rem; color:var(--text-secondary); margin:0; line-height:1.4;">${art.summary}</p>
+                
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; border-top:1px solid var(--border-color); padding-top:10px; font-size:0.75rem; color:var(--text-muted);">
+                    <div>
+                        ✍️ Published by <strong>${art.author}</strong> on ${formatDate(art.publishedDate)} &nbsp;|&nbsp; ⏱️ <strong>${art.readingTime} min read</strong>
+                    </div>
+                    <div style="font-weight:600; color:var(--primary);">
+                        👁️ ${readCount} Read acknowledgements
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+}
+
+function renderCpdAdminSurveys() {
+    const list = document.getElementById('cpd-admin-surveys-list');
+    if (!list) return;
+    list.innerHTML = '';
+    
+    if (!appState.cpdQuestions || appState.cpdQuestions.length === 0) {
+        list.innerHTML = `<div style="text-align:center; padding:32px; color:var(--text-muted); font-style:italic;">No active surveys.</div>`;
+        return;
+    }
+    
+    appState.cpdQuestions.forEach(q => {
+        const responses = q.responses || [];
+        const totalResp = responses.length;
+        
+        let graphHtml = '';
+        let responsesHtml = '';
+        
+        if (q.type === 'scale') {
+            const counts = { '1': 0, '2': 0, '3': 0, '4': 0, '5': 0 };
+            let sum = 0;
+            responses.forEach(r => {
+                const rating = r.answer;
+                if (counts[rating] !== undefined) {
+                    counts[rating]++;
+                    sum += parseInt(rating);
+                }
+            });
+            const avg = totalResp > 0 ? (sum / totalResp).toFixed(1) : '0.0';
+            
+            graphHtml = `<div style="margin: 12px 0; background:rgba(0,0,0,0.1); padding:12px; border-radius:6px; display:flex; flex-direction:column; gap:8px;">
+                <div style="font-weight:700; font-size:0.85rem; color:var(--primary); margin-bottom:4px;">Average Score: ${avg} / 5.0 (${totalResp} responses)</div>`;
+            
+            for (let i = 5; i >= 1; i--) {
+                const count = counts[i.toString()];
+                const percent = totalResp > 0 ? (count / totalResp * 100).toFixed(0) : 0;
+                graphHtml += `
+                    <div style="display:flex; align-items:center; gap:8px; font-size:0.75rem;">
+                        <span style="width:14px; font-weight:700; color:var(--text-secondary);">${i}★</span>
+                        <div style="flex:1; height:8px; background:var(--border-color); border-radius:4px; overflow:hidden;">
+                            <div style="width:${percent}%; height:100%; background:var(--primary); border-radius:4px;"></div>
+                        </div>
+                        <span style="width:30px; text-align:right; color:var(--text-muted); font-weight:600;">${percent}%</span>
+                    </div>
+                `;
+            }
+            graphHtml += `</div>`;
+        } else {
+            responsesHtml = `<div style="margin-top:10px; display:flex; flex-direction:column; gap:8px; max-height:200px; overflow-y:auto; padding-right:4px;">`;
+            if (responses.length === 0) {
+                responsesHtml += `<div style="font-size:0.75rem; color:var(--text-muted); font-style:italic;">No text responses yet.</div>`;
+            } else {
+                responses.forEach(r => {
+                    responsesHtml += `
+                        <div style="background:rgba(0,0,0,0.1); border-left:3px solid var(--primary); padding:8px 12px; border-radius:0 6px 6px 0; font-size:0.75rem;">
+                            <div style="font-weight:700; color:var(--text-primary); margin-bottom:2px;">${r.staffName}</div>
+                            <div style="color:var(--text-secondary); line-height:1.4;">"${r.answer}"</div>
+                        </div>
+                    `;
+                });
+            }
+            responsesHtml += `</div>`;
+        }
+        
+        list.innerHTML += `
+            <div style="background:var(--bg-app); border:1px solid var(--border-color); padding:16px; border-radius:var(--radius-md); display:flex; flex-direction:column; margin-bottom:16px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.7rem; color:var(--text-muted); margin-bottom:8px;">
+                    <span>📅 Survey active since ${formatDate(q.publishedDate)}</span>
+                    <span style="font-weight:700; color:var(--primary); text-transform:uppercase;">Target: ${q.targetGroup.toUpperCase()}</span>
+                </div>
+                <h4 style="margin:0; font-size:0.95rem; font-weight:700; color:var(--text-primary); line-height:1.4;">${q.text}</h4>
+                ${graphHtml}
+                ${responsesHtml}
+            </div>
+        `;
+    });
+}
+
+function publishCpdEvent(e) {
+    e.preventDefault();
+    const title = document.getElementById('event-title').value.trim();
+    const date = document.getElementById('event-date').value;
+    const time = document.getElementById('event-time').value.trim();
+    const location = document.getElementById('event-location').value.trim();
+    const type = document.getElementById('event-type').value;
+    const targetGroup = document.getElementById('event-target').value;
+    const description = document.getElementById('event-desc').value.trim();
+    const required = document.getElementById('event-required').checked;
+    
+    const newEvent = {
+        id: 'e_' + Date.now(),
+        title,
+        date,
+        time,
+        location,
+        type,
+        targetGroup,
+        description,
+        required,
+        rsvps: []
+    };
+    
+    if (!appState.cpdCalendar) appState.cpdCalendar = [];
+    appState.cpdCalendar.push(newEvent);
+    saveState();
+    
+    document.getElementById('cpd-event-form').reset();
+    renderCpdLeaderHub();
+    alert(`CPD Event published successfully to ${targetGroup} staff!`);
+}
+window.publishCpdEvent = publishCpdEvent;
+
+function publishCpdArticle(e) {
+    e.preventDefault();
+    const title = document.getElementById('article-title').value.trim();
+    const category = document.getElementById('article-category').value.trim();
+    const readingTime = parseInt(document.getElementById('article-readtime').value) || 5;
+    const targetGroup = document.getElementById('article-target').value;
+    const summary = document.getElementById('article-summary').value.trim();
+    const content = document.getElementById('article-content').value.trim();
+    
+    const newArticle = {
+        id: 'art_' + Date.now(),
+        title,
+        category,
+        readingTime,
+        targetGroup,
+        summary,
+        content,
+        publishedDate: new Date().toISOString().split('T')[0],
+        author: 'Mrs. C Wagner-Lees',
+        reads: []
+    };
+    
+    if (!appState.cpdArticles) appState.cpdArticles = [];
+    appState.cpdArticles.push(newArticle);
+    saveState();
+    
+    document.getElementById('cpd-article-form').reset();
+    renderCpdLeaderHub();
+    alert(`CPD Article published successfully to ${targetGroup} staff!`);
+}
+window.publishCpdArticle = publishCpdArticle;
+
+function publishCpdQuestion(e) {
+    e.preventDefault();
+    const text = document.getElementById('question-text').value.trim();
+    const type = document.getElementById('question-type').value;
+    const targetGroup = document.getElementById('question-target').value;
+    
+    const newQuestion = {
+        id: 'q_' + Date.now(),
+        text,
+        type,
+        targetGroup,
+        publishedDate: new Date().toISOString().split('T')[0],
+        options: type === 'scale' ? ['1 - Not Confident', '2', '3', '4', '5 - Extremely Confident'] : [],
+        responses: []
+    };
+    
+    if (!appState.cpdQuestions) appState.cpdQuestions = [];
+    appState.cpdQuestions.push(newQuestion);
+    saveState();
+    
+    document.getElementById('cpd-question-form').reset();
+    renderCpdLeaderHub();
+    alert(`CPD Feedback question published successfully to ${targetGroup} staff!`);
+}
+window.publishCpdQuestion = publishCpdQuestion;
+
+function renderStaffCpdInteractions() {
+    const calendarCard = document.getElementById('staff-cpd-calendar-card');
+    const calendarList = document.getElementById('staff-cpd-calendar-list');
+    const readingsCard = document.getElementById('staff-cpd-readings-card');
+    const readingsList = document.getElementById('staff-cpd-readings-list');
+    
+    if (!calendarCard || !calendarList || !readingsCard || !readingsList) return;
+    
+    let userGroup = 'support';
+    if (appState.currentUser === 'sarah_jenkins' || appState.currentUser === 'emily_higgins' || appState.currentUser === 'constanze_wagner') {
+        userGroup = 'senior';
+    }
+    
+    // 1. Render Calendar
+    const events = appState.cpdCalendar || [];
+    const filteredEvents = events.filter(e => e.targetGroup === 'all' || e.targetGroup === userGroup);
+    
+    if (filteredEvents.length > 0) {
+        calendarCard.style.display = 'flex';
+        calendarList.innerHTML = '';
+        filteredEvents.forEach(ev => {
+            const hasRsvped = ev.rsvps && ev.rsvps.includes(appState.currentUser);
+            calendarList.innerHTML += `
+                <div style="background:var(--bg-app); border:1px solid var(--border-color); padding:16px; border-radius:var(--radius-md); display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:10px;">
+                    <div style="flex:1; min-width:220px;">
+                        <div style="display:flex; gap:6px; align-items:center;">
+                            <span class="tag tag-framework" style="font-size:0.7rem; padding:2px 6px; font-weight:600;">${ev.type}</span>
+                            ${ev.required ? `<span class="tag tag-danger" style="background-color:rgba(239, 68, 68, 0.15); color:var(--danger); border:1px solid rgba(239, 68, 68, 0.2); font-size:0.7rem; padding:2px 6px; font-weight:700;">Required</span>` : ''}
+                        </div>
+                        <h4 style="margin:6px 0; font-size:0.95rem; font-weight:700; color:var(--text-primary);">${ev.title}</h4>
+                        <p style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:6px; line-height:1.4;">${ev.description}</p>
+                        <div style="font-size:0.75rem; color:var(--text-muted);">
+                            📅 <strong>${formatDate(ev.date)}</strong> &nbsp;|&nbsp; 🕒 <strong>${ev.time}</strong> &nbsp;|&nbsp; 📍 <strong>${ev.location}</strong>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn ${hasRsvped ? 'btn-secondary' : 'btn-primary'} btn-sm" onclick="rsvpToCpdEvent('${ev.id}')">
+                            ${hasRsvped ? '✓ RSVP Registered' : 'RSVP for Event'}
+                        </button>
+                    </div>
+                </div>
+            `;
+        });
+    } else {
+        calendarCard.style.display = 'none';
+    }
+    
+    // 2. Render Readings
+    const articles = appState.cpdArticles || [];
+    const filteredArticles = articles.filter(a => a.targetGroup === 'all' || a.targetGroup === userGroup);
+    
+    if (filteredArticles.length > 0) {
+        readingsCard.style.display = 'flex';
+        readingsList.innerHTML = '';
+        filteredArticles.forEach(art => {
+            const hasRead = art.reads && art.reads.includes(appState.currentUser);
+            readingsList.innerHTML += `
+                <div style="background:var(--bg-app); border:1px solid var(--border-color); padding:16px; border-radius:var(--radius-md); display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:10px;">
+                    <div style="flex:1; min-width:220px;">
+                        <span class="tag tag-framework" style="font-size:0.7rem; padding:2px 6px; font-weight:600;">📖 ${art.category}</span>
+                        <h4 style="margin:6px 0; font-size:0.95rem; font-weight:700; color:var(--text-primary);">${art.title}</h4>
+                        <p style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:6px; line-height:1.4;">${art.summary}</p>
+                        
+                        <div id="art-body-${art.id}" style="display:none; font-size:0.8rem; line-height:1.5; color:var(--text-primary); background:rgba(0,0,0,0.1); padding:12px; border-radius:6px; margin:8px 0; border-left:3px solid var(--primary);">
+                            ${art.content}
+                        </div>
+                        
+                        <div style="font-size:0.75rem; color:var(--text-muted);">
+                            ✍️ Published by <strong>${art.author}</strong> &nbsp;|&nbsp; ⏱️ <strong>${art.readingTime} min read</strong>
+                        </div>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:8px;">
+                        <button class="btn btn-secondary btn-sm" onclick="toggleArticleBody('${art.id}')" id="btn-read-art-${art.id}">
+                            View Content
+                        </button>
+                        <button class="btn ${hasRead ? 'btn-success' : 'btn-primary'} btn-sm" onclick="markArticleAsRead('${art.id}')" ${hasRead ? 'disabled style="background-color:var(--success); color:white;"' : ''}>
+                            ${hasRead ? '✓ Completed' : 'Acknowledge Read'}
+                        </button>
+                    </div>
+                </div>
+            `;
+        });
+    } else {
+        readingsCard.style.display = 'none';
+    }
+}
+window.renderStaffCpdInteractions = renderStaffCpdInteractions;
+
+function toggleArticleBody(artId) {
+    const div = document.getElementById(`art-body-${artId}`);
+    const btn = document.getElementById(`btn-read-art-${artId}`);
+    if (div && btn) {
+        const isHidden = div.style.display === 'none';
+        div.style.display = isHidden ? 'block' : 'none';
+        btn.textContent = isHidden ? 'Hide Content' : 'View Content';
+    }
+}
+window.toggleArticleBody = toggleArticleBody;
+
+function rsvpToCpdEvent(eventId) {
+    const ev = appState.cpdCalendar.find(e => e.id === eventId);
+    if (ev) {
+        if (!ev.rsvps) ev.rsvps = [];
+        const idx = ev.rsvps.indexOf(appState.currentUser);
+        if (idx > -1) {
+            ev.rsvps.splice(idx, 1);
+        } else {
+            ev.rsvps.push(appState.currentUser);
+        }
+        saveState();
+        renderStaffCpdInteractions();
+    }
+}
+window.rsvpToCpdEvent = rsvpToCpdEvent;
+
+function markArticleAsRead(articleId) {
+    const art = appState.cpdArticles.find(a => a.id === articleId);
+    if (art) {
+        if (!art.reads) art.reads = [];
+        if (!art.reads.includes(appState.currentUser)) {
+            art.reads.push(appState.currentUser);
+            saveState();
+            renderStaffCpdInteractions();
+        }
+    }
+}
+window.markArticleAsRead = markArticleAsRead;
+
+function renderStaffSurveys() {
+    const list = document.getElementById('staff-surveys-list');
+    if (!list) return;
+    list.innerHTML = '';
+    
+    let userGroup = 'support';
+    if (appState.currentUser === 'sarah_jenkins' || appState.currentUser === 'emily_higgins' || appState.currentUser === 'constanze_wagner') {
+        userGroup = 'senior';
+    }
+    
+    const questions = appState.cpdQuestions || [];
+    const filtered = questions.filter(q => q.targetGroup === 'all' || q.targetGroup === userGroup);
+    
+    if (filtered.length === 0) {
+        list.innerHTML = `<div style="text-align:center; padding:32px; color:var(--text-muted); font-style:italic;">No active surveys or feedback requests targeted at your role.</div>`;
+        return;
+    }
+    
+    filtered.forEach(q => {
+        const myResponse = q.responses ? q.responses.find(r => r.staffId === appState.currentUser) : null;
+        
+        let responseArea = '';
+        if (myResponse) {
+            responseArea = `
+                <div style="background:rgba(16, 185, 129, 0.1); border-left:3px solid #10b981; padding:12px; border-radius:0 6px 6px 0; font-size:0.8rem; margin-top:8px;">
+                    <div style="font-weight:700; color:#10b981;">✓ Survey Response Submitted</div>
+                    <div style="color:var(--text-secondary); margin-top:4px;">Your Answer: <strong>${myResponse.answer}</strong></div>
+                </div>
+            `;
+        } else {
+            if (q.type === 'scale') {
+                responseArea = `
+                    <div style="display:flex; flex-direction:column; gap:8px; margin-top:10px;">
+                        <span style="font-size:0.75rem; color:var(--text-muted); font-weight:600;">Choose a rating:</span>
+                        <div style="display:flex; gap:8px;">
+                            ${[1,2,3,4,5].map(v => `
+                                <button class="btn btn-secondary btn-sm" onclick="submitSurveyResponse('${q.id}', '${v}')" style="min-width:32px; justify-content:center;">${v}★</button>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            } else {
+                responseArea = `
+                    <form onsubmit="submitSurveyTextResponse(event, '${q.id}')" style="display:flex; gap:8px; margin-top:10px;">
+                        <input type="text" id="survey-text-ans-${q.id}" required placeholder="Write your response..." style="flex:1; padding:8px; border:1px solid var(--border-color); border-radius:4px; background:var(--bg-app); color:var(--text-primary); font-size:0.8rem;">
+                        <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                    </form>
+                `;
+            }
+        }
+        
+        list.innerHTML += `
+            <div style="background:var(--bg-app); border:1px solid var(--border-color); padding:16px; border-radius:var(--radius-md); display:flex; flex-direction:column; gap:6px; margin-bottom:12px;">
+                <div style="font-size:0.7rem; color:var(--text-muted);">CPD Survey Request • Published ${formatDate(q.publishedDate)}</div>
+                <h4 style="margin:0; font-size:0.95rem; font-weight:700; color:var(--text-primary); line-height:1.4;">${q.text}</h4>
+                ${responseArea}
+            </div>
+        `;
+    });
+}
+window.renderStaffSurveys = renderStaffSurveys;
+
+function submitSurveyResponse(questionId, value) {
+    const q = appState.cpdQuestions.find(qu => qu.id === questionId);
+    if (q) {
+        if (!q.responses) q.responses = [];
+        
+        const existing = q.responses.find(r => r.staffId === appState.currentUser);
+        if (!existing) {
+            let name = 'Staff Member';
+            if (appState.currentUser === 'sarah_jenkins') name = 'Sarah Jenkins';
+            if (appState.currentUser === 'emily_higgins') name = 'Emily Higgins';
+            if (appState.currentUser === 'constanze_wagner') name = 'Mrs. C Wagner-Lees';
+            
+            q.responses.push({
+                staffId: appState.currentUser,
+                staffName: name,
+                answer: value
+            });
+            saveState();
+            renderStaffSurveys();
+            alert("Feedback submitted successfully. Thank you!");
+        }
+    }
+}
+window.submitSurveyResponse = submitSurveyResponse;
+
+function submitSurveyTextResponse(e, questionId) {
+    e.preventDefault();
+    const input = document.getElementById(`survey-text-ans-${questionId}`);
+    if (input) {
+        const val = input.value.trim();
+        if (val) {
+            submitSurveyResponse(questionId, val);
+        }
+    }
+}
+window.submitSurveyTextResponse = submitSurveyTextResponse;
 
 // Document Ready Initialization
 document.addEventListener('DOMContentLoaded', () => {

@@ -130,6 +130,16 @@
                             <span>Organisation Chart</span>
                         </button>
                     </li>
+                    <li id="menu-cpd-leader" style="display: none;">
+                        <button class="nav-btn" data-tab="cpd-leader" id="nav-cpd-leader">
+                            <svg class="nav-icon" viewBox="0 0 24 24" width="20" height="20">
+                                <path fill="currentColor" d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
+                                <path fill="currentColor" d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
+                                <circle cx="12" cy="9" r="1.5" fill="var(--accent)"/>
+                            </svg>
+                            <span>CPD Leader Hub</span>
+                        </button>
+                    </li>
                 </ul>
             </nav>
 
@@ -167,6 +177,7 @@
                         <select id="role-simulator" onchange="switchSimulatedRole(this.value)">
                             <option value="sarah_jenkins">Sarah Jenkins (Manager)</option>
                             <option value="emily_higgins">Emily Higgins (Staff)</option>
+                            <option value="constanze_wagner">Mrs. C Wagner-Lees (Constanze - CPD Lead)</option>
                         </select>
                     </div>
                     <!-- Current Cycle Widget -->
@@ -507,6 +518,7 @@
                         <div class="filters">
                             <button class="filter-tab active" id="journal-tab-reflections" onclick="switchJournalSubTab('reflections')">Reflections Journal</button>
                             <button class="filter-tab" id="journal-tab-observations" onclick="switchJournalSubTab('observations')">Peer Observations</button>
+                            <button class="filter-tab" id="journal-tab-surveys" onclick="switchJournalSubTab('surveys')">CPD Feedback & Surveys</button>
                         </div>
                     </div>
 
@@ -660,6 +672,19 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- CPD Feedback Surveys Container -->
+                    <div class="journal-layout grid-layout" id="journal-surveys-container" style="display: none;">
+                        <div class="panel-card flex-column fill-height" style="width: 100%;">
+                            <div class="panel-header">
+                                <h3 class="panel-title">Active Feedback Surveys</h3>
+                                <span class="subtitle">Complete questionnaires and give feedback to CPD leaders.</span>
+                            </div>
+                            <div class="cpd-upcoming-list" id="staff-surveys-list">
+                                <!-- Dynamic list of feedback surveys -->
+                            </div>
+                        </div>
+                    </div>
                 </section>
 
                 <!-- 5. CPD LOG (LEARNING & DEVELOPMENT) VIEW -->
@@ -758,6 +783,28 @@
 
                         <!-- Right Side: Logged List -->
                         <div class="grid-col-7 flex-column gap-lg">
+                            <!-- Published CPD Calendar -->
+                            <div class="panel-card flex-column mb-lg" id="staff-cpd-calendar-card" style="display: none;">
+                                <div class="panel-header">
+                                    <h3 class="panel-title">Required CPD & Events Calendar</h3>
+                                    <span class="subtitle">Mandatory and optional school-wide professional development events.</span>
+                                </div>
+                                <div class="cpd-upcoming-list" id="staff-cpd-calendar-list" style="margin-top: 12px;">
+                                    <!-- Dynamic list of published events -->
+                                </div>
+                            </div>
+
+                            <!-- Published readings and guidance -->
+                            <div class="panel-card flex-column mb-lg" id="staff-cpd-readings-card" style="display: none;">
+                                <div class="panel-header">
+                                    <h3 class="panel-title">Published Professional Readings</h3>
+                                    <span class="subtitle">Readings and guidance materials from CPD leaders.</span>
+                                </div>
+                                <div class="cpd-upcoming-list" id="staff-cpd-readings-list" style="margin-top: 12px;">
+                                    <!-- Dynamic list of published readings -->
+                                </div>
+                            </div>
+
                             <!-- Upcoming CPD Opportunities -->
                             <div class="panel-card flex-column">
                                 <div class="panel-header">
@@ -1225,6 +1272,214 @@
                     </div>
                 </section>
 
+                <!-- 10. CPD LEADERSHIP HUB VIEW -->
+                <section class="tab-view" id="view-cpd-leader">
+                    <div class="panel-card mb-lg">
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+                            <div>
+                                <h3 class="panel-title mb-xs">CPD & Learning Leadership Portal</h3>
+                                <span class="subtitle">Publish professional development events, coordinate target groups, write research articles, and gather feedback surveys.</span>
+                            </div>
+                            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                <span class="tag tag-framework" style="font-size: 0.75rem; padding: 6px 12px; font-weight: 700;">CPD Leader: Constanze</span>
+                                <span class="tag tag-success" style="font-size: 0.75rem; padding: 6px 12px; font-weight: 700; background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2);">Team: Sarah R., Sarah D., Stef S.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Layout splits into two columns: Forms on left (or tabs), visual lists on right -->
+                    <div class="org-layout-container">
+                        <!-- Sidebar: Hub Sub-tabs -->
+                        <div class="org-sidebar-controls" style="width: 200px;">
+                            <h4 class="org-controls-title">
+                                <svg viewBox="0 0 24 24" width="16" height="16">
+                                    <path fill="currentColor" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v2H7v-2zm0 4h2v2H7v-2zm0-8h2v2H7V6zm4 4h6v2h-6v-2zm0 4h6v2h-6v-2zm0-8h6v2h-6V6z"/>
+                                </svg>
+                                CPD Actions
+                            </h4>
+                            <div class="org-control-group">
+                                <button class="org-control-btn active" id="btn-tab-vx-events" onclick="switchCpdLeaderSubTab('events')">
+                                    <span>Calendar & Events</span>
+                                </button>
+                                <button class="org-control-btn" id="btn-tab-vx-articles" onclick="switchCpdLeaderSubTab('articles')">
+                                    <span>Articles & Readings</span>
+                                </button>
+                                <button class="org-control-btn" id="btn-tab-vx-surveys" onclick="switchCpdLeaderSubTab('surveys')">
+                                    <span>Surveys & Feedback</span>
+                                </button>
+                            </div>
+                            <div class="org-separator"></div>
+                            <div class="org-tip">
+                                💡 <em>Tip: Adding items here immediately broadcasts them to the dashboard and portfolios of targeted staff groups.</em>
+                            </div>
+                        </div>
+
+                        <!-- Right Panel: Dynamic Area depending on active sub-tab -->
+                        <div class="org-chart-viewport" style="padding: 24px; background: var(--bg-card);">
+                            
+                            <!-- SUB-TAB 1: EVENTS -->
+                            <div class="cpd-leader-subtab-view" id="cpd-leader-view-events">
+                                <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                                    <!-- Form: Publish Event -->
+                                    <div style="flex: 1; min-width: 300px;">
+                                        <h4 style="margin-top: 0; margin-bottom: 16px; font-weight: 700; color: var(--text-primary); border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">Publish New CPD Event</h4>
+                                        <form id="cpd-event-form" onsubmit="publishCpdEvent(event)" class="form-group" style="display: flex; flex-direction: column; gap: 12px;">
+                                            <div>
+                                                <label for="event-title" style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Event Title</label>
+                                                <input type="text" id="event-title" required placeholder="e.g. Differentiation in A-Level Physics" style="width:100%; padding:8px; border:1px solid var(--border-color); border-radius:4px; background:var(--bg-app); color:var(--text-primary);">
+                                            </div>
+                                            <div style="display: flex; gap: 12px;">
+                                                <div style="flex: 1;">
+                                                    <label for="event-date" style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Date</label>
+                                                    <input type="date" id="event-date" required style="width:100%; padding:8px; border:1px solid var(--border-color); border-radius:4px; background:var(--bg-app); color:var(--text-primary);">
+                                                </div>
+                                                <div style="flex: 1;">
+                                                    <label for="event-time" style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Time / Duration</label>
+                                                    <input type="text" id="event-time" required placeholder="e.g. 16:00 - 17:00" style="width:100%; padding:8px; border:1px solid var(--border-color); border-radius:4px; background:var(--bg-app); color:var(--text-primary);">
+                                                </div>
+                                            </div>
+                                            <div style="display: flex; gap: 12px;">
+                                                <div style="flex: 1;">
+                                                    <label for="event-location" style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Location</label>
+                                                    <input type="text" id="event-location" required placeholder="e.g. Science Lab 4 / Zoom" style="width:100%; padding:8px; border:1px solid var(--border-color); border-radius:4px; background:var(--bg-app); color:var(--text-primary);">
+                                                </div>
+                                                <div style="flex: 1;">
+                                                    <label for="event-type" style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Event Type</label>
+                                                    <select id="event-type" style="width:100%; padding:8px; border:1px solid var(--border-color); border-radius:4px; background:var(--bg-app); color:var(--text-primary);">
+                                                        <option value="Workshop">Workshop</option>
+                                                        <option value="Conference">Conference</option>
+                                                        <option value="Briefing">Briefing</option>
+                                                        <option value="In-Service">In-Service Training (INSET)</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label for="event-target" style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Target Audience</label>
+                                                <select id="event-target" style="width:100%; padding:8px; border:1px solid var(--border-color); border-radius:4px; background:var(--bg-app); color:var(--text-primary);">
+                                                    <option value="all">All Staff Members</option>
+                                                    <option value="senior">Senior School Teaching Staff</option>
+                                                    <option value="junior">Junior School Teaching Staff</option>
+                                                    <option value="support">Support Staff</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label for="event-desc" style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Brief Description</label>
+                                                <textarea id="event-desc" required rows="2" placeholder="Outline the learning outcomes, standards met, and preparation needed..." style="width:100%; padding:8px; border:1px solid var(--border-color); border-radius:4px; background:var(--bg-app); color:var(--text-primary); resize:vertical;"></textarea>
+                                            </div>
+                                            <div style="display: flex; align-items: center; gap: 8px;">
+                                                <input type="checkbox" id="event-required" checked style="width:16px; height:16px; cursor:pointer;">
+                                                <label for="event-required" style="font-size: 0.8rem; font-weight: 600; cursor:pointer;">Mandatory Attendance Required</label>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary" style="margin-top: 8px; justify-content: center;">Publish CPD Event</button>
+                                        </form>
+                                    </div>
+                                    <!-- List: Published Events & RSVPs -->
+                                    <div style="flex: 1.2; min-width: 320px;">
+                                        <h4 style="margin-top: 0; margin-bottom: 16px; font-weight: 700; color: var(--text-primary); border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">Active CPD Calendar</h4>
+                                        <div id="cpd-admin-events-list" style="display: flex; flex-direction: column; gap: 12px; max-height: 520px; overflow-y: auto;">
+                                            <!-- Dynamically populated -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- SUB-TAB 2: ARTICLES -->
+                            <div class="cpd-leader-subtab-view" id="cpd-leader-view-articles" style="display: none;">
+                                <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                                    <!-- Form: Publish Article -->
+                                    <div style="flex: 1; min-width: 300px;">
+                                        <h4 style="margin-top: 0; margin-bottom: 16px; font-weight: 700; color: var(--text-primary); border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">Publish Professional Reading</h4>
+                                        <form id="cpd-article-form" onsubmit="publishCpdArticle(event)" class="form-group" style="display: flex; flex-direction: column; gap: 12px;">
+                                            <div>
+                                                <label for="article-title" style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Article Title</label>
+                                                <input type="text" id="article-title" required placeholder="e.g. Scaffolding Practical science experiments" style="width:100%; padding:8px; border:1px solid var(--border-color); border-radius:4px; background:var(--bg-app); color:var(--text-primary);">
+                                            </div>
+                                            <div style="display: flex; gap: 12px;">
+                                                <div style="flex: 1;">
+                                                    <label for="article-category" style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Category</label>
+                                                    <input type="text" id="article-category" required placeholder="e.g. Pedagogy, Safeguarding" style="width:100%; padding:8px; border:1px solid var(--border-color); border-radius:4px; background:var(--bg-app); color:var(--text-primary);">
+                                                </div>
+                                                <div style="flex: 1;">
+                                                    <label for="article-readtime" style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Est. Read Time (mins)</label>
+                                                    <input type="number" id="article-readtime" required min="1" max="60" value="5" style="width:100%; padding:8px; border:1px solid var(--border-color); border-radius:4px; background:var(--bg-app); color:var(--text-primary);">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label for="article-target" style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Target Audience</label>
+                                                <select id="article-target" style="width:100%; padding:8px; border:1px solid var(--border-color); border-radius:4px; background:var(--bg-app); color:var(--text-primary);">
+                                                    <option value="all">All Staff Members</option>
+                                                    <option value="senior">Senior School Teaching Staff</option>
+                                                    <option value="junior">Junior School Teaching Staff</option>
+                                                    <option value="support">Support Staff</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label for="article-summary" style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Summary / TL;DR</label>
+                                                <input type="text" id="article-summary" required placeholder="Short one-line summary for listing..." style="width:100%; padding:8px; border:1px solid var(--border-color); border-radius:4px; background:var(--bg-app); color:var(--text-primary);">
+                                            </div>
+                                            <div>
+                                                <label for="article-content" style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Article Body Content</label>
+                                                <textarea id="article-content" required rows="5" placeholder="Write the main text or guide here..." style="width:100%; padding:8px; border:1px solid var(--border-color); border-radius:4px; background:var(--bg-app); color:var(--text-primary); resize:vertical; font-family:inherit;"></textarea>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary" style="margin-top: 8px; justify-content: center;">Publish Article</button>
+                                        </form>
+                                    </div>
+                                    <!-- List: Published Articles -->
+                                    <div style="flex: 1.2; min-width: 320px;">
+                                        <h4 style="margin-top: 0; margin-bottom: 16px; font-weight: 700; color: var(--text-primary); border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">Published Professional Readings</h4>
+                                        <div id="cpd-admin-articles-list" style="display: flex; flex-direction: column; gap: 12px; max-height: 520px; overflow-y: auto;">
+                                            <!-- Dynamically populated -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- SUB-TAB 3: SURVEYS -->
+                            <div class="cpd-leader-subtab-view" id="cpd-leader-view-surveys" style="display: none;">
+                                <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                                    <!-- Form: Publish Question -->
+                                    <div style="flex: 1; min-width: 300px;">
+                                        <h4 style="margin-top: 0; margin-bottom: 16px; font-weight: 700; color: var(--text-primary); border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">Create CPD Feedback Survey</h4>
+                                        <form id="cpd-question-form" onsubmit="publishCpdQuestion(event)" class="form-group" style="display: flex; flex-direction: column; gap: 12px;">
+                                            <div>
+                                                <label for="question-text" style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Question Text</label>
+                                                <input type="text" id="question-text" required placeholder="e.g. How helpful was our last INSET day?" style="width:100%; padding:8px; border:1px solid var(--border-color); border-radius:4px; background:var(--bg-app); color:var(--text-primary);">
+                                            </div>
+                                            <div style="display: flex; gap: 12px;">
+                                                <div style="flex: 1;">
+                                                    <label for="question-type" style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Response Format</label>
+                                                    <select id="question-type" style="width:100%; padding:8px; border:1px solid var(--border-color); border-radius:4px; background:var(--bg-app); color:var(--text-primary);">
+                                                        <option value="scale">Rating Scale (1-5)</option>
+                                                        <option value="text">Open Text Response</option>
+                                                    </select>
+                                                </div>
+                                                <div style="flex: 1;">
+                                                    <label for="question-target" style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Target Audience</label>
+                                                    <select id="question-target" style="width:100%; padding:8px; border:1px solid var(--border-color); border-radius:4px; background:var(--bg-app); color:var(--text-primary);">
+                                                        <option value="all">All Staff Members</option>
+                                                        <option value="senior">Senior School Teaching Staff</option>
+                                                        <option value="junior">Junior School Teaching Staff</option>
+                                                        <option value="support">Support Staff</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary" style="margin-top: 8px; justify-content: center;">Ask Staff / Launch Survey</button>
+                                        </form>
+                                    </div>
+                                    <!-- List: Survey Feedback results -->
+                                    <div style="flex: 1.5; min-width: 350px;">
+                                        <h4 style="margin-top: 0; margin-bottom: 16px; font-weight: 700; color: var(--text-primary); border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">Active Surveys & Feedback Results</h4>
+                                        <div id="cpd-admin-surveys-list" style="display: flex; flex-direction: column; gap: 16px; max-height: 520px; overflow-y: auto;">
+                                            <!-- Dynamically populated -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
             </div>
         </main>
     </div>
@@ -1274,6 +1529,6 @@
     </div>
 
     <!-- Main JavaScript Entry -->
-    <script src="app.js?v=9"></script>
+    <script src="app.js?v=10"></script>
 </body>
 </html>

@@ -2778,3 +2778,44 @@ a:hover {
         width: 100%;
     }
 }
+
+/* CPD Leadership Hub Styling Extensions */
+.org-control-btn.active {
+    border-color: var(--primary);
+    background: var(--primary-glow);
+    color: var(--primary);
+}
+
+.cpd-leader-subtab-view select,
+.cpd-leader-subtab-view input[type="text"],
+.cpd-leader-subtab-view input[type="number"],
+.cpd-leader-subtab-view input[type="date"],
+.cpd-leader-subtab-view textarea {
+    font-family: inherit;
+    font-size: 0.85rem;
+    transition: border-color var(--transition-fast);
+}
+
+.cpd-leader-subtab-view select:focus,
+.cpd-leader-subtab-view input[type="text"]:focus,
+.cpd-leader-subtab-view input[type="number"]:focus,
+.cpd-leader-subtab-view input[type="date"]:focus,
+.cpd-leader-subtab-view textarea:focus {
+    border-color: var(--primary) !important;
+    outline: none;
+}
+
+/* Rating scale buttons hover effects */
+.cpd-upcoming-list button.btn-secondary:hover {
+    background: var(--primary-glow);
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+/* Survey progress bar results styling */
+.cpd-leader-subtab-view .survey-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.75rem;
+}
