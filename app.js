@@ -2,7 +2,73 @@
    STATE & INITIALIZATION DATA
    -------------------------------------------------- */
 let appState = {
+    currentUser: 'sarah_jenkins',
     theme: 'dark',
+    upcomingCpd: [
+        {
+            id: 'c1',
+            title: 'CLEAPSS Radiation Safety Officer Training',
+            type: 'Course',
+            provider: 'CLEAPSS',
+            hours: 5.0,
+            cost: 120,
+            date: '2026-06-25',
+            linkedStandard: 'Standard 7: Safe Environment',
+            description: 'Essential certification for managing school radioactive sources, safety records, and local authority compliance audits.'
+        },
+        {
+            id: 'c2',
+            title: 'Differentiating Practical Work in GCSE Chemistry',
+            type: 'Workshop',
+            provider: 'Royal Society of Chemistry',
+            hours: 3.0,
+            cost: 45,
+            date: '2026-06-30',
+            linkedStandard: 'Standard 5: Adapt teaching to needs',
+            description: 'Scaffolding complex practical tasks for students with diverse learning needs, including resource modifications and sensory sheets.'
+        },
+        {
+            id: 'c3',
+            title: 'GROW Coaching Model in School Environments',
+            type: 'Webinar',
+            provider: 'Leicester High School Leadership',
+            hours: 2.5,
+            cost: 0,
+            date: '2026-07-02',
+            linkedStandard: 'Standard 8: Wider responsibilities',
+            description: 'Implementing the Goal-Reality-Options-Will (GROW) framework during peer observations, teacher catch-ups, and student mentoring.'
+        }
+    ],
+    cpdRequests: [
+        {
+            id: 'r1',
+            courseId: 'c2',
+            staffName: 'Miss Emily Higgins',
+            staffId: 'emily_higgins',
+            dateRequested: '2026-06-11',
+            status: 'Pending',
+            comment: ''
+        }
+    ],
+    observations: [
+        {
+            id: 'o1',
+            observerName: 'Miss Emily Higgins',
+            observerId: 'emily_higgins',
+            observedName: 'Sarah Jenkins',
+            observedId: 'sarah_jenkins',
+            date: '2026-05-18',
+            classObserved: 'Year 12 Chemistry Lab',
+            focusArea: 'Safety briefing compliance and titration setups',
+            status: 'Completed',
+            growFeedback: {
+                goal: 'Ensure all students independently verify glassware safety checklist before titrations.',
+                reality: 'Two student groups forgot the safety goggles; titrations were set up quickly but cleanup was slightly cluttered.',
+                options: 'Use physical laminated checklist cards placed directly on workstations; run a 1-minute safety quiz before lab access.',
+                will: 'Introduce the titration check-cards next Tuesday; evaluate compliance at the next lesson observation.'
+            }
+        }
+    ],
     profile: {
         name: 'Sarah Jenkins',
         role: 'Head of Science & Chemistry Teacher',
@@ -525,6 +591,151 @@ const frameworksData = {
     ]
 };
 
+const defaultEmilyPortfolio = {
+    profile: {
+        name: 'Miss Emily Higgins',
+        role: 'Biology Teacher',
+        framework: "Teachers' Standards",
+        manager: 'Sarah Jenkins (Head of Science)',
+        jobDescription: 'Teach KS3-5 Biology classes, coordinate eco-club, and maintain greenhouse lab equipment.',
+        aspirations: 'Become KS3 Science Coordinator next year.',
+        qualifications: 'BSc Biology, PGCE Secondary Science',
+        skills: 'GCSE Biology, A-Level Biology, Ecology, Greenhouse Management'
+    },
+    goals: [
+        {
+            title: 'Enhance GCSE Biology student confidence in genetics problems',
+            tag: 'Student Outcomes',
+            status: 'Active',
+            successCriteria: 'Genetics exam section scores increase by 10% on average; students demonstrate high confidence in homework logs.',
+            evidence: [
+                {
+                    date: '2026-02-15',
+                    content: 'Distributed Punnett square cheat-sheets and ran 3 practice sessions.',
+                    link: '',
+                    linkLabel: '',
+                    isCheckpoint: false
+                }
+            ],
+            managerComment: 'Laminated cards look great, Emily. Keep a close eye on understanding of recessive alleles.'
+        }
+    ],
+    cpd: [
+        {
+            activity: 'A-Level Biology Genetic Engineering Update',
+            type: 'Webinar',
+            date: '2025-11-20',
+            hours: 2.0,
+            cost: 0,
+            provider: 'Stem Learning',
+            linkedStandard: 'Standard 3: Demonstrate good subject and curriculum knowledge',
+            linkedGoal: 'Enhance GCSE Biology student confidence in genetics problems',
+            reflection: {
+                learn: 'Learned the latest CRISPR techniques and curriculum application updates.',
+                change: 'Created a classroom poster detailing gene therapy stages.',
+                impact: 'A-Level biology group was highly engaged and scored full marks on subsequent tests.',
+                next: 'Invite a university guest lecturer for KS5 group observation.'
+            }
+        }
+    ],
+    journal: [
+        {
+            id: 'j1',
+            date: '2026-01-20',
+            answers: {
+                reflection: 'Genetics unit has started well; pupils are adapting to Punnett squares.',
+                impact: 'Lower ability groups benefit significantly from physical color-coded alleles.',
+                practice: 'Improved my explanations of codominance and sex-linked traits.',
+                contribution: 'Shared the physical allele model with other science teachers.',
+                growth: 'Refined my pedagogical questioning strategies for complex genetics logic.',
+                support: 'Would love some department budget for genetic modeling kits.'
+            }
+        }
+    ]
+};
+
+function syncStateReferences() {
+    if (!appState.portfolios) {
+        appState.portfolios = {
+            sarah_jenkins: {
+                profile: appState.profile,
+                goals: appState.goals,
+                cpd: appState.cpd,
+                journal: appState.journal
+            },
+            emily_higgins: JSON.parse(JSON.stringify(defaultEmilyPortfolio))
+        };
+    }
+    
+    // Bind active references
+    appState.profile = appState.portfolios[appState.currentUser].profile;
+    appState.goals = appState.portfolios[appState.currentUser].goals;
+    appState.cpd = appState.portfolios[appState.currentUser].cpd;
+    appState.journal = appState.portfolios[appState.currentUser].journal;
+    
+    // Sync Emily direct report to her portfolio
+    if (appState.directReports && appState.directReports.length > 1) {
+        appState.directReports[1].goals = appState.portfolios.emily_higgins.goals;
+        appState.directReports[1].cpd = appState.portfolios.emily_higgins.cpd;
+    }
+}
+
+function switchSimulatedRole(roleId) {
+    appState.currentUser = roleId;
+    syncStateReferences();
+    saveState();
+
+    // Update simulator dropdown selection
+    const simulatorSelect = document.getElementById('role-simulator');
+    if (simulatorSelect) {
+        simulatorSelect.value = roleId;
+    }
+
+    // Update sidebar profile card details
+    const sidebarName = document.getElementById('sidebar-name');
+    const sidebarRole = document.getElementById('sidebar-role');
+    const sidebarAvatar = document.getElementById('sidebar-avatar');
+
+    if (roleId === 'emily_higgins') {
+        if (sidebarName) sidebarName.textContent = 'Emily Higgins';
+        if (sidebarRole) sidebarRole.textContent = 'Biology Teacher';
+        if (sidebarAvatar) sidebarAvatar.src = 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=200';
+    } else {
+        if (sidebarName) sidebarName.textContent = 'Sarah Jenkins';
+        if (sidebarRole) sidebarRole.textContent = 'Head of Science & Chemistry Teacher';
+        if (sidebarAvatar) sidebarAvatar.src = 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200';
+    }
+
+    // Toggle sidebar tabs visibility
+    const lmBtn = document.getElementById('nav-line-management');
+    const ocBtn = document.getElementById('nav-org-chart');
+    
+    if (roleId === 'emily_higgins') {
+        if (lmBtn) lmBtn.parentElement.style.display = 'none';
+        if (ocBtn) ocBtn.parentElement.style.display = 'none';
+        
+        // If current tab is line-management or org-chart, switch to dashboard
+        const activeBtn = document.querySelector('.nav-btn.active');
+        if (activeBtn) {
+            const activeTab = activeBtn.getAttribute('data-tab');
+            if (activeTab === 'line-management' || activeTab === 'org-chart') {
+                switchTab('dashboard');
+                return;
+            }
+        }
+    } else {
+        if (lmBtn) lmBtn.parentElement.style.display = 'block';
+        if (ocBtn) ocBtn.parentElement.style.display = 'block';
+    }
+
+    // Refresh current view
+    const activeBtn = document.querySelector('.nav-btn.active');
+    if (activeBtn) {
+        const activeTab = activeBtn.getAttribute('data-tab');
+        if (activeTab) switchTab(activeTab);
+    }
+}
+
 /* --------------------------------------------------
    LOAD AND SAVE OPERATIONS (LocalStorage)
    -------------------------------------------------- */
@@ -539,6 +750,11 @@ function loadState() {
                 if (parsed.journal) appState.journal = parsed.journal;
                 if (parsed.cpd) appState.cpd = parsed.cpd;
                 if (parsed.theme) appState.theme = parsed.theme;
+                if (parsed.currentUser) appState.currentUser = parsed.currentUser;
+                if (parsed.upcomingCpd) appState.upcomingCpd = parsed.upcomingCpd;
+                if (parsed.cpdRequests) appState.cpdRequests = parsed.cpdRequests;
+                if (parsed.observations) appState.observations = parsed.observations;
+                if (parsed.portfolios) appState.portfolios = parsed.portfolios;
                 
                 // Keep default directReports if they are not in the saved state
                 if (parsed.directReports && parsed.directReports.length > 0) {
@@ -549,6 +765,7 @@ function loadState() {
             console.error("Failed to parse saved state", e);
         }
     }
+    syncStateReferences();
 }
 
 function saveState() {
@@ -619,7 +836,15 @@ function switchTab(tabId) {
     // Refresh dynamic views
     if (tabId === 'dashboard') renderDashboard();
     if (tabId === 'goals') renderGoals();
-    if (tabId === 'journal') renderJournal();
+    if (tabId === 'journal') {
+        const obsTab = document.getElementById('journal-tab-observations');
+        if (obsTab && obsTab.classList.contains('active')) {
+            populateColleagueSelect();
+            renderObservations();
+        } else {
+            renderJournal();
+        }
+    }
     if (tabId === 'cpd') {
         populateCpdDropdowns();
         renderCpd();
@@ -1251,6 +1476,8 @@ function renderCpd(searchQuery = '', filterType = 'all') {
     if (filtered.length === 0) {
         feed.innerHTML = '<p style="text-align: center; padding: 40px; color: var(--text-muted);">No CPD activities logged matching filters.</p>';
     }
+
+    renderUpcomingCpd();
 }
 
 function toggleCpdCollapse(idx) {
@@ -1317,6 +1544,37 @@ function getAggregatedTimeline() {
         });
     });
 
+    // Aggregate Completed Peer Observations
+    appState.observations.forEach(obs => {
+        if (obs.status === 'Completed') {
+            if (obs.observerId === appState.currentUser) {
+                timeline.push({
+                    date: obs.date,
+                    title: `Conducted Peer Observation of ${obs.observedName}`,
+                    label: `Peer Observation (Observer)`,
+                    content: `
+                        <p><strong>Class:</strong> ${obs.classObserved}</p>
+                        <p><strong>Focus:</strong> ${obs.focusArea}</p>
+                        <p><strong>GROW Reflection:</strong> G: "${obs.growFeedback.goal.substring(0, 80)}...", W: "${obs.growFeedback.will.substring(0, 80)}..."</p>
+                    `,
+                    source: 'observation'
+                });
+            } else if (obs.observedId === appState.currentUser) {
+                timeline.push({
+                    date: obs.date,
+                    title: `Observed by Colleague: ${obs.observerName}`,
+                    label: `Peer Observation (Observed)`,
+                    content: `
+                        <p><strong>Class:</strong> ${obs.classObserved}</p>
+                        <p><strong>Focus:</strong> ${obs.focusArea}</p>
+                        <p><strong>Feedback Received (GROW):</strong> G: "${obs.growFeedback.goal.substring(0, 80)}...", W: "${obs.growFeedback.will.substring(0, 80)}..."</p>
+                    `,
+                    source: 'observation'
+                });
+            }
+        }
+    });
+
     // Aggregate Goal Evidence Updates
     appState.goals.forEach(g => {
         g.evidence.forEach(ev => {
@@ -1361,7 +1619,7 @@ function renderTimeline() {
         if (timelineFilter === 'all') return true;
         if (timelineFilter === 'cpd') return item.source === 'cpd';
         if (timelineFilter === 'goals') return item.source === 'evidence';
-        if (timelineFilter === 'reflections') return item.source === 'journal';
+        if (timelineFilter === 'reflections') return item.source === 'journal' || item.source === 'observation';
         return true;
     });
 
@@ -1378,6 +1636,9 @@ function renderTimeline() {
         } else if (item.source === 'evidence') {
             nodeClass = 'node-goal';
             iconSvg = `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>`;
+        } else if (item.source === 'observation') {
+            nodeClass = 'node-observation';
+            iconSvg = `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>`;
         }
 
         timelineList.innerHTML += `
@@ -1698,6 +1959,8 @@ function renderLineManagement() {
             </div>
         `;
     });
+
+    renderCpdApprovals();
 }
 
 function openReportDetail(reportIdx) {
@@ -2093,12 +2356,405 @@ function renderOrgChart() {
     `;
 }
 
+/* --------------------------------------------------
+   CPD BOOKING AND MANAGER APPROVAL SYSTEMS
+   -------------------------------------------------- */
+function renderUpcomingCpd() {
+    const listContainer = document.getElementById('cpd-upcoming-list');
+    if (!listContainer) return;
+    listContainer.innerHTML = '';
+    
+    appState.upcomingCpd.forEach(course => {
+        const userRequest = appState.cpdRequests.find(r => r.courseId === course.id && r.staffId === appState.currentUser);
+        
+        let buttonHtml = '';
+        if (userRequest) {
+            if (userRequest.status === 'Pending') {
+                buttonHtml = `<button class="btn btn-secondary btn-sm" disabled style="opacity: 0.7; cursor: not-allowed;">Pending Approval</button>`;
+            } else if (userRequest.status === 'Approved') {
+                buttonHtml = `<button class="btn btn-success btn-sm" disabled style="background-color: var(--success); color: white; cursor: not-allowed;">Booked & Approved</button>`;
+            } else if (userRequest.status === 'Declined') {
+                buttonHtml = `<span class="tag tag-danger" style="background-color: rgba(239, 68, 68, 0.15); color: var(--danger); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">Booking Declined</span>`;
+            }
+        } else {
+            buttonHtml = `<button class="btn btn-primary btn-sm btn-iconic" onclick="requestCpdBooking('${course.id}')">
+                <svg viewBox="0 0 24 24" width="14" height="14" style="margin-right: 4px;"><path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                Request Booking
+            </button>`;
+        }
+        
+        listContainer.innerHTML += `
+            <div class="cpd-upcoming-card" style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 16px; border-radius: var(--radius-md); margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; transition: transform var(--transition-fast);">
+                <div style="flex: 1; min-width: 250px;">
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <span class="tag tag-framework" style="font-size: 0.7rem; padding: 2px 6px; font-weight: 600;">${course.type}</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 500;">${formatDate(course.date)}</span>
+                    </div>
+                    <h4 style="margin: 6px 0; font-size: 0.95rem; font-weight: 700; color: var(--text-primary);">${course.title}</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 6px;">${course.description}</p>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); line-height: 1.4;">
+                        Provider: <strong>${course.provider}</strong> &nbsp;|&nbsp; Cost: <strong>${course.cost > 0 ? `£${course.cost}` : 'Free'}</strong> &nbsp;|&nbsp; Hours: <strong>${course.hours} hrs</strong><br>
+                        Aligned: <strong>${course.linkedStandard}</strong>
+                    </div>
+                </div>
+                <div>
+                    ${buttonHtml}
+                </div>
+            </div>
+        `;
+    });
+}
+
+function requestCpdBooking(courseId) {
+    const alreadyRequested = appState.cpdRequests.find(r => r.courseId === courseId && r.staffId === appState.currentUser);
+    if (alreadyRequested) return;
+    
+    const newRequest = {
+        id: 'req_' + Date.now(),
+        courseId: courseId,
+        staffName: appState.profile.name,
+        staffId: appState.currentUser,
+        dateRequested: new Date().toISOString().split('T')[0],
+        status: 'Pending',
+        comment: ''
+    };
+    
+    appState.cpdRequests.push(newRequest);
+    saveState();
+    
+    renderCpd();
+}
+
+function renderCpdApprovals() {
+    const listContainer = document.getElementById('lm-cpd-requests-list');
+    if (!listContainer) return;
+    listContainer.innerHTML = '';
+    
+    const approvalsCard = document.getElementById('lm-cpd-approvals-card');
+    if (appState.currentUser !== 'sarah_jenkins') {
+        if (approvalsCard) approvalsCard.style.display = 'none';
+        return;
+    } else {
+        if (approvalsCard) approvalsCard.style.display = 'block';
+    }
+    
+    const deptMemberIds = ['david_davis', 'emily_higgins', 'james_carter', 'clara_oswald', 'alan_turing'];
+    
+    const pendingRequests = appState.cpdRequests.filter(req => 
+        req.status === 'Pending' && deptMemberIds.includes(req.staffId)
+    );
+    
+    if (pendingRequests.length === 0) {
+        listContainer.innerHTML = '<p style="text-align: center; padding: 24px; color: var(--text-muted); font-style: italic;">No pending training requests at this time.</p>';
+        return;
+    }
+    
+    pendingRequests.forEach(req => {
+        const course = appState.upcomingCpd.find(c => c.id === req.courseId);
+        if (!course) return;
+        
+        listContainer.innerHTML += `
+            <div class="approval-request-card" style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 16px; border-radius: var(--radius-md); margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 250px;">
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 4px;">
+                        <strong style="color: var(--text-primary);">${req.staffName}</strong> requested course booking on ${formatDate(req.dateRequested)}
+                    </div>
+                    <h4 style="margin: 4px 0 6px; font-size: 0.95rem; font-weight: 700; color: var(--primary);">${course.title}</h4>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); display: flex; gap: 12px; flex-wrap: wrap;">
+                        <span>Provider: <strong>${course.provider}</strong></span>
+                        <span>Date: <strong>${formatDate(course.date)}</strong></span>
+                        <span>Hours: <strong>${course.hours} hrs</strong></span>
+                        <span>Cost: <strong>${course.cost > 0 ? `£${course.cost}` : 'Free'}</strong></span>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                    <button class="btn btn-secondary btn-sm" onclick="processCpdRequest('${req.id}', 'Declined')">Decline</button>
+                    <button class="btn btn-primary btn-sm" onclick="processCpdRequest('${req.id}', 'Approved')">Approve</button>
+                </div>
+            </div>
+        `;
+    });
+}
+
+function processCpdRequest(requestId, status) {
+    const req = appState.cpdRequests.find(r => r.id === requestId);
+    if (!req) return;
+    
+    req.status = status;
+    
+    if (status === 'Approved') {
+        const course = appState.upcomingCpd.find(c => c.id === req.courseId);
+        if (course) {
+            const staffPortfolio = appState.portfolios[req.staffId];
+            if (staffPortfolio) {
+                const newCpdLog = {
+                    activity: course.title,
+                    type: course.type,
+                    date: course.date,
+                    hours: course.hours,
+                    cost: course.cost,
+                    provider: course.provider,
+                    linkedStandard: course.linkedStandard,
+                    linkedGoal: 'General L&D',
+                    reflection: {
+                        learn: `Participated in ${course.provider} training course. Explored standard guidelines and practical applications.`,
+                        change: 'Planning implementation in next term courses.',
+                        impact: 'Awaiting implementation and department observation review.',
+                        next: 'Review with line manager at next catch-up check-in.'
+                    }
+                };
+                staffPortfolio.cpd.unshift(newCpdLog);
+                
+                if (req.staffId === appState.currentUser) {
+                    appState.cpd = staffPortfolio.cpd;
+                }
+            }
+        }
+    }
+    
+    saveState();
+    renderLineManagement();
+}
+
+/* --------------------------------------------------
+   PEER OBSERVATION AND GROW MODEL FEEDBACK SYSTEMS
+   -------------------------------------------------- */
+function switchJournalSubTab(subTabId) {
+    document.getElementById('journal-tab-reflections').classList.toggle('active', subTabId === 'reflections');
+    document.getElementById('journal-tab-observations').classList.toggle('active', subTabId === 'observations');
+    
+    document.getElementById('journal-reflections-container').style.display = subTabId === 'reflections' ? 'flex' : 'none';
+    document.getElementById('journal-observations-container').style.display = subTabId === 'observations' ? 'flex' : 'none';
+    
+    if (subTabId === 'observations') {
+        populateColleagueSelect();
+        renderObservations();
+    }
+}
+
+function populateColleagueSelect() {
+    const select = document.getElementById('obs-colleague');
+    if (!select) return;
+    select.innerHTML = '';
+    
+    const colleagues = [
+        { id: 'sarah_jenkins', name: 'Sarah Jenkins (Chemistry)' },
+        { id: 'emily_higgins', name: 'Emily Higgins (Biology)' },
+        { id: 'david_davis', name: 'David Davis (Chemistry)' },
+        { id: 'clara_oswald', name: 'Clara Oswald (Physics)' },
+        { id: 'alan_turing', name: 'Alan Turing (Computer Science)' },
+        { id: 'james_carter', name: 'James Carter (Technician)' }
+    ];
+    
+    colleagues.forEach(col => {
+        if (col.id !== appState.currentUser) {
+            select.innerHTML += `<option value="${col.id}">${col.name}</option>`;
+        }
+    });
+}
+
+function initObservationView() {
+    const form = document.getElementById('observation-form');
+    if (form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const colleagueSelect = document.getElementById('obs-colleague');
+            const observedId = colleagueSelect.value;
+            const observedName = colleagueSelect.options[colleagueSelect.selectedIndex].text.split(' (')[0];
+            
+            const date = document.getElementById('obs-date').value;
+            const classObserved = document.getElementById('obs-class').value;
+            const focusArea = document.getElementById('obs-focus').value;
+            
+            createObservationRequest(observedId, observedName, date, classObserved, focusArea);
+            
+            form.reset();
+            document.getElementById('obs-date').value = new Date().toISOString().split('T')[0];
+        });
+    }
+    
+    const growClose = document.getElementById('observation-grow-modal-close');
+    const growCancel = document.getElementById('observation-grow-modal-cancel');
+    const growForm = document.getElementById('observation-grow-form');
+    
+    if (growClose) growClose.addEventListener('click', closeGrowModal);
+    if (growCancel) growCancel.addEventListener('click', closeGrowModal);
+    
+    if (growForm) {
+        growForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const obsId = document.getElementById('grow-obs-id').value;
+            
+            const growNotes = {
+                goal: document.getElementById('grow-q-goal').value,
+                reality: document.getElementById('grow-q-reality').value,
+                options: document.getElementById('grow-q-options').value,
+                will: document.getElementById('grow-q-will').value
+            };
+            
+            submitObservationFeedback(obsId, growNotes);
+        });
+    }
+    
+    // Set default date to today
+    const obsDateInput = document.getElementById('obs-date');
+    if (obsDateInput) {
+        obsDateInput.value = new Date().toISOString().split('T')[0];
+    }
+}
+
+function createObservationRequest(observedId, observedName, date, classObserved, focusArea) {
+    const newObs = {
+        id: 'obs_' + Date.now(),
+        observerName: appState.profile.name,
+        observerId: appState.currentUser,
+        observedName: observedName,
+        observedId: observedId,
+        date: date,
+        classObserved: classObserved,
+        focusArea: focusArea,
+        status: 'Scheduled',
+        growFeedback: null
+    };
+    
+    appState.observations.unshift(newObs);
+    saveState();
+    renderObservations();
+}
+
+function renderObservations() {
+    const feed = document.getElementById('observations-feed-list');
+    if (!feed) return;
+    feed.innerHTML = '';
+    
+    const myObservations = appState.observations.filter(obs => 
+        obs.observerId === appState.currentUser || obs.observedId === appState.currentUser
+    );
+    
+    if (myObservations.length === 0) {
+        feed.innerHTML = '<p style="text-align: center; padding: 40px; color: var(--text-muted); font-style: italic;">No peer observations scheduled or logged yet.</p>';
+        return;
+    }
+    
+    myObservations.forEach(obs => {
+        const isObserver = obs.observerId === appState.currentUser;
+        
+        let statusBadge = '';
+        let actionButtonsHtml = '';
+        
+        if (obs.status === 'Scheduled') {
+            statusBadge = `<span class="tag tag-framework" style="background-color: rgba(59, 130, 246, 0.15); color: #3b82f6;">Scheduled</span>`;
+            if (isObserver) {
+                actionButtonsHtml = `
+                    <div style="margin-top: 12px; text-align: right;">
+                        <button class="btn btn-primary btn-sm btn-iconic" onclick="openGrowModal('${obs.id}')">
+                            <svg viewBox="0 0 24 24" width="14" height="14" style="margin-right: 4px;"><path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                            Log GROW Feedback
+                        </button>
+                    </div>
+                `;
+            } else {
+                actionButtonsHtml = `<div style="margin-top: 10px; font-size: 0.8rem; color: var(--text-muted); font-style: italic;">Waiting for observer feedback logs...</div>`;
+            }
+        } else {
+            statusBadge = `<span class="tag tag-success">Completed</span>`;
+        }
+        
+        let growFeedbackHtml = '';
+        if (obs.growFeedback) {
+            growFeedbackHtml = `
+                <div class="observation-grow-results" style="margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border-color); display: grid; gap: 8px;">
+                    <div style="font-size: 0.8rem;">
+                        <strong style="color: var(--primary);">Goal:</strong> <span style="color: var(--text-secondary);">${obs.growFeedback.goal}</span>
+                    </div>
+                    <div style="font-size: 0.8rem;">
+                        <strong style="color: var(--primary);">Reality:</strong> <span style="color: var(--text-secondary);">${obs.growFeedback.reality}</span>
+                    </div>
+                    <div style="font-size: 0.8rem;">
+                        <strong style="color: var(--primary);">Options:</strong> <span style="color: var(--text-secondary);">${obs.growFeedback.options}</span>
+                    </div>
+                    <div style="font-size: 0.8rem;">
+                        <strong style="color: var(--primary);">Will:</strong> <span style="color: var(--text-secondary);">${obs.growFeedback.will}</span>
+                    </div>
+                </div>
+            `;
+        }
+        
+        feed.innerHTML += `
+            <div class="cpd-item-card" style="cursor: default; margin-bottom: 16px;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; width: 100%;">
+                    <div style="flex: 1;">
+                        <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 4px;">
+                            ${statusBadge}
+                            <span style="font-size: 0.75rem; color: var(--text-muted);">${formatDate(obs.date)}</span>
+                        </div>
+                        <h4 class="cpd-item-title" style="margin: 0; font-size: 1rem; color: var(--text-primary);">
+                            ${isObserver ? `Observing <strong>${obs.observedName}</strong>` : `Observed by <strong>${obs.observerName}</strong>`}
+                        </h4>
+                        <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px;">
+                            Class: <strong>${obs.classObserved}</strong> &nbsp;|&nbsp; Focus: <strong>${obs.focusArea}</strong>
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <span class="cpd-item-badge" style="background-color: var(--primary-glow); color: var(--primary); font-size: 0.7rem; font-weight: 600; padding: 2px 6px; border-radius: 4px;">Peer Visit</span>
+                    </div>
+                </div>
+                
+                ${growFeedbackHtml}
+                ${actionButtonsHtml}
+            </div>
+        `;
+    });
+}
+
+function openGrowModal(obsId) {
+    const obs = appState.observations.find(o => o.id === obsId);
+    if (!obs) return;
+    
+    document.getElementById('grow-obs-id').value = obsId;
+    document.getElementById('grow-observed-name').textContent = obs.observedName;
+    document.getElementById('grow-observed-date').textContent = formatDate(obs.date);
+    document.getElementById('grow-observed-focus').textContent = obs.focusArea;
+    
+    document.getElementById('grow-q-goal').value = '';
+    document.getElementById('grow-q-reality').value = '';
+    document.getElementById('grow-q-options').value = '';
+    document.getElementById('grow-q-will').value = '';
+    
+    document.getElementById('observation-grow-modal').classList.add('active');
+}
+
+function closeGrowModal() {
+    document.getElementById('observation-grow-modal').classList.remove('active');
+}
+
+function submitObservationFeedback(obsId, growNotes) {
+    const obs = appState.observations.find(o => o.id === obsId);
+    if (!obs) return;
+    
+    obs.growFeedback = growNotes;
+    obs.status = 'Completed';
+    
+    saveState();
+    closeGrowModal();
+    renderObservations();
+    
+    alert("GROW coaching feedback logged and synced successfully! The observation has been recorded to your professional growth timeline.");
+}
+
 // Global hooks for tab transitions in HTML buttons
 window.switchTab = switchTab;
+window.requestCpdBooking = requestCpdBooking;
+window.processCpdRequest = processCpdRequest;
+window.switchJournalSubTab = switchJournalSubTab;
+window.openGrowModal = openGrowModal;
+window.closeGrowModal = closeGrowModal;
 window.openEvidenceModal = openEvidenceModal;
 window.editGoal = editGoal;
 window.toggleCpdCollapse = toggleCpdCollapse;
 window.renderOrgChart = renderOrgChart;
+window.switchSimulatedRole = switchSimulatedRole;
 
 // Line management hooks
 window.openReportDetail = openReportDetail;
@@ -2111,6 +2767,7 @@ window.exitMeetingsPanel = exitMeetingsPanel;
 // Document Ready Initialization
 document.addEventListener('DOMContentLoaded', () => {
     loadState();
+    switchSimulatedRole(appState.currentUser);
     initTheme();
     
     // Sidebar Hamburger Menu Toggle
@@ -2141,6 +2798,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initTimelineView();
     initAnnualReviewView();
     initLineManagementView();
+    initObservationView();
 
     // Render initial view
     switchTab('dashboard');

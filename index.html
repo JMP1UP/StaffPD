@@ -161,6 +161,14 @@
                     <h1 id="page-title">Dashboard Overview</h1>
                 </div>
                 <div class="header-right">
+                    <!-- Simulated View-As Dropdown -->
+                    <div class="simulator-control">
+                        <span class="cycle-label">Simulated View:</span>
+                        <select id="role-simulator" onchange="switchSimulatedRole(this.value)">
+                            <option value="sarah_jenkins">Sarah Jenkins (Manager)</option>
+                            <option value="emily_higgins">Emily Higgins (Staff)</option>
+                        </select>
+                    </div>
                     <!-- Current Cycle Widget -->
                     <div class="cycle-pill">
                         <span class="cycle-label">Current Cycle:</span>
@@ -494,7 +502,16 @@
 
                 <!-- 4. PRACTICE JOURNAL VIEW -->
                 <section class="tab-view" id="view-journal">
-                    <div class="journal-layout grid-layout">
+                    <!-- Sub-tab Bar -->
+                    <div class="section-actions-bar mb-lg">
+                        <div class="filters">
+                            <button class="filter-tab active" id="journal-tab-reflections" onclick="switchJournalSubTab('reflections')">Reflections Journal</button>
+                            <button class="filter-tab" id="journal-tab-observations" onclick="switchJournalSubTab('observations')">Peer Observations</button>
+                        </div>
+                    </div>
+
+                    <!-- Reflections Container -->
+                    <div class="journal-layout grid-layout" id="journal-reflections-container">
                         <!-- Left Side: Journal Form -->
                         <div class="grid-col-5 flex-column gap-lg">
                             <div class="panel-card">
@@ -588,6 +605,57 @@
                                 </div>
                                 <div class="journal-feed" id="journal-feed-list">
                                     <!-- Dynamic list of entries in reverse chronological order -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Peer Observations Container -->
+                    <div class="journal-layout grid-layout" id="journal-observations-container" style="display: none;">
+                        <!-- Left Side: Schedule Observation Form -->
+                        <div class="grid-col-5 flex-column gap-lg">
+                            <div class="panel-card">
+                                <div class="panel-header">
+                                    <h3 class="panel-title">Schedule Peer Observation</h3>
+                                    <span class="subtitle">Arrange a classroom visit to observe a colleague's practice.</span>
+                                </div>
+                                <form id="observation-form" class="observation-form">
+                                    <div class="form-group">
+                                        <label for="obs-colleague">Colleague to Observe</label>
+                                        <select id="obs-colleague" required>
+                                            <!-- Populated dynamically in app.js -->
+                                        </select>
+                                    </div>
+                                    <div class="form-grid-2">
+                                        <div class="form-group">
+                                            <label for="obs-date">Observation Date</label>
+                                            <input type="date" id="obs-date" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="obs-class">Class / Lesson</label>
+                                            <input type="text" id="obs-class" required placeholder="e.g. Year 10 Chemistry">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="obs-focus">Focus Area / Standards Link</label>
+                                        <textarea id="obs-focus" required rows="3" placeholder="Define focus areas (e.g. checking safety briefing compliance, question pacing, retrieval starter integration)"></textarea>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-primary btn-block">Schedule Observation</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Right Side: Observation Logs Workspace -->
+                        <div class="grid-col-7 flex-column gap-lg">
+                            <div class="panel-card flex-column fill-height">
+                                <div class="panel-header">
+                                    <h3 class="panel-title">Peer Observation Workspace</h3>
+                                    <span class="subtitle">Record findings using the GROW coaching model or review feedback from observations.</span>
+                                </div>
+                                <div class="observations-feed" id="observations-feed-list">
+                                    <!-- Dynamic list of peer observations -->
                                 </div>
                             </div>
                         </div>
@@ -690,6 +758,17 @@
 
                         <!-- Right Side: Logged List -->
                         <div class="grid-col-7 flex-column gap-lg">
+                            <!-- Upcoming CPD Opportunities -->
+                            <div class="panel-card flex-column">
+                                <div class="panel-header">
+                                    <h3 class="panel-title">Upcoming CPD Opportunities</h3>
+                                    <span class="subtitle">Browse school and external courses and request bookings.</span>
+                                </div>
+                                <div class="cpd-upcoming-list" id="cpd-upcoming-list">
+                                    <!-- Dynamic list of upcoming CPD options -->
+                                </div>
+                            </div>
+
                             <div class="panel-card flex-column fill-height">
                                 <div class="panel-header">
                                     <h3 class="panel-title">Logged Activities</h3>
@@ -850,6 +929,15 @@
                         <!-- Grid of direct reports -->
                         <div class="direct-reports-grid" id="direct-reports-grid">
                             <!-- Populated dynamically via app.js -->
+                        </div>
+
+                        <!-- Pending CPD Bookings & Approvals Section -->
+                        <div class="panel-card mt-lg" id="lm-cpd-approvals-card">
+                            <h3 class="panel-title mb-sm">Pending CPD Booking Requests</h3>
+                            <span class="subtitle">Review and approve or decline training course requests from your team.</span>
+                            <div class="cpd-approvals-list mt-md" id="lm-cpd-requests-list">
+                                <!-- Populated dynamically via app.js -->
+                            </div>
                         </div>
                     </div>
 
@@ -1050,6 +1138,50 @@
 
             </div>
         </main>
+    </div>
+
+    <!-- Modal for Logging GROW Feedback (Hidden by default) -->
+    <div class="modal" id="observation-grow-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Log Peer Observation GROW Feedback</h3>
+                <button class="modal-close" id="observation-grow-modal-close">&times;</button>
+            </div>
+            <form id="observation-grow-form">
+                <input type="hidden" id="grow-obs-id" value="">
+                
+                <div class="grow-modal-details mb-md" style="font-size: 0.85rem; color: var(--text-secondary); background: var(--bg-app); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); margin-bottom: 12px;">
+                    <div>Colleague Observed: <strong id="grow-observed-name" style="color: var(--text-primary);"></strong></div>
+                    <div>Date: <strong id="grow-observed-date" style="color: var(--text-primary);"></strong></div>
+                    <div>Focus: <strong id="grow-observed-focus" style="color: var(--text-primary);"></strong></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="grow-q-goal">Goal (What did the colleague set out to achieve?)</label>
+                    <textarea id="grow-q-goal" required rows="2" placeholder="e.g. Student independent checklist verification before titration..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="grow-q-reality">Reality (What actually happened during the lesson?)</label>
+                    <textarea id="grow-q-reality" required rows="2" placeholder="e.g. Two student groups forgot safety goggles; titration setup was quick but cleanup cluttered..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="grow-q-options">Options (What alternative approaches or support options were discussed?)</label>
+                    <textarea id="grow-q-options" required rows="2" placeholder="e.g. Laminated workstations checklists, 1-min safety starter quiz..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="grow-q-will">Will (What are the concrete next steps and commitments?)</label>
+                    <textarea id="grow-q-will" required rows="2" placeholder="e.g. Pilot the check-cards next Tuesday; evaluate in next observation cycle..."></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="observation-grow-modal-cancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Submit GROW Feedback</button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <!-- Main JavaScript Entry -->
