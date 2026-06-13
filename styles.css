@@ -416,6 +416,37 @@ a:hover {
     font-weight: 600;
 }
 
+.simulator-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+#role-simulator {
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 6px 12px;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#role-simulator:hover {
+    border-color: var(--primary);
+    box-shadow: 0 0 8px var(--primary-glow);
+}
+
+#role-simulator option {
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+}
+
 .notification-bell {
     position: relative;
     cursor: pointer;
