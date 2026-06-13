@@ -781,6 +781,69 @@ const frameworksData = {
     ]
 };
 
+const defaultConstanzePortfolio = {
+    profile: {
+        name: 'Mrs. C Wagner-Lees',
+        role: 'Deputy Head & CPD Leader',
+        framework: 'Leadership Standards',
+        manager: 'Mr. J Partridge (Headteacher)',
+        jobDescription: 'Oversee school curriculum, lead CPD strategy and coaching systems, line manage middle leaders, and teach social sciences.',
+        aspirations: 'Continue to enhance school-wide professional development and prepare for headship.',
+        qualifications: 'MA Education, NPQH, PGCE History & Social Sciences',
+        skills: 'CPD Coordination, Leadership Development, GROW Model Coaching, Curriculum Design'
+    },
+    goals: [
+        {
+            title: 'Establish a collaborative school-wide CPD Leadership Hub',
+            tag: 'Leadership',
+            status: 'Active',
+            successCriteria: 'Launch interactive portal, aggregate staff survey feedback, and coordinate co-leaders (Sarah R, Sarah D, Stef S).',
+            evidence: [
+                {
+                    date: '2026-06-13',
+                    content: 'Created the digital CPD portal and published initial pedagogy calendar events and readings.',
+                    link: '',
+                    linkLabel: '',
+                    isCheckpoint: false
+                }
+            ],
+            managerComment: 'Great progress on the digital hub, Constanze. This will greatly improve alignment.'
+        }
+    ],
+    cpd: [
+        {
+            activity: 'National CPD Leaders Summit',
+            type: 'Conference',
+            date: '2026-05-10',
+            hours: 6.0,
+            cost: 150,
+            provider: 'CPD Leadership UK',
+            linkedStandard: 'Domain Domain 3: Staff Development & Coaching (Growth framework, peer learning)',
+            linkedGoal: 'Establish a collaborative school-wide CPD Leadership Hub',
+            reflection: {
+                learn: 'Explored peer-to-peer coaching models and digital platform tools.',
+                change: 'Planned the online integration for Leicester High CPD tracking.',
+                impact: 'Helped draft the requirements for our digital portfolios.',
+                next: 'Launch the staff survey to assess school training needs.'
+            }
+        }
+    ],
+    journal: [
+        {
+            id: 'j1',
+            date: '2026-06-13',
+            answers: {
+                reflection: 'The digital CPD platform is now online and ready for staff testing.',
+                impact: 'Staff can now log CPD and complete surveys in real-time, reducing admin overhead.',
+                practice: 'Refined our training evaluation feedback loop using a 1-5 scale.',
+                contribution: 'Collaborated with Stef, Sarah D, and Sarah R to design the system.',
+                growth: 'Learned about digital interactive charts integration.',
+                support: 'Will need feedback from the Senior Leadership Team.'
+            }
+        }
+    ]
+};
+
 const defaultEmilyPortfolio = {
     profile: {
         name: 'Miss Emily Higgins',
@@ -853,8 +916,14 @@ function syncStateReferences() {
                 cpd: appState.cpd,
                 journal: appState.journal
             },
-            emily_higgins: JSON.parse(JSON.stringify(defaultEmilyPortfolio))
+            emily_higgins: JSON.parse(JSON.stringify(defaultEmilyPortfolio)),
+            constanze_wagner: JSON.parse(JSON.stringify(defaultConstanzePortfolio))
         };
+    }
+    
+    // Ensure Constanze is initialized in existing portfolios (from localStorage cache)
+    if (!appState.portfolios.constanze_wagner) {
+        appState.portfolios.constanze_wagner = JSON.parse(JSON.stringify(defaultConstanzePortfolio));
     }
     
     // Bind active references
